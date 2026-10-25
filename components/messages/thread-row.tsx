@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { initialsOf } from "@/lib/utils/verification";
 
 export interface ThreadRowProps {
   name: string;
@@ -6,15 +7,6 @@ export interface ThreadRowProps {
   snippet: string;
   time: string;
   unread?: boolean;
-}
-
-function initials(name: string): string {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
 }
 
 /** Pure presentational row. */
@@ -29,7 +21,7 @@ export function ThreadRow({
     <div className="flex items-start gap-3 px-4 py-3.5">
       <Avatar className="mt-0.5">
         <AvatarFallback className="bg-surface-sunken text-xs font-semibold text-ink-700">
-          {initials(name)}
+          {initialsOf(name)}
         </AvatarFallback>
       </Avatar>
 

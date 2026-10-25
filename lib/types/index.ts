@@ -403,6 +403,31 @@ export interface DemandSupplyGap {
   ratio: number;
 }
 
+/* ═══════════════════ Boundaries & tracking (§22, additive) ═══════════════════ */
+
+/** LGA eligibility polygon. Islands make some LGAs multi-part, so an LGA
+ *  carries one or more Polygon rings rather than a MultiPolygon. */
+export interface LgaBoundary {
+  lgaCode: LgaCode;
+  name: string;
+  stateCode: StateCode;
+  polygons: GeoPolygon[];
+}
+
+export interface RoutePath {
+  coordinates: [lng: number, lat: number][];
+  distanceM: number;
+  durationSeconds: number;
+}
+
+/** Travel-mode snapshot. Only exists post-accept (§13.5). */
+export interface JobTracking {
+  jobId: Id;
+  artisanLocation: ArtisanLocation;
+  route: RoutePath;                      // artisan → job site, remaining leg only
+  etaAt: IsoDateTime;                    // a promise, recomputed (§13.2)
+}
+
 /* ═══════════════════ API envelope ═══════════════════ */
 
 export type ApiMode = "mock" | "live";

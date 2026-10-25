@@ -6,7 +6,7 @@ A two-sided artisan marketplace for Nigeria. Verified supply, structured bargain
 
 ## Stack
 
-Next.js 16 App Router · TypeScript strict · Tailwind CSS 4.3 · shadcn/ui (Radix, owned components) · Framer Motion · Zustand · Lucide · vaul and MapLibre/Mapbox arrive in later phases.
+Next.js 16 App Router · TypeScript strict · Tailwind CSS 4.3 · shadcn/ui (Radix, owned components) · Framer Motion · Zustand · Lucide · vaul · MapLibre GL (OpenFreeMap tiles, no key).
 
 Node `>=24.22.1` (patched v24 LTS), pnpm `10.32.1`.
 
@@ -61,9 +61,10 @@ Rules that matter day to day:
 | --- | --- |
 | `/` | Landing placeholder (Phase 6 builds the narrative) |
 | `/signup` | Structural placeholder (auth spec pending) |
-| `/onboarding` | Structural placeholder (location gate in Phase 3) |
+| `/onboarding` | Location gate — GPS → pin confirm → landmark, or manual LGA picker |
 | `/dashboard` | Customer home, lorem content |
-| `/jobs` | Customer jobs list, lorem content |
+| `/jobs` | Customer jobs list (mock API) |
+| `/jobs/[id]` | Live tracking — map + route + ETA sheet (try `job_001`) |
 | `/messages` | Customer messages, lorem content |
 | `/profile` | Customer profile, lorem content |
 
@@ -71,14 +72,9 @@ Entry flow: landing → signup → onboarding → dashboard.
 
 ## Current phase
 
-Phase 1 (foundation) and Phase 2 (shell) are built. Phase 2 is the real-phone checkpoint from `project.md` §16:
+Phases 1–3 are built: foundation, shell, and core interaction (map canvas, live tracking shell, location gate). Phase 4 (booking loop) is next.
 
-```bash
-pnpm dev
-# open the Network URL on a phone
-```
-
-Verify native feel: tab switching, push/pop transitions, scroll restoration, sticky header, safe areas, no tap highlight, no input zoom. Phase 3 (map) has not started; the map provider decision is still open (§19.1).
+Phone check for Phase 3: open `/onboarding` and `/jobs/job_001` from the Network URL. Geolocation on a phone needs HTTPS — use `pnpm dev --experimental-https` or a tunnel when testing "Use my location".
 
 ## Fonts
 

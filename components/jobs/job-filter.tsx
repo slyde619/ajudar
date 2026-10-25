@@ -67,7 +67,7 @@ export function JobFilter({ active, history }: JobFilterProps) {
         ) : (
           <div className="mt-3 space-y-3">
             {jobs.map((job) => (
-              <JobCard key={job.title} {...job} />
+              <JobCard key={job.href ?? job.title} {...job} />
             ))}
           </div>
         )}

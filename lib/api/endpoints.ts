@@ -13,5 +13,16 @@ export const endpoints = {
     list: "/jobs",
     detail: (id: string) => `/jobs/${encodeURIComponent(id)}`,
     create: "/jobs",
+    tracking: (id: string) => `/jobs/${encodeURIComponent(id)}/tracking`,
+  },
+  categories: {
+    list: "/categories",
+    detail: (id: string) => `/categories/${encodeURIComponent(id)}`,
+  },
+  geo: {
+    lgas: "/lgas",
+    lga: (code: string) => `/lgas/${encodeURIComponent(code)}`,
+    /** Static asset served by the frontend in both modes. */
+    boundaries: "/geo/lga-boundaries.json",
   },
 } as const;
