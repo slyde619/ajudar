@@ -37,7 +37,7 @@ export function StickyHeader({
 
   return (
     <header
-      className={`sticky top-0 z-20 border-b border-line-200 bg-background/85 pt-safe backdrop-blur-xl transition-transform duration-200 ease-out-quint ${
+      className={`sticky top-0 z-10 border-b border-line-200 bg-background/85 pt-safe backdrop-blur-xl transition-transform duration-200 ease-out-quint ${
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
