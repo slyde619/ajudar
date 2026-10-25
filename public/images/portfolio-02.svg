@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Portfolio placeholder photo two">
+  <rect width="800" height="600" fill="#E4EFE6"/>
+  <rect x="110" y="100" width="580" height="340" rx="18" fill="#3A7D44" opacity="0.22"/>
+  <rect x="170" y="160" width="180" height="220" rx="10" fill="#F7F4EF"/>
+  <rect x="400" y="190" width="230" height="190" rx="10" fill="#F7F4EF"/>
+  <circle cx="280" cy="120" r="34" fill="#D6CFC3"/>
+  <text x="400" y="520" text-anchor="middle" font-family="monospace" font-size="22" fill="#3E2723">PORTFOLIO PHOTO 02</text>
+</svg>

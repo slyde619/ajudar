@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Dark styles only apply behind a .dark class, which the MVP never sets. */
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Surfaces */
+  --color-surface-warm:  #F7F4EF;
+  --color-surface-raised:#FFFFFF;
+  --color-surface-sunken:#EFEAE2;
+
+  /* Ink */
+  --color-ink-950: #1A1A18;
+  --color-ink-800: #26241F;
+  --color-ink-700: #3E2723;
+  --color-ink-500: #6B625A;
+  --color-ink-400: #9A9086;
+  --color-ink-300: #C4BAAE;
+
+  /* Celo accent — fills only */
+  --color-celo-50:  #FFFFF5;
+  --color-celo-100: #FEFFD9;
+  --color-celo-200: #FBFFB0;
+  --color-celo-500: #FCFF52;
+  --color-celo-600: #E8EB3A;
+
+  /* Lines */
+  --color-line-200: #E8E2D9;
+  --color-line-300: #D6CFC3;
+
+  /* Status — never yellow */
+  --color-danger-600:  #C0392B;
+  --color-danger-100:  #F7E3E0;
+  --color-success-600: #3A7D44;
+  --color-success-100: #E4EFE6;
+  --color-warning-600: #B45309;
+  --color-warning-100: #FBEEDC;
+
+  /* Type */
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Radius */
+  --radius-xs:   6px;
+  --radius-sm:   8px;
+  --radius-md:  12px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-card:  0 1px 2px rgb(26 26 24 / 0.04), 0 2px 8px rgb(26 26 24 / 0.04);
+  --shadow-sheet: 0 -4px 24px rgb(26 26 24 / 0.10);
+  --shadow-dock:  0 -1px 0 var(--color-line-200), 0 -8px 24px rgb(26 26 24 / 0.06);
+  --shadow-pop:   0 8px 32px rgb(26 26 24 / 0.14);
+
+  /* Motion */
+  --ease-out-quint:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quint:cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+
+:root {
+  --background:            var(--color-surface-warm);
+  --foreground:            var(--color-ink-950);
+
+  --card:                  var(--color-surface-raised);
+  --card-foreground:       var(--color-ink-950);
+
+  --popover:               var(--color-surface-raised);
+  --popover-foreground:    var(--color-ink-950);
+
+  --primary:               var(--color-celo-500);
+  --primary-foreground:    var(--color-ink-950);
+
+  --secondary:             var(--color-ink-950);
+  --secondary-foreground:  var(--color-surface-raised);
+
+  --muted:                 var(--color-surface-sunken);
+  --muted-foreground:      var(--color-ink-500);
+
+  --accent:                var(--color-celo-100);
+  --accent-foreground:     var(--color-ink-950);
+
+  --destructive:           var(--color-danger-600);
+  --destructive-foreground:var(--color-surface-raised);
+
+  --border:                var(--color-line-200);
+  --input:                 var(--color-line-200);
+  --ring:                  var(--color-celo-600);
+
+  --radius:                var(--radius-lg);
+}
+
+@theme inline {
+  --color-background:             var(--background);
+  --color-foreground:             var(--foreground);
+  --color-card:                   var(--card);
+  --color-card-foreground:        var(--card-foreground);
+  --color-popover:                var(--popover);
+  --color-popover-foreground:     var(--popover-foreground);
+  --color-primary:                var(--primary);
+  --color-primary-foreground:     var(--primary-foreground);
+  --color-secondary:              var(--secondary);
+  --color-secondary-foreground:   var(--secondary-foreground);
+  --color-muted:                  var(--muted);
+  --color-muted-foreground:       var(--muted-foreground);
+  --color-accent:                 var(--accent);
+  --color-accent-foreground:      var(--accent-foreground);
+  --color-destructive:            var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border:                 var(--border);
+  --color-input:                  var(--input);
+  --color-ring:                   var(--ring);
+}
+
+@layer base {
+  *, *::before, *::after { border-color: var(--color-line-200); }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+  }
+
+  body {
+    background-color: var(--color-surface-warm);
+    color: var(--color-ink-950);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background-color: var(--color-celo-200);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-celo-600);
+    outline-offset: 2px;
+  }
+
+  [data-tabular] { font-variant-numeric: tabular-nums; }
+
+  /* Mobile platform baseline — 16px inputs stop iOS focus zoom; controls
+     get immediate tap feedback and never select text on long-press. */
+  input, textarea, select { font-size: 16px; }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+@utility pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility pb-dock {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.5rem);
+}

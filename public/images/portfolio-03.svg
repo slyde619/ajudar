@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Portfolio placeholder photo three">
+  <rect width="800" height="600" fill="#FBEEDC"/>
+  <rect x="90" y="130" width="620" height="320" rx="18" fill="#B45309" opacity="0.18"/>
+  <path d="M150 400 L300 210 L450 400 Z" fill="#F7F4EF"/>
+  <path d="M380 400 L520 260 L660 400 Z" fill="#EFEAE2"/>
+  <rect x="160" y="160" width="90" height="90" rx="8" fill="#C4BAAE"/>
+  <text x="400" y="520" text-anchor="middle" font-family="monospace" font-size="22" fill="#6B625A">PORTFOLIO PHOTO 03</text>
+</svg>
