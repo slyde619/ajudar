@@ -1,4 +1,4 @@
-import { ArrowUpRight, Hammer, PaintRoller, PlugZap, Wrench } from "lucide-react";
+import { ArrowUpRightIcon, HammerIcon, PaintRollerIcon, PlugsConnectedIcon, WrenchIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { CategoryTile } from "@/components/dashboard/category-tile";
 import { JobCard } from "@/components/jobs/job-card";
@@ -8,10 +8,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import type { StatusTone } from "@/components/ui/status-badge";
 
 const categories = [
-  { label: "Plumbing", hint: "Leaks, pipes, tanks", icon: Wrench, slug: "plumbing-repair" },
-  { label: "Electrical", hint: "Wiring, sockets", icon: PlugZap, slug: "electrical-repair" },
-  { label: "Carpentry", hint: "Doors, wardrobes", icon: Hammer, slug: "carpentry" },
-  { label: "Painting", hint: "Interior, texture", icon: PaintRoller, slug: "painting" },
+  { label: "Plumbing", hint: "Leaks, pipes, tanks", icon: WrenchIcon, slug: "plumbing-repair" },
+  { label: "Electrical", hint: "Wiring, sockets", icon: PlugsConnectedIcon, slug: "electrical-repair" },
+  { label: "Carpentry", hint: "Doors, wardrobes", icon: HammerIcon, slug: "carpentry" },
+  { label: "Painting", hint: "Interior, texture", icon: PaintRollerIcon, slug: "painting" },
 ];
 
 const recentJobs: Array<{
@@ -64,7 +64,7 @@ export default function DashboardPage() {
                 Upfront estimate · escrow protected
               </span>
             </span>
-            <ArrowUpRight className="size-5" aria-hidden />
+            <ArrowUpRightIcon className="size-5" aria-hidden />
         </Button>
 
         <section className="mt-7" aria-labelledby="categories-heading">

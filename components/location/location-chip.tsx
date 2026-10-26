@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { MapPinIcon } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 
 interface LocationChipProps {
@@ -20,7 +20,7 @@ export function LocationChip({ area, landmark, precision, action, className }: L
   return (
     <div className={cn("flex items-start gap-3 rounded-xl bg-surface-raised p-4 ring-1 ring-line-200", className)}>
       <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-ink-950 text-celo-500">
-        <MapPin className="size-4" strokeWidth={2.25} aria-hidden />
+        <MapPinIcon className="size-4" weight="bold" aria-hidden />
       </span>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-ink-950">{area}</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { House } from "lucide-react";
+import { HouseIcon } from "@phosphor-icons/react/ssr";
 import {
   setWorkerUrl,
   type Map as MapLibreMap,
@@ -154,7 +154,7 @@ function SitePin({ marker }: { marker: MapMarker }) {
     <Marker longitude={marker.position.lng} latitude={marker.position.lat} anchor="bottom">
       <span role="img" aria-label={marker.label} className="flex flex-col items-center">
         <span className="flex size-9 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop">
-          <House className="size-4" strokeWidth={2.25} aria-hidden />
+          <HouseIcon className="size-4" weight="bold" aria-hidden />
         </span>
         <span className="-mt-px h-2.5 w-0.5 rounded-full bg-surface-raised" aria-hidden />
       </span>

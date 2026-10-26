@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, Check, Lock, MapPin } from "lucide-react";
+import { ArrowRightIcon, SealCheckIcon, CheckIcon, LockIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { EXAMPLE_ESTIMATE, GATE_CHECKS, PLACES } from "@/components/landing/content";
@@ -114,11 +114,11 @@ export default function LandingPage() {
                   href="/signup?as=customer"
                   className="flex w-full items-center gap-3 rounded-pill bg-surface-raised p-2 pl-5 shadow-pop transition-transform duration-150 ease-out active:scale-[0.98]"
                 >
-                  <MapPin className="size-5 shrink-0 text-ink-950" aria-hidden />
+                  <MapPinIcon className="size-5 shrink-0 text-ink-950" aria-hidden />
                   <span className="min-w-0 flex-1 truncate text-left text-base text-ink-500">Rivers &amp; Akwa Ibom</span>
                   <span className={cn(buttonVariants({ size: "cta" }), "h-12 rounded-pill px-5")}>
                     Find an artisan
-                    <ArrowRight aria-hidden />
+                    <ArrowRightIcon aria-hidden />
                   </span>
                 </Link>
               </div>
@@ -210,14 +210,14 @@ export default function LandingPage() {
             aria-hidden
             className="absolute -top-5 -left-6 flex animate-bob items-center gap-1.5 rounded-pill border-2 border-ink-950 bg-scene-mint px-3.5 py-2 text-[15px] font-semibold text-ink-950 [--tilt:-8deg] md:-left-20"
           >
-            <BadgeCheck className="size-4.5" />
+            <SealCheckIcon className="size-4.5" />
             Verified
           </span>
           <span
             aria-hidden
             className="absolute -right-3 -bottom-4 flex animate-bob items-center gap-1.5 rounded-pill border-2 border-ink-950 bg-scene-peach px-3.5 py-2 text-[15px] font-semibold text-ink-950 [animation-delay:-1.4s] [--tilt:7deg] md:top-1/2 md:-right-24 md:bottom-auto"
           >
-            <Lock className="size-4" />
+            <LockIcon className="size-4" />
             In escrow
           </span>
         </div>
@@ -267,7 +267,7 @@ export default function LandingPage() {
               {GATE_CHECKS.map((check) => (
                 <li key={check.title} className="flex gap-3 text-[15px] leading-snug text-ink-950 md:text-base">
                   <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-ink-950 text-celo-500">
-                    <Check className="size-3.5" aria-hidden />
+                    <CheckIcon className="size-3.5" aria-hidden />
                   </span>
                   <span>
                     <strong className="font-semibold">{check.title}</strong>, {check.detail}
@@ -331,7 +331,7 @@ export default function LandingPage() {
               <div className="mt-8">
                 <Button size="cta" className="rounded-pill sm:w-auto sm:px-7" nativeButton={false} render={<Link href="/signup?as=artisan" />}>
                   Earn with ajudar
-                  <ArrowRight aria-hidden />
+                  <ArrowRightIcon aria-hidden />
                 </Button>
               </div>
             </RevealItem>
@@ -375,7 +375,7 @@ export default function LandingPage() {
             <RevealItem className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button size="cta" className="rounded-pill sm:w-auto sm:px-7" nativeButton={false} render={<Link href="/signup?as=customer" />}>
                 Find an artisan
-                <ArrowRight aria-hidden />
+                <ArrowRightIcon aria-hidden />
               </Button>
               <Button
                 size="cta"

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { MapPinIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -70,7 +70,7 @@ export function PlacesMap() {
           ))}
         </div>
         <div className="mt-6 flex items-start gap-3" aria-live="polite">
-          <MapPin className="mt-1 size-6 shrink-0 text-ink-950" aria-hidden />
+          <MapPinIcon className="mt-1 size-6 shrink-0 text-ink-950" aria-hidden />
           <div>
             <p className="text-[28px] leading-tight font-bold tracking-tight text-ink-950">{place.name}</p>
             <p className="text-base text-ink-500">{place.state} State</p>

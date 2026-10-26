@@ -1,4 +1,4 @@
-import { LockKeyhole, MapPin, MessageSquare, Phone, Radio } from "lucide-react";
+import { LockKeyIcon, MapPinIcon, ChatCircleTextIcon, PhoneIcon, BroadcastIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { JobProgress } from "@/components/jobs/job-progress";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -45,7 +45,7 @@ export function CustomerTrackingSheet({
           </p>
           {tracking && now ? (
             <p className="inline-flex items-center gap-1.5 font-mono text-[10px] text-ink-400" data-tabular>
-              <Radio className="size-3" aria-hidden />
+              <BroadcastIcon className="size-3" aria-hidden />
               Updated {formatAgo(tracking.artisanLocation.updatedAt, now)}
             </p>
           ) : null}
@@ -100,7 +100,7 @@ export function CustomerTrackingSheet({
             render={<a href={`tel:${artisan.phone}`} />}
             className="h-12 rounded-xl text-sm"
           >
-            <Phone aria-hidden />
+            <PhoneIcon aria-hidden />
             Call
           </Button>
           <Button
@@ -109,7 +109,7 @@ export function CustomerTrackingSheet({
             render={<Link href="/messages" />}
             className="h-12 rounded-xl bg-surface-raised text-sm"
           >
-            <MessageSquare aria-hidden />
+            <ChatCircleTextIcon aria-hidden />
             Message
           </Button>
         </div>
@@ -119,7 +119,7 @@ export function CustomerTrackingSheet({
 
       <section className="space-y-3 py-5">
         <div className="flex gap-3 rounded-xl bg-surface-warm p-4">
-          <MapPin className="mt-0.5 size-4 shrink-0 text-ink-700" aria-hidden />
+          <MapPinIcon className="mt-0.5 size-4 shrink-0 text-ink-700" aria-hidden />
           <div className="min-w-0">
             <p className="text-sm font-medium text-ink-950">{job.site.landmark}</p>
             <p className="mt-0.5 font-mono text-[11px] text-ink-500">
@@ -130,7 +130,7 @@ export function CustomerTrackingSheet({
 
         {total !== undefined ? (
           <div className="flex gap-3 rounded-xl bg-celo-100 p-4">
-            <LockKeyhole className="mt-0.5 size-4 shrink-0 text-ink-950" aria-hidden />
+            <LockKeyIcon className="mt-0.5 size-4 shrink-0 text-ink-950" aria-hidden />
             <div className="min-w-0">
               <p className="text-sm font-medium text-ink-950">
                 <span data-tabular>{formatNaira(total)}</span>{" "}

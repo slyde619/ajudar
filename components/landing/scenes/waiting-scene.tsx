@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { CheckCheck } from "lucide-react";
+import { ChecksIcon } from "@phosphor-icons/react/ssr";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { AdaezeWaiting, Ankara, Handset, type Mood } from "../cast";
@@ -141,7 +141,7 @@ export function WaitingScene() {
                   {m.time}
                   {m.from === "her" ? (
                     <>
-                      <CheckCheck className="size-3.5" aria-hidden />
+                      <ChecksIcon className="size-3.5" aria-hidden />
                       Delivered. No reply.
                     </>
                   ) : null}

@@ -1,4 +1,4 @@
-import { Camera, ChevronRight, Clock, MapPin, Siren } from "lucide-react";
+import { CameraIcon, CaretRightIcon, ClockIcon, MapPinIcon, SirenIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type { FeedRequest } from "@/lib/types";
@@ -27,7 +27,7 @@ export function RequestCard({ request, categoryLabel, areaName, postedLabel, hre
         </p>
         {request.urgency === "emergency" ? (
           <StatusBadge tone="danger">
-            <Siren aria-hidden />
+            <SirenIcon aria-hidden />
             Emergency
           </StatusBadge>
         ) : null}
@@ -37,16 +37,16 @@ export function RequestCard({ request, categoryLabel, areaName, postedLabel, hre
 
       <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-700">
         <li className="flex items-center gap-1">
-          <MapPin className="size-3.5 text-ink-400" aria-hidden />
+          <MapPinIcon className="size-3.5 text-ink-400" aria-hidden />
           {areaName} · <span data-tabular>{match.distanceKm} km</span>
         </li>
         <li className="flex items-center gap-1">
-          <Clock className="size-3.5 text-ink-400" aria-hidden />
+          <ClockIcon className="size-3.5 text-ink-400" aria-hidden />
           {formatTiming(request.timing)}
         </li>
         {request.photoCount > 0 ? (
           <li className="flex items-center gap-1">
-            <Camera className="size-3.5 text-ink-400" aria-hidden />
+            <CameraIcon className="size-3.5 text-ink-400" aria-hidden />
             {request.photoCount} {request.photoCount === 1 ? "photo" : "photos"}
           </li>
         ) : null}
@@ -78,7 +78,7 @@ export function RequestCard({ request, categoryLabel, areaName, postedLabel, hre
         )}
         <span className="flex h-10 shrink-0 items-center gap-0.5 rounded-pill bg-ink-950 pr-3 pl-4 text-sm font-semibold text-surface-raised">
           {myOffer ? "View" : "Respond"}
-          <ChevronRight className="size-4" aria-hidden />
+          <CaretRightIcon className="size-4" aria-hidden />
         </span>
       </div>
     </Link>

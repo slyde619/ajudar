@@ -1,4 +1,4 @@
-import { ArrowLeftRight, ClipboardCheck, LogOut, MapPin } from "lucide-react";
+import { ArrowsLeftRightIcon, ListChecksIcon, SignOutIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
 import { Suspense } from "react";
 import { ProfileRow } from "@/components/profile/profile-row";
 import { StickyHeader } from "@/components/shell/sticky-header";
@@ -111,7 +111,7 @@ async function ArtisanProfileScreen() {
                 key={code}
                 className="inline-flex items-center gap-1.5 rounded-pill bg-surface-raised px-3 py-1.5 text-sm text-ink-700 ring-1 ring-line-200"
               >
-                <MapPin className="size-3.5 text-ink-400" aria-hidden />
+                <MapPinIcon className="size-3.5 text-ink-400" aria-hidden />
                 {lgas.get(code) ?? code}
                 {index === 0 ? <span className="text-xs text-ink-400">· base</span> : null}
               </li>
@@ -141,13 +141,13 @@ async function ArtisanProfileScreen() {
         <CardContent className="p-0">
           {isMockMode() ? (
             <>
-              <ProfileRow icon={ArrowLeftRight} label="Demo: switch to customer" href="/dashboard" />
+              <ProfileRow icon={ArrowsLeftRightIcon} label="Demo: switch to customer" href="/dashboard" />
               <Separator />
-              <ProfileRow icon={ClipboardCheck} label="Demo: new artisan sign-up" href="/artisan/onboarding" />
+              <ProfileRow icon={ListChecksIcon} label="Demo: new artisan sign-up" href="/artisan/onboarding" />
               <Separator />
             </>
           ) : null}
-          <ProfileRow icon={LogOut} label="Sign out" tone="danger" />
+          <ProfileRow icon={SignOutIcon} label="Sign out" tone="danger" />
         </CardContent>
       </Card>
     </>

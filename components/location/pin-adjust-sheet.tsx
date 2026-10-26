@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, X } from "lucide-react";
+import { InfoIcon, XIcon } from "@phosphor-icons/react/ssr";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import type { MapBoundary } from "@/components/map/map-canvas";
@@ -62,7 +62,7 @@ export function PinAdjustSheet({
             aria-label="Close"
             className="absolute top-1 right-3 flex size-11 items-center justify-center rounded-full text-ink-500 hover:bg-surface-sunken hover:text-ink-950"
           >
-            <X className="size-5" aria-hidden />
+            <XIcon className="size-5" aria-hidden />
           </DrawerClose>
           <DrawerTitle className="text-lg font-semibold tracking-tight text-ink-950">
             Confirm the exact spot
@@ -122,7 +122,7 @@ export function PinAdjustSheet({
         <div className="flex flex-col gap-2 px-5 pt-4 pb-safe">
           {outside ? (
             <p className="flex items-start gap-2 text-sm text-ink-700">
-              <Info className="mt-0.5 size-4 shrink-0 text-danger-600" aria-hidden />
+              <InfoIcon className="mt-0.5 size-4 shrink-0 text-danger-600" aria-hidden />
               We&apos;re live in Rivers and Akwa Ibom only. Move the pin inside an area we
               serve, or pick one from the list.
             </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Search } from "lucide-react";
+import { CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import type { Lga, LgaCode, StateCode } from "@/lib/types";
@@ -54,7 +54,7 @@ export function LgaPicker({ lgas, value, onChange }: LgaPickerProps) {
       </div>
 
       <div className="relative">
-        <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-ink-400" aria-hidden />
+        <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-ink-400" aria-hidden />
         <Input
           type="search"
           value={query}
@@ -92,7 +92,7 @@ export function LgaPicker({ lgas, value, onChange }: LgaPickerProps) {
                   {lga.name}
                   {selected ? (
                     <span className="flex size-5 items-center justify-center rounded-full bg-ink-950">
-                      <Check className="size-3 text-celo-500" strokeWidth={3} aria-hidden />
+                      <CheckIcon className="size-3 text-celo-500" weight="bold" aria-hidden />
                     </span>
                   ) : null}
                 </button>

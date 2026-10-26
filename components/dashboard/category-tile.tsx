@@ -1,10 +1,10 @@
-import type { LucideIcon } from "lucide-react";
+import type { Icon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export interface CategoryTileProps {
   label: string;
   hint: string;
-  icon: LucideIcon;
+  icon: Icon;
   href: string;
 }
 

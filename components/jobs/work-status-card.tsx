@@ -1,4 +1,4 @@
-import { Check, Hammer } from "lucide-react";
+import { CheckIcon, HammerIcon } from "@phosphor-icons/react/ssr";
 import type { JobWorkStatus, WorkStage } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatClock } from "@/lib/utils/time";
@@ -30,7 +30,7 @@ export function WorkStatusCard({ status, artisanFirstName, viewer = "customer", 
     <section className="rounded-2xl bg-surface-raised p-5 shadow-card ring-1 ring-line-200" aria-live="polite">
       <div className="flex items-center gap-3">
         <span className="flex size-11 items-center justify-center rounded-full bg-ink-950 text-celo-500">
-          {done ? <Check className="size-5" strokeWidth={2.5} aria-hidden /> : <Hammer className="size-5" aria-hidden />}
+          {done ? <CheckIcon className="size-5" weight="bold" aria-hidden /> : <HammerIcon className="size-5" aria-hidden />}
         </span>
         <div className="min-w-0">
           <p className="text-[17px] font-semibold tracking-tight text-ink-950">

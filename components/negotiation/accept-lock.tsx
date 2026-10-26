@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, CreditCard, Lock } from "lucide-react";
+import { BuildingsIcon, CreditCardIcon, LockIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { fundEscrowAction } from "@/app/_actions/booking";
 import { ActionButton } from "@/components/booking/action-button";
@@ -8,9 +8,9 @@ import type { EscrowMethod, Kobo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
 
-const METHODS: { value: EscrowMethod; label: string; hint: string; icon: typeof CreditCard }[] = [
-  { value: "card", label: "Card", hint: "Visa, Mastercard, Verve", icon: CreditCard },
-  { value: "bank_transfer", label: "Bank transfer", hint: "Pay from any Nigerian bank app", icon: Building2 },
+const METHODS: { value: EscrowMethod; label: string; hint: string; icon: typeof CreditCardIcon }[] = [
+  { value: "card", label: "Card", hint: "Visa, Mastercard, Verve", icon: CreditCardIcon },
+  { value: "bank_transfer", label: "Bank transfer", hint: "Pay from any Nigerian bank app", icon: BuildingsIcon },
 ];
 
 interface AcceptLockProps {
@@ -27,7 +27,7 @@ export function AcceptLock({ jobId, total, artisanFirstName }: AcceptLockProps) 
     <div className="flex flex-1 flex-col">
       <div className="flex flex-col items-center pt-4 text-center">
         <span className="flex size-14 animate-in zoom-in-90 fade-in items-center justify-center rounded-full bg-ink-950 text-celo-500 duration-300 ease-out-quint">
-          <Lock className="size-6" strokeWidth={2.25} aria-hidden />
+          <LockIcon className="size-6" weight="bold" aria-hidden />
         </span>
         <p className="mt-4 font-mono text-[11px] tracking-widest text-ink-500 uppercase">Price locked</p>
         <p className="mt-1 text-[40px] leading-none font-semibold tracking-tight text-ink-950" data-tabular>

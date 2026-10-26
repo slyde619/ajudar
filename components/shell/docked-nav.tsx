@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  ClipboardList,
-  House,
-  MessageSquare,
-  User,
-  Wallet,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ClipboardTextIcon, HouseIcon, ChatCircleTextIcon, UserIcon, WalletIcon, LightningIcon } from "@phosphor-icons/react/ssr";
+import type { Icon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandMark } from "@/components/brand/brand-mark";
@@ -18,21 +11,21 @@ export type AppRole = "customer" | "artisan";
 interface NavItem {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 const NAV_ITEMS: Record<AppRole, NavItem[]> = {
   customer: [
-    { href: "/dashboard", label: "Home", icon: House },
-    { href: "/jobs", label: "Jobs", icon: ClipboardList },
-    { href: "/messages", label: "Messages", icon: MessageSquare },
-    { href: "/profile", label: "Profile", icon: User },
+    { href: "/dashboard", label: "Home", icon: HouseIcon },
+    { href: "/jobs", label: "Jobs", icon: ClipboardTextIcon },
+    { href: "/messages", label: "Messages", icon: ChatCircleTextIcon },
+    { href: "/profile", label: "Profile", icon: UserIcon },
   ],
   artisan: [
-    { href: "/artisan", label: "Feed", icon: Zap },
-    { href: "/artisan/jobs", label: "Jobs", icon: ClipboardList },
-    { href: "/artisan/earnings", label: "Earnings", icon: Wallet },
-    { href: "/artisan/profile", label: "Profile", icon: User },
+    { href: "/artisan", label: "Feed", icon: LightningIcon },
+    { href: "/artisan/jobs", label: "Jobs", icon: ClipboardTextIcon },
+    { href: "/artisan/earnings", label: "Earnings", icon: WalletIcon },
+    { href: "/artisan/profile", label: "Profile", icon: UserIcon },
   ],
 };
 
@@ -80,7 +73,7 @@ export function DockedNav({ role }: { role: AppRole }) {
                           ? "h-5 w-5 text-ink-950"
                           : "h-5 w-5 text-ink-500"
                       }
-                      strokeWidth={active ? 2.25 : 1.75}
+                      weight={active ? "fill" : "regular"}
                     />
                   </span>
                   <span
@@ -122,7 +115,7 @@ export function DockedNav({ role }: { role: AppRole }) {
                     <Icon
                       aria-hidden
                       className="h-5 w-5"
-                      strokeWidth={active ? 2.25 : 1.75}
+                      weight={active ? "fill" : "regular"}
                     />
                     <span className="flex-1">{item.label}</span>
                     {active ? (

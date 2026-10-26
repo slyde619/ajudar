@@ -1,4 +1,4 @@
-import { CircleCheck, Clock, MapPin, ScanFace, ShieldAlert } from "lucide-react";
+import { CheckCircleIcon, ClockIcon, MapPinIcon, UserFocusIcon, ShieldWarningIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -85,7 +85,7 @@ async function ArtisanJobScreen({ id }: { id: string }) {
             Round {participant} of {negotiation.maxRounds}
           </p>
           <p className="inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-500">
-            <Clock className="size-3.5" aria-hidden />
+            <ClockIcon className="size-3.5" aria-hidden />
             {negotiation.status === "expired" ? "Time's up" : <TimeLeft until={negotiation.expiresAt} />}
           </p>
         </div>
@@ -104,7 +104,7 @@ async function ArtisanJobScreen({ id }: { id: string }) {
         <p role="status" className="mt-4 flex items-center justify-center gap-2 text-center text-sm text-ink-500">
           {agreed ? (
             <>
-              <CircleCheck className="size-4 text-success-600" aria-hidden />
+              <CheckCircleIcon className="size-4 text-success-600" aria-hidden />
               Price agreed. Waiting for the customer to pay into escrow — don&apos;t set off yet.
             </>
           ) : negotiation.status === "expired" ? (
@@ -143,7 +143,7 @@ async function ArtisanJobScreen({ id }: { id: string }) {
           <JobProgress current="Arrived" />
           <div className="mt-8 flex flex-col items-center text-center">
             <span className="flex size-16 items-center justify-center rounded-full bg-ink-950 text-celo-500">
-              <ScanFace className="size-7" aria-hidden />
+              <UserFocusIcon className="size-7" aria-hidden />
             </span>
             <h1 className="mt-4 text-[22px] font-semibold tracking-tight text-ink-950">Waiting for the customer</h1>
             <p className="mt-1.5 max-w-80 text-sm leading-relaxed text-ink-500">
@@ -152,12 +152,12 @@ async function ArtisanJobScreen({ id }: { id: string }) {
           </div>
           {job.arrivalSelfie?.status === "verified" ? (
             <p className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-success-100 px-4 py-3 text-sm text-success-600">
-              <CircleCheck className="size-4" aria-hidden />
+              <CheckCircleIcon className="size-4" aria-hidden />
               Selfie matched{job.arrivalSelfie.checkedAt ? ` at ${formatClock(job.arrivalSelfie.checkedAt)}` : ""}
             </p>
           ) : null}
           <div className="mt-4 flex gap-3 rounded-xl bg-surface-warm p-4">
-            <MapPin className="mt-0.5 size-4 shrink-0 text-ink-700" aria-hidden />
+            <MapPinIcon className="mt-0.5 size-4 shrink-0 text-ink-700" aria-hidden />
             <p className="text-sm text-ink-950">{job.site.landmark}</p>
           </div>
         </div>
@@ -204,7 +204,7 @@ async function ArtisanJobScreen({ id }: { id: string }) {
           <JobProgress current="Done" />
           <div className="mt-8 flex flex-col items-center text-center">
             <span className="flex size-14 animate-in items-center justify-center rounded-full bg-success-100 text-success-600 duration-300 zoom-in-90 fade-in">
-              <CircleCheck className="size-7" aria-hidden />
+              <CheckCircleIcon className="size-7" aria-hidden />
             </span>
             <h1 className="mt-3 text-[22px] font-semibold tracking-tight text-ink-950">Paid</h1>
             {job.agreedTotal !== undefined ? (
@@ -242,7 +242,7 @@ async function ArtisanJobScreen({ id }: { id: string }) {
         <StatusBadge tone={status.tone}>{status.label}</StatusBadge>
         {job.phase === "disputed" ? (
           <div className="mt-4 flex gap-3 rounded-xl bg-danger-100 p-4">
-            <ShieldAlert className="mt-0.5 size-5 shrink-0 text-danger-600" aria-hidden />
+            <ShieldWarningIcon className="mt-0.5 size-5 shrink-0 text-danger-600" aria-hidden />
             <p className="text-sm leading-relaxed text-ink-950">
               The customer said the person at the gate wasn&apos;t you. Escrow is frozen and the ajudar team will call you.
             </p>

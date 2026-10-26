@@ -1,4 +1,4 @@
-import { CircleCheck, ShieldAlert } from "lucide-react";
+import { CheckCircleIcon, ShieldWarningIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -141,7 +141,7 @@ async function JobScreen({ id }: { id: string }) {
           <JobProgress current="Done" />
           <div className="mt-6 flex flex-col items-center text-center">
             <span className="flex size-14 animate-in zoom-in-90 fade-in items-center justify-center rounded-full bg-success-100 text-success-600 duration-300">
-              <CircleCheck className="size-7" aria-hidden />
+              <CheckCircleIcon className="size-7" aria-hidden />
             </span>
             <h2 className="mt-3 text-[22px] font-semibold tracking-tight text-ink-950">Job complete</h2>
             {job.agreedTotal !== undefined ? (
@@ -186,7 +186,7 @@ async function JobScreen({ id }: { id: string }) {
         <StatusBadge tone={status.tone}>{status.label}</StatusBadge>
         {job.phase === "disputed" ? (
           <div className="mt-4 flex gap-3 rounded-xl bg-danger-100 p-4">
-            <ShieldAlert className="mt-0.5 size-5 shrink-0 text-danger-600" aria-hidden />
+            <ShieldWarningIcon className="mt-0.5 size-5 shrink-0 text-danger-600" aria-hidden />
             <p className="text-sm leading-relaxed text-ink-950">
               Don&apos;t let them in. Your escrow is frozen and we&apos;ve flagged this to the ajudar team.
             </p>

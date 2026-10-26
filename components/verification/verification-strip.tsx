@@ -1,4 +1,4 @@
-import { Check, Sparkles, Star } from "lucide-react";
+import { CheckIcon, SparkleIcon, StarIcon } from "@phosphor-icons/react/ssr";
 import type { VerificationSignal } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -9,15 +9,15 @@ interface VerificationStripProps {
 
 function SignalIcon({ signal }: { signal: VerificationSignal }) {
   if (signal.key === "rating" && signal.verified) {
-    return <Star className="size-3 fill-ink-950" strokeWidth={0} aria-hidden />;
+    return <StarIcon className="size-3 text-ink-950" weight="fill" aria-hidden />;
   }
   if (signal.key === "jobs" && !signal.verified && signal.label === "New") {
-    return <Sparkles className="size-3" aria-hidden />;
+    return <SparkleIcon className="size-3" aria-hidden />;
   }
   if (!signal.verified) return null;
   return (
     <span className="flex size-3.5 items-center justify-center rounded-full bg-ink-950">
-      <Check className="size-2.5 text-celo-500" strokeWidth={3.5} aria-hidden />
+      <CheckIcon className="size-2.5 text-celo-500" weight="bold" aria-hidden />
     </span>
   );
 }

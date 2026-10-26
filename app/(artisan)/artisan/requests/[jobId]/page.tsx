@@ -1,4 +1,4 @@
-import { Camera, Clock, Lock, MapPin, Siren } from "lucide-react";
+import { CameraIcon, ClockIcon, LockIcon, MapPinIcon, SirenIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -71,7 +71,7 @@ async function RequestScreen({ jobId }: { jobId: string }) {
         <p className="font-mono text-[11px] tracking-widest text-ink-500 uppercase">{categoryLabel}</p>
         {request.urgency === "emergency" ? (
           <StatusBadge tone="danger">
-            <Siren aria-hidden />
+            <SirenIcon aria-hidden />
             Emergency · fixed price
           </StatusBadge>
         ) : null}
@@ -81,23 +81,23 @@ async function RequestScreen({ jobId }: { jobId: string }) {
 
       <ul className="mt-4 flex flex-col gap-2 rounded-2xl bg-surface-raised p-4 text-sm text-ink-700 ring-1 ring-line-200">
         <li className="flex items-center gap-2.5">
-          <MapPin className="size-4 shrink-0 text-ink-400" aria-hidden />
+          <MapPinIcon className="size-4 shrink-0 text-ink-400" aria-hidden />
           <span>
             {area} · <span data-tabular>{match.distanceKm} km, about {match.driveTimeToJobMinutes} min</span>
           </span>
         </li>
         <li className="flex items-center gap-2.5">
-          <Clock className="size-4 shrink-0 text-ink-400" aria-hidden />
+          <ClockIcon className="size-4 shrink-0 text-ink-400" aria-hidden />
           {formatTiming(request.timing)}
         </li>
         {request.photoCount > 0 ? (
           <li className="flex items-center gap-2.5">
-            <Camera className="size-4 shrink-0 text-ink-400" aria-hidden />
+            <CameraIcon className="size-4 shrink-0 text-ink-400" aria-hidden />
             {request.photoCount} {request.photoCount === 1 ? "photo" : "photos"} from the customer
           </li>
         ) : null}
         <li className="flex items-start gap-2.5 text-ink-500">
-          <Lock className="mt-0.5 size-4 shrink-0 text-ink-400" aria-hidden />
+          <LockIcon className="mt-0.5 size-4 shrink-0 text-ink-400" aria-hidden />
           The exact pin and landmark unlock when the customer chooses you.
         </li>
       </ul>

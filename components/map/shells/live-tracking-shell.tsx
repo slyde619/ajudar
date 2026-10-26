@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, LocateFixed } from "lucide-react";
+import { CaretLeftIcon, CrosshairIcon } from "@phosphor-icons/react/ssr";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -127,7 +127,7 @@ export function LiveTrackingShell({ role, job, artisan, lgaName, since }: LiveTr
           aria-label={isArtisan ? "Back to requests" : "Back to jobs"}
           className="pointer-events-auto mt-3 flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-150 active:scale-95 lg:hidden"
         >
-          <ChevronLeft className="size-5" aria-hidden />
+          <CaretLeftIcon className="size-5" aria-hidden />
         </Link>
         <button
           type="button"
@@ -135,7 +135,7 @@ export function LiveTrackingShell({ role, job, artisan, lgaName, since }: LiveTr
           aria-label="Recenter map"
           className="pointer-events-auto mt-3 ml-auto flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-150 active:scale-95"
         >
-          <LocateFixed className="size-5" aria-hidden />
+          <CrosshairIcon className="size-5" aria-hidden />
         </button>
       </div>
       {isArtisan && !isDesktop ? (
@@ -153,7 +153,7 @@ export function LiveTrackingShell({ role, job, artisan, lgaName, since }: LiveTr
               href={backHref}
               className="flex h-9 items-center gap-1 rounded-md px-2 text-sm text-ink-500 hover:bg-surface-sunken hover:text-ink-950"
             >
-              <ChevronLeft className="size-4" aria-hidden />
+              <CaretLeftIcon className="size-4" aria-hidden />
               {isArtisan ? "Requests" : "Jobs"}
             </Link>
           </div>

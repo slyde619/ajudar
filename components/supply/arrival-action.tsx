@@ -1,6 +1,6 @@
 "use client";
 
-import { ScanFace } from "lucide-react";
+import { UserFocusIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { arrivalSelfieSessionAction, markArrivedAction } from "@/app/_actions/supply";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ export function ArrivalAction({ jobId, distanceM }: ArrivalActionProps) {
   return (
     <>
       <Button size="cta" className="w-full" disabled={!near} onClick={() => setOpen(true)}>
-        <ScanFace aria-hidden />
+        <UserFocusIcon aria-hidden />
         {near ? "I've arrived" : distanceM === null ? "Finding you…" : `I've arrived · ${formatDistance(distanceM)} to go`}
       </Button>
       <IdentityCaptureSheet

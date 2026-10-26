@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft } from "lucide-react";
+import { CaretLeftIcon } from "@phosphor-icons/react/ssr";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -49,7 +49,7 @@ export function StickyHeader({
             aria-label="Go back"
             className="-ml-1 flex h-10 w-10 items-center justify-center rounded-full text-ink-700 hover:bg-surface-sunken"
           >
-            <ChevronLeft className="h-5 w-5" aria-hidden />
+            <CaretLeftIcon className="h-5 w-5" aria-hidden />
           </button>
         ) : null}
 

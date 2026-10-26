@@ -1,12 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { Banknote, KeyRound, Lock, Navigation, ScanFace, UserCheck } from "lucide-react";
+import { MoneyIcon, KeyIcon, LockIcon, NavigationArrowIcon, UserFocusIcon, UserCheckIcon } from "@phosphor-icons/react/ssr";
 import { useRef } from "react";
 import { useRotatingIndex } from "@/hooks/use-rotating-index";
 import { PROOF_FEED } from "./content";
 
-const ICON = { match: UserCheck, price: Lock, route: Navigation, gate: ScanFace, code: KeyRound, paid: Banknote } as const;
+const ICON = { match: UserCheckIcon, price: LockIcon, route: NavigationArrowIcon, gate: UserFocusIcon, code: KeyIcon, paid: MoneyIcon } as const;
 const SHOWN = 3;
 
 /** Feed of job notifications that arrive one by one while on screen. */

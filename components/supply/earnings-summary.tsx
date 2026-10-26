@@ -1,4 +1,4 @@
-import { ArrowDownToLine, LockKeyhole, Wallet } from "lucide-react";
+import { ArrowLineDownIcon, LockKeyIcon, WalletIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { StatusBadge, type StatusTone } from "@/components/ui/status-badge";
 import type { ArtisanEarnings, PayoutStatus } from "@/lib/types";
@@ -16,9 +16,9 @@ const PAYOUT: Record<PayoutStatus, { label: string; tone: StatusTone }> = {
 /** Artisan earnings split into held, available and paid out. */
 export function EarningsSummary({ earnings }: { earnings: ArtisanEarnings }) {
   const figures = [
-    { label: "Released to you", amount: earnings.released, icon: Wallet, strong: true },
-    { label: "In escrow", amount: earnings.inEscrow, icon: LockKeyhole, strong: false },
-    { label: "Paid out", amount: earnings.paidOut, icon: ArrowDownToLine, strong: false },
+    { label: "Released to you", amount: earnings.released, icon: WalletIcon, strong: true },
+    { label: "In escrow", amount: earnings.inEscrow, icon: LockKeyIcon, strong: false },
+    { label: "Paid out", amount: earnings.paidOut, icon: ArrowLineDownIcon, strong: false },
   ];
 
   return (

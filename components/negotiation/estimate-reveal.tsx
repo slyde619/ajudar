@@ -1,4 +1,4 @@
-import { HandCoins, KeyRound, ShieldCheck } from "lucide-react";
+import { HandCoinsIcon, KeyIcon, ShieldCheckIcon } from "@phosphor-icons/react/ssr";
 import { CountUpNumber } from "@/components/motion/count-up-number";
 import type { Estimate, NegotiationMode } from "@/lib/types";
 import { formatNaira } from "@/lib/utils/money";
@@ -12,9 +12,9 @@ interface EstimateRevealProps {
 }
 
 const ESCROW_STEPS = [
-  { icon: HandCoins, text: "You pay into escrow only after you pick an artisan and agree the price." },
-  { icon: ShieldCheck, text: "ajudar holds it. The artisan can see it's there before they set off." },
-  { icon: KeyRound, text: "They're paid when you give them your completion code — not before." },
+  { icon: HandCoinsIcon, text: "You pay into escrow only after you pick an artisan and agree the price." },
+  { icon: ShieldCheckIcon, text: "ajudar holds it. The artisan can see it's there before they set off." },
+  { icon: KeyIcon, text: "They're paid when you give them your completion code — not before." },
 ];
 
 /** Reveals the system's opening estimate, counted up and broken into lines. */

@@ -1,4 +1,4 @@
-import { ChevronRight, MapPin } from "lucide-react";
+import { CaretRightIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { StatusBadge, type StatusTone } from "@/components/ui/status-badge";
@@ -23,14 +23,14 @@ export function JobCard({ title, location, when, status, tone, href }: JobCardPr
         </div>
       </CardHeader>
       <CardContent className="flex items-center gap-1.5 text-xs text-ink-500">
-        <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+        <MapPinIcon className="h-3.5 w-3.5 shrink-0" aria-hidden />
         <span className="truncate">{location}</span>
         <span aria-hidden>·</span>
         <span className="shrink-0 font-mono text-[11px]" data-tabular>
           {when}
         </span>
         {href ? (
-          <ChevronRight className="ml-auto size-4 shrink-0 text-ink-300" aria-hidden />
+          <CaretRightIcon className="ml-auto size-4 shrink-0 text-ink-300" aria-hidden />
         ) : null}
       </CardContent>
     </Card>

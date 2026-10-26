@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { CheckIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { StepFooter } from "./step-footer";
@@ -45,7 +45,7 @@ export function ConsentStep({ version }: { version: string }) {
             agreed ? "bg-ink-950 text-surface-raised ring-ink-950" : "bg-surface-raised ring-line-300",
           )}
         >
-          {agreed ? <Check className="size-4" aria-hidden /> : null}
+          {agreed ? <CheckIcon className="size-4" aria-hidden /> : null}
         </span>
         <span className="text-sm leading-relaxed text-ink-950">I agree to ajudar keeping and checking these details as described.</span>
       </button>

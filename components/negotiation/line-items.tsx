@@ -1,4 +1,4 @@
-import { Lock } from "lucide-react";
+import { LockIcon } from "@phosphor-icons/react/ssr";
 import type { EstimateLineItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
@@ -39,7 +39,7 @@ export function LineItems({ items, previous, stagger = false, className }: LineI
             </div>
             <div className="flex shrink-0 flex-col items-end">
               <span className="flex items-center gap-1.5 text-sm font-semibold text-ink-950" data-tabular>
-                {item.negotiable ? null : <Lock className="size-3 text-ink-400" aria-label="Not negotiable" />}
+                {item.negotiable ? null : <LockIcon className="size-3 text-ink-400" aria-label="Not negotiable" />}
                 {formatNaira(item.amount)}
               </span>
               {moved ? (

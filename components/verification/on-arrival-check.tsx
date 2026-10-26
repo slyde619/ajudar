@@ -1,4 +1,4 @@
-import { ScanFace } from "lucide-react";
+import { UserFocusIcon } from "@phosphor-icons/react/ssr";
 import { ArtisanSummary } from "@/components/negotiation/artisan-summary";
 import type { ArtisanProfile, JobRequest } from "@/lib/types";
 import { formatClock } from "@/lib/utils/time";
@@ -27,7 +27,7 @@ export function OnArrivalCheck({ artisan, landmark, selfie, actions }: OnArrival
       <ArtisanSummary artisan={artisan} size="lg" className="mt-6 rounded-2xl bg-surface-raised p-4 shadow-card ring-1 ring-line-200" />
 
       <div className="mt-4 flex gap-3 rounded-xl bg-surface-sunken p-4">
-        <ScanFace className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
+        <UserFocusIcon className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
         <p className="text-sm leading-relaxed text-ink-700">
           {matched ? (
             <>

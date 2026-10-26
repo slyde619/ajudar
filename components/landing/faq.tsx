@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { PlusIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -36,7 +36,7 @@ export function Faq() {
                   )}
                 >
                   {faq.q}
-                  <Plus className={cn("size-5 transition-transform duration-300", on && "rotate-45")} aria-hidden />
+                  <PlusIcon className={cn("size-5 transition-transform duration-300", on && "rotate-45")} aria-hidden />
                 </Button>
                 <AnimatePresence initial={false}>
                   {on ? (

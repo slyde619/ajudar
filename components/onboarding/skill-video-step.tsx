@@ -1,6 +1,6 @@
 "use client";
 
-import { Video } from "lucide-react";
+import { VideoCameraIcon } from "@phosphor-icons/react/ssr";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUpload } from "@/hooks/use-upload";
@@ -46,7 +46,7 @@ export function SkillVideoStep({ application }: { application: ArtisanApplicatio
           onClick={() => input.current?.click()}
           className="flex aspect-video w-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-300 text-ink-500 transition-colors hover:bg-surface-sunken"
         >
-          <Video className="size-6" aria-hidden />
+          <VideoCameraIcon className="size-6" aria-hidden />
           <span className="text-sm font-medium">{application.skillVideoUrl ? "Video sent · record a new one" : "Record or choose a video"}</span>
           <span className="text-xs">Up to a minute, under 60 MB</span>
         </button>

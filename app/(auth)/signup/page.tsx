@@ -1,4 +1,4 @@
-import { ArrowRight, House, Wrench } from "lucide-react";
+import { ArrowRightIcon, HouseIcon, WrenchIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BrandMark } from "@/components/brand/brand-mark";
@@ -6,20 +6,20 @@ import { cn } from "@/lib/utils";
 
 type Role = "customer" | "artisan";
 
-const ROLES: { role: Role; href: string; title: string; detail: string; icon: typeof House }[] = [
+const ROLES: { role: Role; href: string; title: string; detail: string; icon: typeof HouseIcon }[] = [
   {
     role: "customer",
     href: "/onboarding",
     title: "I need an artisan",
     detail: "Get a fair estimate, agree the price, and pay into escrow before anyone moves.",
-    icon: House,
+    icon: HouseIcon,
   },
   {
     role: "artisan",
     href: "/artisan/onboarding",
     title: "I'm an artisan",
     detail: "Get verified once, see paying jobs near you, and get paid the moment the work is done.",
-    icon: Wrench,
+    icon: WrenchIcon,
   },
 ];
 
@@ -43,7 +43,7 @@ function RoleChoice({ preferred }: { preferred: Role | null }) {
               <span className="block text-[17px] font-semibold tracking-tight text-ink-950">{title}</span>
               <span className="mt-0.5 block text-sm leading-relaxed text-ink-500">{detail}</span>
             </span>
-            <ArrowRight className="size-5 shrink-0 text-ink-400 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRightIcon className="size-5 shrink-0 text-ink-400 transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>
         </li>
       ))}

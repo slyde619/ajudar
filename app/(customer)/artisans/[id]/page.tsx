@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { StarIcon } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -124,7 +124,7 @@ async function ArtisanScreen({ id }: { id: string }) {
             </h2>
             {stats.ratingCount > 0 ? (
               <p className="inline-flex items-center gap-1 text-sm font-semibold text-ink-950" data-tabular>
-                <Star className="size-3.5 fill-ink-950" strokeWidth={0} aria-hidden />
+                <StarIcon className="size-3.5 text-ink-950" weight="fill" aria-hidden />
                 {stats.averageRating.toFixed(1)}
                 <span className="font-normal text-ink-500">· {stats.ratingCount} ratings</span>
               </p>

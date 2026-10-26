@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { StatusBadge, type StatusTone } from "@/components/ui/status-badge";
 
@@ -23,7 +23,7 @@ export function ActiveJobBanner({ title, status, tone, hint, href }: ActiveJobBa
         <span className="mt-0.5 block text-xs text-ink-300">{hint}</span>
       </span>
       <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-celo-500 text-ink-950">
-        <ArrowRight className="size-5" aria-hidden />
+        <ArrowRightIcon className="size-5" aria-hidden />
       </span>
     </Link>
   );

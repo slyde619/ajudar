@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { MapPinIcon } from "@phosphor-icons/react/ssr";
 
 /** Calm ripple shown while artisans are being asked. */
 export function SearchingPulse({ label, detail }: { label: string; detail: string }) {
@@ -14,7 +14,7 @@ export function SearchingPulse({ label, detail }: { label: string; detail: strin
         ))}
         <span className="absolute inset-10 rounded-full bg-surface-sunken" />
         <span className="relative flex size-12 items-center justify-center rounded-full bg-ink-950 text-celo-500 shadow-pop">
-          <MapPin className="size-5" strokeWidth={2.25} />
+          <MapPinIcon className="size-5" weight="bold" />
         </span>
       </div>
       <p className="mt-2 text-[17px] font-semibold tracking-tight text-ink-950">{label}</p>

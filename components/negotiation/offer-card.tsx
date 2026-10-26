@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { CaretRightIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import type { ArtisanProfile, JobOffer, Kobo } from "@/lib/types";
 import { formatNaira } from "@/lib/utils/money";
@@ -29,7 +29,7 @@ export function OfferCard({ offer, artisan, estimateTotal, profileHref, action }
             className="-mr-2 flex h-10 items-center gap-0.5 rounded-lg px-2 text-xs font-medium text-ink-500 hover:text-ink-950"
           >
             Profile
-            <ChevronRight className="size-3.5" aria-hidden />
+            <CaretRightIcon className="size-3.5" aria-hidden />
           </Link>
         }
       />

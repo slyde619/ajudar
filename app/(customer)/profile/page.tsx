@@ -1,11 +1,4 @@
-import {
-  ArrowLeftRight,
-  CreditCard,
-  LogOut,
-  MapPin,
-  Settings,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowsLeftRightIcon, CreditCardIcon, SignOutIcon, MapPinIcon, GearIcon, ShieldCheckIcon } from "@phosphor-icons/react/ssr";
 import { ProfileRow } from "@/components/profile/profile-row";
 import { StickyHeader } from "@/components/shell/sticky-header";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -37,7 +30,7 @@ export default function ProfilePage() {
                 +234 803 000 0000
               </p>
               <span className="mt-2 inline-flex items-center gap-1.5 rounded-pill bg-surface-sunken px-2.5 py-1 text-xs text-ink-700">
-                <MapPin className="h-3 w-3" aria-hidden />
+                <MapPinIcon className="h-3 w-3" aria-hidden />
                 Rumuola, Port Harcourt
               </span>
             </div>
@@ -46,21 +39,21 @@ export default function ProfilePage() {
 
         <Card className="mt-4 gap-0 overflow-hidden rounded-xl ring-line-200">
           <CardContent className="p-0">
-            <ProfileRow icon={MapPin} label="Saved places" meta="2" />
+            <ProfileRow icon={MapPinIcon} label="Saved places" meta="2" />
             <Separator />
-            <ProfileRow icon={CreditCard} label="Payment methods" meta="1" />
+            <ProfileRow icon={CreditCardIcon} label="Payment methods" meta="1" />
             <Separator />
-            <ProfileRow icon={ShieldCheck} label="Verification" meta="NIN" />
+            <ProfileRow icon={ShieldCheckIcon} label="Verification" meta="NIN" />
             <Separator />
-            <ProfileRow icon={Settings} label="Settings" />
+            <ProfileRow icon={GearIcon} label="Settings" />
             <Separator />
             {isMockMode() ? (
               <>
-                <ProfileRow icon={ArrowLeftRight} label="Demo: switch to artisan" href="/artisan" />
+                <ProfileRow icon={ArrowsLeftRightIcon} label="Demo: switch to artisan" href="/artisan" />
                 <Separator />
               </>
             ) : null}
-            <ProfileRow icon={LogOut} label="Sign out" tone="danger" />
+            <ProfileRow icon={SignOutIcon} label="Sign out" tone="danger" />
           </CardContent>
         </Card>
 

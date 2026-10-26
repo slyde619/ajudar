@@ -1,4 +1,4 @@
-import { KeyRound } from "lucide-react";
+import { KeyIcon } from "@phosphor-icons/react/ssr";
 import type { Kobo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
@@ -21,7 +21,7 @@ export function CompletionCode({ code, amount, artisanFirstName, ready }: Comple
       aria-labelledby="code-heading"
     >
       <p id="code-heading" className={cn("inline-flex items-center gap-1.5 font-mono text-[11px] tracking-widest uppercase", ready ? "text-ink-300" : "text-ink-500")}>
-        <KeyRound className="size-3.5" aria-hidden />
+        <KeyIcon className="size-3.5" aria-hidden />
         Completion code
       </p>
       <p className="mt-2 font-mono text-[34px] leading-none font-semibold tracking-[0.3em]" data-tabular aria-label={code.split("").join(" ")}>

@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { CheckIcon } from "@phosphor-icons/react/ssr";
 import type { NegotiationRound as Round } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
@@ -32,7 +32,7 @@ export function NegotiationRound({ round, previous, counterpartName, latest, vie
         </p>
         {round.accepted ? (
           <span className="inline-flex items-center gap-1 text-xs font-medium text-success-600">
-            <Check className="size-3.5" strokeWidth={2.5} aria-hidden />
+            <CheckIcon className="size-3.5" weight="bold" aria-hidden />
             Agreed
           </span>
         ) : null}

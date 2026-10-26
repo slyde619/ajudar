@@ -1,4 +1,4 @@
-import { LoaderCircle } from "lucide-react";
+import { CircleNotchIcon } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 
 interface StepFooterProps {
@@ -24,7 +24,7 @@ export function StepFooter({ label, pendingLabel = "Saving…", pending, disable
         <Button size="cta" className="w-full" disabled={disabled || pending} onClick={onSubmit}>
           {pending ? (
             <>
-              <LoaderCircle className="animate-spin" aria-hidden />
+              <CircleNotchIcon className="animate-spin" aria-hidden />
               {pendingLabel}
             </>
           ) : (

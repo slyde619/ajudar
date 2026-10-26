@@ -1,9 +1,10 @@
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { CaretRightIcon } from "@phosphor-icons/react/ssr";
+import type { Icon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export interface ProfileRowProps {
-  icon: LucideIcon;
+  icon: Icon;
   label: string;
   meta?: string;
   tone?: "default" | "danger";
@@ -49,7 +50,7 @@ export function ProfileRow({
           {meta}
         </span>
       ) : (
-        <ChevronRight
+        <CaretRightIcon
           className={cn(
             "h-4 w-4",
             destructive ? "text-danger-600/50" : "text-ink-300",

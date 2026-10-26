@@ -1,7 +1,7 @@
 "use client";
 
 import { useMotionValueEvent, useScroll } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -74,7 +74,7 @@ export function TradeDeck() {
                       render={<Link href="/signup?as=customer" />}
                     >
                       {trade.book}
-                      <ArrowRight aria-hidden />
+                      <ArrowRightIcon aria-hidden />
                     </Button>
                     <TradeArt id={trade.id} className="w-44 shrink-0 md:w-56" />
                   </div>

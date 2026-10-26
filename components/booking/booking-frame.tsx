@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { XIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export function BookingFrame({
             aria-label={closeLabel}
             className="flex size-11 items-center justify-center rounded-full text-ink-700 transition-colors hover:bg-surface-sunken"
           >
-            <X className="size-5" aria-hidden />
+            <XIcon className="size-5" aria-hidden />
           </Link>
           <p className="flex-1 text-center font-mono text-[11px] tracking-widest text-ink-500 uppercase">
             {step ? (

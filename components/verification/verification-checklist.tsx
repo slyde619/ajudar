@@ -1,4 +1,4 @@
-import { Check, CircleDashed, Clock, LoaderCircle, X } from "lucide-react";
+import { CheckIcon, CircleDashedIcon, ClockIcon, CircleNotchIcon, XIcon } from "@phosphor-icons/react/ssr";
 import type { CheckStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -10,12 +10,12 @@ export interface ChecklistItem {
   optional?: boolean;
 }
 
-const STATUS: Record<CheckStatus, { label: string; className: string; icon: typeof Check }> = {
-  verified: { label: "Verified", className: "bg-success-100 text-success-600", icon: Check },
-  pending_review: { label: "We're checking", className: "bg-warning-100 text-warning-600", icon: Clock },
-  in_progress: { label: "In progress", className: "bg-surface-sunken text-ink-700", icon: LoaderCircle },
-  not_started: { label: "Not started", className: "bg-surface-sunken text-ink-500", icon: CircleDashed },
-  rejected: { label: "Needs another try", className: "bg-danger-100 text-danger-600", icon: X },
+const STATUS: Record<CheckStatus, { label: string; className: string; icon: typeof CheckIcon }> = {
+  verified: { label: "Verified", className: "bg-success-100 text-success-600", icon: CheckIcon },
+  pending_review: { label: "We're checking", className: "bg-warning-100 text-warning-600", icon: ClockIcon },
+  in_progress: { label: "In progress", className: "bg-surface-sunken text-ink-700", icon: CircleNotchIcon },
+  not_started: { label: "Not started", className: "bg-surface-sunken text-ink-500", icon: CircleDashedIcon },
+  rejected: { label: "Needs another try", className: "bg-danger-100 text-danger-600", icon: XIcon },
 };
 
 /** One row per verification layer, with its status and next step. */
