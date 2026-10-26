@@ -48,3 +48,9 @@ certificates
 project.md
 CLAUDE.md
 .claude/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
