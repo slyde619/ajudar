@@ -1,22 +1,21 @@
 "use client";
 
-import { Award, ImagePlus, X } from "lucide-react";
+import { MedalIcon, ImageSquareIcon, XIcon } from "@phosphor-icons/react/ssr";
 import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { usePhotoPreviews } from "@/hooks/use-photo-previews";
 import { useUpload } from "@/hooks/use-upload";
+import { MAX_PORTFOLIO_PHOTOS, MIN_PORTFOLIO_PHOTOS } from "@/lib/schemas/onboarding";
 import type { ArtisanApplication } from "@/lib/types";
 import { StepFooter } from "./step-footer";
 import { StepHeading } from "./step-heading";
 import { useStepSave } from "./use-step-save";
 
-const MIN_PHOTOS = 3;
-const MAX_PHOTOS = 8;
 
 /** Onboarding step for past-work photos and a certificate or apprenticeship years. */
 export function PortfolioStep({ application }: { application: ArtisanApplication }) {
   const saved = application.portfolio;
-  const photos = usePhotoPreviews(MAX_PHOTOS);
+  const photos = usePhotoPreviews(MAX_PORTFOLIO_PHOTOS);
   const certificate = usePhotoPreviews(1);
   const [apprenticeship, setApprenticeship] = useState(saved.apprenticeshipYears?.toString() ?? "");
   const photoInput = useRef<HTMLInputElement>(null);
@@ -24,7 +23,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
   const upload = useUpload();
   const { save, error, pending } = useStepSave();
 
-  const keepSaved = photos.photos.length === 0 && saved.photoUrls.length >= MIN_PHOTOS;
+  const keepSaved = photos.photos.length === 0 && saved.photoUrls.length >= MIN_PORTFOLIO_PHOTOS;
   const photoCount = keepSaved ? saved.photoUrls.length : photos.photos.length;
   const hasProof = certificate.photos.length > 0 || Boolean(saved.certificateUrl) || Number(apprenticeship) > 0;
 
@@ -57,7 +56,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
     <>
       <StepHeading
         title="Show your work"
-        detail={`At least ${MIN_PHOTOS} photos of jobs you've finished. Before-and-after shots get picked most.`}
+        detail={`At least ${MIN_PORTFOLIO_PHOTOS} photos of jobs you've finished. Before-and-after shots get picked most.`}
       />
 
       <ul className="grid grid-cols-3 gap-2">
@@ -71,18 +70,18 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
               aria-label={`Remove ${photo.name}`}
               className="absolute top-1 right-1 flex size-7 items-center justify-center rounded-full bg-ink-950/70 text-surface-raised"
             >
-              <X className="size-3.5" aria-hidden />
+              <XIcon className="size-3.5" aria-hidden />
             </button>
           </li>
         ))}
-        {photos.photos.length < MAX_PHOTOS ? (
+        {photos.photos.length < MAX_PORTFOLIO_PHOTOS ? (
           <li>
             <button
               type="button"
               onClick={() => photoInput.current?.click()}
               className="flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-line-300 text-ink-500 transition-colors hover:bg-surface-sunken"
             >
-              <ImagePlus className="size-5" aria-hidden />
+              <ImageSquareIcon className="size-5" aria-hidden />
               <span className="text-xs font-medium">Add photos</span>
             </button>
           </li>
@@ -104,9 +103,9 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
       <p className="mt-2 text-xs text-ink-500" data-tabular>
         {keepSaved
           ? `${saved.photoUrls.length} photos already sent. Add new ones to replace them.`
-          : photoCount >= MIN_PHOTOS
+          : photoCount >= MIN_PORTFOLIO_PHOTOS
             ? `${photoCount} photos added`
-            : `${photoCount} of ${MIN_PHOTOS} needed`}
+            : `${photoCount} of ${MIN_PORTFOLIO_PHOTOS} needed`}
       </p>
 
       <p className="mt-6 text-sm font-semibold text-ink-950">How did you learn the trade?</p>
@@ -121,7 +120,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
             // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
             <img src={certificate.photos[0].url} alt="" className="size-full object-cover" />
           ) : (
-            <Award className="size-5" aria-hidden />
+            <MedalIcon className="size-5" aria-hidden />
           )}
         </span>
         <span className="min-w-0 flex-1">
@@ -159,7 +158,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
         label="Continue"
         pendingLabel="Uploading…"
         pending={pending}
-        disabled={photoCount < MIN_PHOTOS || !hasProof}
+        disabled={photoCount < MIN_PORTFOLIO_PHOTOS || !hasProof}
         error={error}
         onSubmit={submit}
       />

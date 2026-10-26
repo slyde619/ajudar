@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { profileStepSchema } from "@/lib/schemas/onboarding";
 import type { ArtisanApplication, Trade } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { TRADE_LABEL } from "@/lib/utils/verification";
@@ -19,7 +20,13 @@ export function ProfileStep({ application }: { application: ArtisanApplication }
   const [specialties, setSpecialties] = useState(application.profile.specialties.join(", "));
   const { save, error, pending } = useStepSave();
 
-  const ready = name.trim().length > 3 && trade !== undefined && years !== "";
+  const ready = profileStepSchema.safeParse({
+    step: "profile",
+    displayName: name,
+    trade,
+    yearsExperience: years === "" ? undefined : Number(years),
+    specialties: specialties.split(","),
+  }).success;
 
   return (
     <>

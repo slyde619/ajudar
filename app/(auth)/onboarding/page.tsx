@@ -2,11 +2,11 @@ import { Suspense } from "react";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { LocationGate } from "@/components/location/location-gate";
 import { listLgas } from "@/lib/api/geo";
+import { safePathSchema } from "@/lib/schemas/location";
 
 function safeNext(value: string | string[] | undefined): string {
-  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
-    ? value
-    : "/dashboard";
+  const parsed = safePathSchema.safeParse(value);
+  return parsed.success ? parsed.data : "/dashboard";
 }
 
 export default async function OnboardingPage({ searchParams }: PageProps<"/onboarding">) {

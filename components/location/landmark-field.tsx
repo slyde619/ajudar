@@ -1,3 +1,4 @@
+import { LANDMARK_MAX } from "@/lib/schemas/location";
 import { cn } from "@/lib/utils";
 
 interface LandmarkFieldProps {
@@ -7,8 +8,6 @@ interface LandmarkFieldProps {
   className?: string;
 }
 
-export const LANDMARK_MIN = 8;
-const LANDMARK_MAX = 140;
 
 /** Text field for the landmark an artisan navigates by. */
 export function LandmarkField({ id, value, onChange, className }: LandmarkFieldProps) {

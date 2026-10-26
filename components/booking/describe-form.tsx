@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowRight, Camera, LoaderCircle, MapPin, Siren, X } from "lucide-react";
+import { ArrowRightIcon, CameraIcon, CircleNotchIcon, MapPinIcon, SirenIcon, XIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
+import { toast } from "sonner";
 import { createJobAction } from "@/app/_actions/booking";
 import { LocationChip } from "@/components/location/location-chip";
 import { Button } from "@/components/ui/button";
@@ -11,14 +12,13 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useLocation } from "@/hooks/use-location";
 import { usePhotoPreviews } from "@/hooks/use-photo-previews";
+import { jobDescriptionSchema, jobTitleSchema } from "@/lib/schemas/booking";
 import type { JobTiming, Lga, TradeCategory } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { matchableSite } from "@/stores/location";
 import { BookingFrame } from "./booking-frame";
 
 const MAX_PHOTOS = 4;
-const TITLE_MIN = 4;
-const DESCRIPTION_MIN = 10;
 const SCHEDULE_WINDOW_MINUTES = 120;
 
 interface DescribeFormProps {
@@ -48,15 +48,14 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
   const [slot, setSlot] = useState("");
   const [minSlot, setMinSlot] = useState("");
   const [emergency, setEmergency] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   const lga = site ? lgas.find((entry) => entry.code === site.lgaCode) : undefined;
   const gateHref = `/onboarding?next=${encodeURIComponent(returnHref)}`;
   const ready =
     site !== null &&
-    title.trim().length >= TITLE_MIN &&
-    description.trim().length >= DESCRIPTION_MIN &&
+    jobTitleSchema.safeParse(title).success &&
+    jobDescriptionSchema.safeParse(description).success &&
     (when === "now" || slot !== "");
 
   function submit() {
@@ -65,7 +64,6 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
       when === "now"
         ? { mode: "now" }
         : { mode: "scheduled", scheduledFor: new Date(slot).toISOString(), windowMinutes: SCHEDULE_WINDOW_MINUTES };
-    setError(null);
     startTransition(async () => {
       const result = await createJobAction({
         categoryId: category.id,
@@ -75,7 +73,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
         timing,
         urgency: emergency && when === "now" ? "emergency" : "standard",
       });
-      if (result) setError(result.error);
+      if (result) toast.error(result.error);
     });
   }
 
@@ -85,21 +83,16 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
       closeHref="/dashboard"
       footer={
         <>
-          {error ? (
-            <p role="alert" className="mb-3 rounded-lg bg-danger-100 px-3 py-2 text-sm text-danger-600">
-              {error}
-            </p>
-          ) : null}
           <Button size="cta" className="w-full" disabled={!ready || pending} onClick={submit}>
             {pending ? (
               <>
-                <LoaderCircle className="animate-spin" aria-hidden />
+                <CircleNotchIcon className="animate-spin" aria-hidden />
                 Pricing your job…
               </>
             ) : (
               <>
                 See your estimate
-                <ArrowRight aria-hidden />
+                <ArrowRightIcon aria-hidden />
               </>
             )}
           </Button>
@@ -160,7 +153,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
                 aria-label={`Remove ${photo.name}`}
                 className="absolute top-1 right-1 flex size-7 items-center justify-center rounded-full bg-ink-950/70 text-surface-raised"
               >
-                <X className="size-3.5" aria-hidden />
+                <XIcon className="size-3.5" aria-hidden />
               </button>
             </div>
           ))}
@@ -170,7 +163,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
               onClick={() => fileInput.current?.click()}
               className="flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line-300 text-ink-500 transition-colors hover:border-ink-400 hover:text-ink-700"
             >
-              <Camera className="size-5" aria-hidden />
+              <CameraIcon className="size-5" aria-hidden />
               <span className="text-[11px] font-medium">Add</span>
             </button>
           ) : null}
@@ -213,7 +206,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
             className="mt-2 flex items-center gap-3 rounded-xl bg-surface-raised p-4 ring-1 ring-line-200 transition-shadow hover:ring-line-300"
           >
             <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-700">
-              <MapPin className="size-4" aria-hidden />
+              <MapPinIcon className="size-4" aria-hidden />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-sm font-semibold text-ink-950">
@@ -221,7 +214,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
               </span>
               <span className="block text-xs text-ink-500">Your LGA decides who can come.</span>
             </span>
-            <ArrowRight className="size-4 text-ink-400" aria-hidden />
+            <ArrowRightIcon className="size-4 text-ink-400" aria-hidden />
           </Link>
         )}
       </div>
@@ -272,7 +265,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
       {category.supportsEmergency && when === "now" ? (
         <label className="mt-6 flex items-start gap-3 rounded-xl bg-surface-raised p-4 ring-1 ring-line-200">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-danger-100 text-danger-600">
-            <Siren className="size-4" aria-hidden />
+            <SirenIcon className="size-4" aria-hidden />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-sm font-semibold text-ink-950">This is an emergency</span>

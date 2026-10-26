@@ -1,14 +1,15 @@
 "use client";
 
-import { ArrowRight, LoaderCircle, LocateFixed, Map as MapIcon, Navigation, ShieldCheck } from "lucide-react";
+import { ArrowRightIcon, CircleNotchIcon, CrosshairIcon, MapTrifoldIcon, NavigationArrowIcon, ShieldCheckIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLgaBoundaries } from "@/hooks/use-lga-boundaries";
 import { useLocation } from "@/hooks/use-location";
+import { landmarkSchema } from "@/lib/schemas/location";
 import type { Coordinates, JobSite, Lga, LgaCode } from "@/lib/types";
 import { useLocationStore } from "@/stores/location";
-import { LANDMARK_MIN, LandmarkField } from "./landmark-field";
+import { LandmarkField } from "./landmark-field";
 import { LgaPicker } from "./lga-picker";
 import { LocationChip } from "./location-chip";
 import { PinAdjustSheet, type PinConfirmation } from "./pin-adjust-sheet";
@@ -126,7 +127,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
     setStep("done");
   }
 
-  const landmarkOk = landmark.trim().length >= LANDMARK_MIN;
+  const landmarkOk = landmarkSchema.safeParse(landmark).success;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -147,7 +148,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
           <ul className="mt-8 space-y-4">
             <li className="flex gap-3.5">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-700">
-                <ShieldCheck className="size-4" aria-hidden />
+                <ShieldCheckIcon className="size-4" aria-hidden />
               </span>
               <p className="text-sm leading-relaxed text-ink-700">
                 <span className="font-semibold text-ink-950">Your LGA decides who can come.</span>{" "}
@@ -156,7 +157,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
             </li>
             <li className="flex gap-3.5">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-700">
-                <Navigation className="size-4" aria-hidden />
+                <NavigationArrowIcon className="size-4" aria-hidden />
               </span>
               <p className="text-sm leading-relaxed text-ink-700">
                 <span className="font-semibold text-ink-950">Your landmark tells them where to stop.</span>{" "}
@@ -169,12 +170,12 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
             <Button size="lg" onClick={locate} disabled={busy} className="h-13 rounded-xl text-base font-semibold">
               {busy ? (
                 <>
-                  <LoaderCircle className="size-5 animate-spin" aria-hidden />
+                  <CircleNotchIcon className="size-5 animate-spin" aria-hidden />
                   Locating you…
                 </>
               ) : (
                 <>
-                  <LocateFixed className="size-5" aria-hidden />
+                  <CrosshairIcon className="size-5" aria-hidden />
                   Use my location
                 </>
               )}
@@ -216,7 +217,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
                 onClick={() => setPin({ open: true, center: draft.coords })}
                 className="mt-3 flex min-h-11 items-center gap-2 self-start rounded-lg px-1 text-sm font-medium text-ink-700 underline decoration-line-300 underline-offset-4 hover:text-ink-950"
               >
-                <MapIcon className="size-4" aria-hidden />
+                <MapTrifoldIcon className="size-4" aria-hidden />
                 {draft.pinConfirmed ? "Pin placed · adjust" : "Drop an exact pin (optional)"}
               </button>
               <LandmarkField id="landmark-manual" value={landmark} onChange={setLandmark} className="mt-5" />
@@ -300,7 +301,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
               className="h-13 w-full rounded-xl text-base font-semibold"
             >
               Continue
-              <ArrowRight className="size-5" aria-hidden />
+              <ArrowRightIcon className="size-5" aria-hidden />
             </Button>
           </div>
         </section>

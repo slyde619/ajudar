@@ -1,7 +1,14 @@
+import { envSchema, resultEnvelopeSchema } from "@/lib/schemas/api";
 import type { ApiError, ApiMode, Result } from "@/lib/types";
 
+const env = envSchema.parse({
+  NEXT_PUBLIC_API_MODE: process.env.NEXT_PUBLIC_API_MODE || undefined,
+  NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  NEXT_PUBLIC_REALTIME_URL: process.env.NEXT_PUBLIC_REALTIME_URL,
+});
+
 export function getApiMode(): ApiMode {
-  return process.env.NEXT_PUBLIC_API_MODE === "live" ? "live" : "mock";
+  return env.NEXT_PUBLIC_API_MODE;
 }
 
 export function isMockMode(): boolean {
@@ -9,13 +16,10 @@ export function isMockMode(): boolean {
 }
 
 export function getRealtimeSocketUrl(): string | null {
-  return process.env.NEXT_PUBLIC_REALTIME_URL || null;
+  return env.NEXT_PUBLIC_REALTIME_URL;
 }
 
-const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "").replace(
-  /\/+$/,
-  "",
-);
+const API_BASE_URL = env.NEXT_PUBLIC_API_BASE_URL;
 
 export function ok<T>(data: T): Result<T> {
   return { ok: true, data };
@@ -80,11 +84,7 @@ export async function apiRequest<T>(
       );
     }
 
-    if (
-      typeof payload !== "object" ||
-      payload === null ||
-      typeof (payload as { ok?: unknown }).ok !== "boolean"
-    ) {
+    if (!resultEnvelopeSchema.safeParse(payload).success) {
       return fail(
         "INVALID_RESPONSE",
         "Expected the API to return a Result<T> envelope ({ ok, data | error }).",

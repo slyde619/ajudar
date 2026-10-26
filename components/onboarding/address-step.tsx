@@ -1,16 +1,16 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { CheckIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { LgaPicker } from "@/components/location/lga-picker";
 import { Textarea } from "@/components/ui/textarea";
+import { MAX_SERVED_LGAS, addressStepSchema } from "@/lib/schemas/onboarding";
 import type { ArtisanApplication, Lga, LgaCode } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { StepFooter } from "./step-footer";
 import { StepHeading } from "./step-heading";
 import { useStepSave } from "./use-step-save";
 
-const MAX_SERVED = 6;
 
 /** Onboarding step for the artisan's base and the LGAs they serve. */
 export function AddressStep({ application, lgas }: { application: ArtisanApplication; lgas: Lga[] }) {
@@ -22,7 +22,7 @@ export function AddressStep({ application, lgas }: { application: ArtisanApplica
   const homeLga = lgas.find((lga) => lga.code === home);
   const nearby = homeLga ? lgas.filter((lga) => lga.stateCode === homeLga.stateCode && lga.code !== home) : [];
   const chosen = served.filter((code) => code !== home);
-  const full = chosen.length + 1 >= MAX_SERVED;
+  const full = chosen.length + 1 >= MAX_SERVED_LGAS;
 
   function toggle(code: LgaCode) {
     setServed((current) => (current.includes(code) ? current.filter((entry) => entry !== code) : [...current, code]));
@@ -51,7 +51,7 @@ export function AddressStep({ application, lgas }: { application: ArtisanApplica
         <>
           <p className="mt-6 text-sm font-semibold text-ink-950">Where else will you go?</p>
           <p className="mt-1 text-xs text-ink-500" data-tabular>
-            Up to {MAX_SERVED - 1} more, close enough to reach within an hour. {chosen.length} picked.
+            Up to {MAX_SERVED_LGAS - 1} more, close enough to reach within an hour. {chosen.length} picked.
           </p>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {nearby.map((lga) => {
@@ -68,7 +68,7 @@ export function AddressStep({ application, lgas }: { application: ArtisanApplica
                     on ? "bg-ink-950 text-surface-raised ring-ink-950" : "bg-surface-raised text-ink-700 ring-line-300",
                   )}
                 >
-                  {on ? <Check className="size-3.5" aria-hidden /> : null}
+                  {on ? <CheckIcon className="size-3.5" aria-hidden /> : null}
                   {lga.name}
                 </button>
               );
@@ -80,7 +80,7 @@ export function AddressStep({ application, lgas }: { application: ArtisanApplica
       <StepFooter
         label="Continue"
         pending={pending}
-        disabled={baseAddress.trim().length < 8 || !home}
+        disabled={!home || !addressStepSchema.safeParse({ step: "address", baseAddress, homeLgaCode: home, servedLgaCodes: chosen }).success}
         error={error}
         onSubmit={() => home && save({ step: "address", baseAddress, homeLgaCode: home, servedLgaCodes: chosen })}
       />

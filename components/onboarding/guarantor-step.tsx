@@ -1,8 +1,9 @@
 "use client";
 
-import { Phone } from "lucide-react";
+import { PhoneIcon } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { guarantorStepSchema } from "@/lib/schemas/onboarding";
 import type { ArtisanApplication } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { StepFooter } from "./step-footer";
@@ -72,7 +73,7 @@ export function GuarantorStep({ application }: { application: ArtisanApplication
       </div>
 
       <div className="mt-6 flex gap-3 rounded-xl bg-surface-sunken p-4">
-        <Phone className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
+        <PhoneIcon className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
         <p className="text-sm leading-relaxed text-ink-700">
           Tell them to expect a call from ajudar. Most guarantors are confirmed within 2 days.
         </p>
@@ -81,7 +82,7 @@ export function GuarantorStep({ application }: { application: ArtisanApplication
       <StepFooter
         label="Continue"
         pending={pending}
-        disabled={name.trim().length < 4 || phone.replace(/\D/g, "").length < 10 || !relationship}
+        disabled={!guarantorStepSchema.safeParse({ step: "guarantor", name, phone, relationship }).success}
         error={error}
         onSubmit={() => save({ step: "guarantor", name, phone, relationship })}
       />

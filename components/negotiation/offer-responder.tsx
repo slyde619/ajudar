@@ -1,16 +1,18 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { MinusIcon, PlusIcon } from "@phosphor-icons/react/ssr";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import type { ActionState } from "@/app/_actions/booking";
 import { ActionButton } from "@/components/booking/action-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { COUNTER_STEP, REASON_MAX, counterReasonSchema } from "@/lib/schemas/booking";
 import type { Kobo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
 
-const STEP: Kobo = 50_000;
+const STEP: Kobo = COUNTER_STEP;
 
 export interface CounterOptions {
   min: Kobo;
@@ -34,15 +36,13 @@ export function OfferResponder({ accept, counter, release }: OfferResponderProps
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(counter ? Math.min(Math.max(counter.start, counter.min), counter.max) : 0);
   const [reason, setReason] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   function send() {
     if (!counter) return;
-    setError(null);
     startTransition(async () => {
       const result = await counter.send(amount, reason);
-      if (result) setError(result.error);
+      if (result) toast.error(result.error);
       else setOpen(false);
     });
   }
@@ -60,7 +60,7 @@ export function OfferResponder({ accept, counter, release }: OfferResponderProps
             disabled={amount - STEP < counter.min}
             onClick={() => setAmount((value) => value - STEP)}
           >
-            <Minus aria-hidden />
+            <MinusIcon aria-hidden />
           </Button>
           <p className="text-3xl font-semibold tracking-tight text-ink-950" data-tabular aria-live="polite">
             {formatNaira(amount)}
@@ -73,7 +73,7 @@ export function OfferResponder({ accept, counter, release }: OfferResponderProps
             disabled={amount + STEP > counter.max}
             onClick={() => setAmount((value) => value + STEP)}
           >
-            <Plus aria-hidden />
+            <PlusIcon aria-hidden />
           </Button>
         </div>
         <p className="mt-2 text-center text-xs text-ink-500" data-tabular>
@@ -102,21 +102,16 @@ export function OfferResponder({ accept, counter, release }: OfferResponderProps
         <Input
           id="counter-reason"
           value={reason}
-          maxLength={200}
+          maxLength={REASON_MAX}
           onChange={(event) => setReason(event.target.value)}
           placeholder={counter.placeholder}
           className="mt-2 h-12 rounded-xl bg-surface-raised px-4"
         />
-        {error ? (
-          <p role="alert" className="mt-2 text-sm text-danger-600">
-            {error}
-          </p>
-        ) : null}
         <div className="mt-4 grid grid-cols-[auto_1fr] gap-2">
           <Button variant="ghost" size="cta" onClick={() => setOpen(false)} disabled={pending}>
             Back
           </Button>
-          <Button variant="secondary" size="cta" onClick={send} disabled={pending || reason.trim().length < 3}>
+          <Button variant="secondary" size="cta" onClick={send} disabled={pending || !counterReasonSchema.safeParse(reason).success}>
             {pending ? "Sending…" : `Send ${formatNaira(amount)}`}
           </Button>
         </div>

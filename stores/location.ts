@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { persistedLocationSchema } from "@/lib/schemas/location";
 import type { JobSite, LocationState } from "@/lib/types";
 import { isStale } from "@/lib/utils/time";
 
@@ -47,6 +48,10 @@ export const useLocationStore = create<LocationStore>()(
           ? state.location
           : ({ status: "unknown" } as LocationState),
       }),
+      merge: (persisted, current) => {
+        const parsed = persistedLocationSchema.safeParse((persisted as { location?: unknown } | null)?.location);
+        return parsed.success ? { ...current, location: parsed.data } : current;
+      },
       onRehydrateStorage: () => (state) => {
         const location = state?.location;
         if (

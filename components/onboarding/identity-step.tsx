@@ -1,6 +1,6 @@
 "use client";
 
-import { ScanFace } from "lucide-react";
+import { UserFocusIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import { identitySessionAction } from "@/app/_actions/onboarding";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IdentityCaptureSheet } from "@/components/verification/identity-capture-sheet";
 import { VerificationChecklist } from "@/components/verification/verification-checklist";
+import { identityStepSchema } from "@/lib/schemas/onboarding";
 import type { ArtisanApplication } from "@/lib/types";
 import { StepFooter } from "./step-footer";
 import { StepHeading } from "./step-heading";
@@ -65,7 +66,7 @@ export function IdentityStep({ application }: { application: ArtisanApplication 
       ) : null}
 
       <div className="mt-6 flex gap-3 rounded-xl bg-surface-sunken p-4">
-        <ScanFace className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
+        <UserFocusIcon className="mt-0.5 size-5 shrink-0 text-ink-700" aria-hidden />
         <p className="text-sm leading-relaxed text-ink-700">
           Smile ID checks the selfie is a live person and matches the photo on your NIN record. ajudar never sees your full NIN after this.
         </p>
@@ -74,7 +75,7 @@ export function IdentityStep({ application }: { application: ArtisanApplication 
       <StepFooter
         label="Take ID photo and selfie"
         pending={pending}
-        disabled={nin.length !== 11}
+        disabled={!identityStepSchema.shape.nin.safeParse(nin).success}
         error={error}
         onSubmit={() => setOpen(true)}
       />

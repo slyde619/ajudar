@@ -1,3 +1,4 @@
+import { socketMessageSchema } from "@/lib/schemas/realtime";
 import type {
   RealtimeBatch,
   RealtimeEvent,
@@ -166,15 +167,18 @@ export function socketTransport(url: string): TransportFactory {
     };
 
     const onMessage = (raw: MessageEvent) => {
-      let message: { type?: string; event?: RealtimeEvent; topic?: RealtimeTopic; cursor?: number };
+      let payload: unknown;
       try {
-        message = JSON.parse(String(raw.data));
+        payload = JSON.parse(String(raw.data));
       } catch {
         return;
       }
-      if (message.type === "event" && message.event) {
+      const parsed = socketMessageSchema.safeParse(payload);
+      if (!parsed.success) return;
+      const message = parsed.data;
+      if (message.type === "event") {
         deliver({ events: [message.event], cursors: {}, resync: [] });
-      } else if ((message.type === "cursor" || message.type === "resync") && message.topic && typeof message.cursor === "number") {
+      } else {
         deliver({
           events: [],
           cursors: { [message.topic]: message.cursor },
