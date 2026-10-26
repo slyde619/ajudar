@@ -10,6 +10,7 @@ const PAYOUT: Record<PayoutStatus, { label: string; tone: StatusTone }> = {
   in_escrow: { label: "In escrow", tone: "neutral" },
   released: { label: "Released", tone: "success" },
   paid_out: { label: "Paid out", tone: "neutral" },
+  refunded: { label: "Refunded", tone: "neutral" },
 };
 
 /** Artisan earnings split into held, available and paid out. */
