@@ -12,5 +12,4 @@ export type * from "./customer";
 export type * from "./supply";
 export type * from "./onboarding";
 export type * from "./realtime";
-export type * from "./admin";
 export type * from "./api";
