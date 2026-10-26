@@ -7,7 +7,6 @@ export type NavDirection = "forward" | "back" | "none";
 interface NavState {
   pathname: string;
   direction: NavDirection;
-  /** Non-reactive read/write map. Read via getState() to avoid scroll re-renders. */
   scrollPositions: Map<string, number>;
   syncRoute: (nextPathname: string) => void;
   rememberScroll: (pathname: string, y: number) => void;

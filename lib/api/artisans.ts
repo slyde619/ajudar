@@ -1,9 +1,12 @@
+import { connection } from "next/server";
 import type {
   ArtisanProfile,
   Paginated,
   Result,
+  Review,
   Trade,
 } from "@/lib/types";
+import { listMockReviews } from "@/lib/mock/booking";
 import {
   getMockArtisanById,
   listMockArtisans,
@@ -52,4 +55,12 @@ export async function getArtisan(
   }
 
   return apiRequest<ArtisanProfile>(endpoints.artisans.detail(id));
+}
+
+export async function listArtisanReviews(id: string): Promise<Result<Review[]>> {
+  if (isMockMode()) {
+    await connection();
+    return ok(structuredClone(listMockReviews(id)));
+  }
+  return apiRequest<Review[]>(endpoints.artisans.reviews(id));
 }

@@ -1,85 +1,149 @@
-# ajudar
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/graph.svg?title=ajudar&subtitle=Verified+artisans%2C+fair+prices%2C+escrow-backed+jobs+across+Nigeria&align=left&theme=zinc&mode=dark" />
+    <img alt="ajudar: verified artisans, fair prices, escrow-backed jobs across Nigeria" src="https://shieldcn.dev/header/graph.svg?title=ajudar&subtitle=Verified+artisans%2C+fair+prices%2C+escrow-backed+jobs+across+Nigeria&align=left&theme=zinc&mode=light" />
+  </picture>
+</p>
 
-A two-sided artisan marketplace for Nigeria. Verified supply, structured bargaining, escrow-backed payment, and live job tracking. Lagos and Abia are the pilot states.
+<p align="center">
+  <a href="https://nextjs.org">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Next.js-16.svg?logo=nextdotjs&variant=secondary&mode=dark" />
+      <img alt="Next.js 16" src="https://shieldcn.dev/badge/Next.js-16.svg?logo=nextdotjs&variant=secondary&mode=light" />
+    </picture>
+  </a>
+  <a href="https://react.dev">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/React-19.svg?logo=react&variant=secondary&mode=dark" />
+      <img alt="React 19" src="https://shieldcn.dev/badge/React-19.svg?logo=react&variant=secondary&mode=light" />
+    </picture>
+  </a>
+  <a href="https://www.typescriptlang.org">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/TypeScript-strict.svg?logo=typescript&variant=secondary&mode=dark" />
+      <img alt="TypeScript strict" src="https://shieldcn.dev/badge/TypeScript-strict.svg?logo=typescript&variant=secondary&mode=light" />
+    </picture>
+  </a>
+  <a href="https://tailwindcss.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Tailwind_CSS-4.svg?logo=tailwindcss&variant=secondary&mode=dark" />
+      <img alt="Tailwind CSS 4" src="https://shieldcn.dev/badge/Tailwind_CSS-4.svg?logo=tailwindcss&variant=secondary&mode=light" />
+    </picture>
+  </a>
+  <a href="https://maplibre.org">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/MapLibre_GL-6.svg?logo=maplibre&variant=secondary&mode=dark" />
+      <img alt="MapLibre GL 6" src="https://shieldcn.dev/badge/MapLibre_GL-6.svg?logo=maplibre&variant=secondary&mode=light" />
+    </picture>
+  </a>
+</p>
 
-**`project.md` is the source of truth.** Every decision lives there. If a change isn't specified, ask before inventing it.
+A two-sided artisan marketplace for Nigeria: verified artisans, structured price negotiation, escrow-backed payment and live job tracking. Rivers and Akwa Ibom are the launch states.
+
+This repo is the customer and artisan web app. It runs entirely on mock data by default, so every flow can be tried end to end without a backend.
 
 ## Stack
 
-Next.js 16 App Router · TypeScript strict · Tailwind CSS 4.3 · shadcn/ui (Radix, owned components) · Framer Motion · Zustand · Lucide · vaul · MapLibre GL (OpenFreeMap tiles, no key).
+Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui on Base UI · Framer Motion · Zustand · Lucide · MapLibre GL with OpenFreeMap tiles.
 
-Node `>=24.22.1` (patched v24 LTS), pnpm `10.32.1`.
+Node `>=24.22.1`, pnpm `10.34.9`.
 
-## Commands
+## Getting started
 
 ```bash
 pnpm install
 pnpm dev        # http://localhost:3000
+```
+
+Other scripts:
+
+```bash
 pnpm typecheck  # tsc --noEmit
 pnpm lint
 pnpm build
 pnpm start
 ```
 
-Copy `.env.example` to `.env.local` when you need live APIs:
+Copy `.env.example` to `.env.local` to change the data source:
 
 ```bash
 NEXT_PUBLIC_API_MODE=mock   # mock | live
 NEXT_PUBLIC_API_BASE_URL=   # empty = same origin
 ```
 
-## Architecture
+Geolocation on a phone needs HTTPS. Use `pnpm dev --experimental-https` or a tunnel when testing "Use my location" from another device.
 
-The binding contract is `project.md` §20. In short:
+## Demo identities
 
-```
-app/                     route composition only
-components/ui/           shadcn primitives + token-level variants
-components/shell/        dock, sidebar, header, transitions, scroll restore
-components/<domain>/     pure presentational components (props in, JSX out)
-components/map/          the ONLY place map libraries may be imported
-stores/                  client cross-screen state (nav, job, location)
-lib/types/               the data contract
-lib/api/                 the data boundary (mock | live)
-lib/mock/                mock adapters — imported only by lib/api
-lib/utils/               pure helpers
-```
+There is no sign-in yet. In mock mode you act as:
 
-Rules that matter day to day:
+- **Adaeze**, the customer, on the customer routes
+- **Chinedu**, the artisan, on `/artisan`
+- a fresh applicant on `/artisan/onboarding`
 
-- Components are pure functions of props/state. Side effects live in shell components or hooks.
-- Screens import `lib/api/`, never `lib/mock/`.
-- All domain types change in `lib/types/index.ts` first.
-- Money is integer kobo. Format in `lib/utils/money.ts` when that phase lands.
-- No `tailwind.config.ts`; theme tokens live in `app/globals.css` `@theme`.
-- Yellow is a fill, never text or a status colour.
-- No z-index outside the layer stack (§9.1).
+Open the customer and artisan sides in two tabs to play both halves of a job. Other customers and artisans are simulated on timers.
 
 ## Routes
 
-| Route | Status |
-| --- | --- |
-| `/` | Landing placeholder (Phase 6 builds the narrative) |
-| `/signup` | Structural placeholder (auth spec pending) |
-| `/onboarding` | Location gate — GPS → pin confirm → landmark, or manual LGA picker |
-| `/dashboard` | Customer home, lorem content |
-| `/jobs` | Customer jobs list (mock API) |
-| `/jobs/[id]` | Live tracking — map + route + ETA sheet (try `job_001`) |
-| `/messages` | Customer messages, lorem content |
-| `/profile` | Customer profile, lorem content |
+**Marketing and entry**
 
-Entry flow: landing → signup → onboarding → dashboard.
+| Route         | What it does                                                            |
+| ------------- | ----------------------------------------------------------------------- |
+| `/`           | Landing page                                                            |
+| `/signup`     | Choose the customer or artisan side                                     |
+| `/onboarding` | Location gate: GPS, pin confirmation and landmark, or manual LGA picker |
 
-## Current phase
+**Customer**
 
-Phases 1–3 are built: foundation, shell, and core interaction (map canvas, live tracking shell, location gate). Phase 4 (booking loop) is next.
+| Route              | What it does                                                             |
+| ------------------ | ------------------------------------------------------------------------ |
+| `/dashboard`       | Home with service categories                                             |
+| `/booking/new`     | Describe a job: text, photos, location, urgency                          |
+| `/booking/[jobId]` | Estimate, artisan offers, negotiation and escrow payment                 |
+| `/artisans/[id]`   | Artisan profile and verification signals                                 |
+| `/jobs`            | Active and past jobs                                                     |
+| `/jobs/[id]`       | Live tracking, on-arrival check, work status, completion code and rating |
+| `/messages`        | Message threads                                                          |
+| `/profile`         | Customer profile                                                         |
 
-Phone check for Phase 3: open `/onboarding` and `/jobs/job_001` from the Network URL. Geolocation on a phone needs HTTPS — use `pnpm dev --experimental-https` or a tunnel when testing "Use my location".
+**Artisan**
 
-## Fonts
+| Route                        | What it does                                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------------------------- |
+| `/artisan`                   | Request feed over a coverage map, with an availability toggle                                     |
+| `/artisan/requests/[jobId]`  | Accept, counter or pass on a request                                                              |
+| `/artisan/jobs`              | Active and past jobs                                                                              |
+| `/artisan/jobs/[id]`         | Negotiation, navigation, arrival selfie, work stages and code entry                               |
+| `/artisan/earnings`          | Held, released and paid-out earnings                                                              |
+| `/artisan/onboarding`        | Step-by-step verification: profile, identity, guarantor, portfolio, skill video, address, consent |
+| `/artisan/onboarding/status` | Application review status                                                                         |
+| `/artisan/profile`           | Artisan profile                                                                                   |
 
-DM Sans is vendored in `app/fonts/dm-sans` (SIL OFL) and Geist Mono ships through the `geist` package. Nothing fetches from Google Fonts at build time.
+## Project structure
 
-## References
+```
+app/                     routes (marketing, auth, customer, artisan) and Server Actions
+components/ui/           shadcn primitives with token-level variants
+components/shell/        app shell, dock, header, transitions, realtime refresh
+components/<domain>/     presentational components (booking, negotiation, supply, …)
+components/map/          map canvas, overlays and shells; the only place map libraries are imported
+hooks/                   client hooks (location, tracking, realtime, uploads, …)
+stores/                  client state shared across screens
+lib/types/               domain types
+lib/api/                 data access, switching between mock and live
+lib/mock/                in-memory mock backend, used only by lib/api
+lib/utils/               pure helpers (money, time, geo, verification)
+```
 
-Design references, reuse order, and the pure-component checklist are in `project.md` §21 and §20.
+Conventions:
+
+- Components are pure: props in, JSX out. Side effects live in shell components or hooks.
+- Screens import from `lib/api/`, never `lib/mock/`.
+- Money is integer kobo. Format it with `lib/utils/money.ts`.
+- Theme tokens live in `app/globals.css` under `@theme`; there is no `tailwind.config.ts`.
+
+## Attribution
+
+- DM Sans is vendored in `app/fonts/dm-sans` under the SIL Open Font License. Geist Mono ships through the `geist` package.
+- LGA boundaries in `public/geo/lga-boundaries.json` come from geoBoundaries (gbOpen NGA ADM2, GRID3), CC BY 4.0.
+- Map tiles are served by OpenFreeMap. Map data is © OpenStreetMap contributors.

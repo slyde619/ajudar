@@ -8,10 +8,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import type { StatusTone } from "@/components/ui/status-badge";
 
 const categories = [
-  { label: "Plumbing", hint: "Leaks, pipes, tanks", icon: Wrench },
-  { label: "Electrical", hint: "Wiring, sockets", icon: PlugZap },
-  { label: "Carpentry", hint: "Doors, wardrobes", icon: Hammer },
-  { label: "Painting", hint: "Interior, texture", icon: PaintRoller },
+  { label: "Plumbing", hint: "Leaks, pipes, tanks", icon: Wrench, slug: "plumbing-repair" },
+  { label: "Electrical", hint: "Wiring, sockets", icon: PlugZap, slug: "electrical-repair" },
+  { label: "Carpentry", hint: "Doors, wardrobes", icon: Hammer, slug: "carpentry" },
+  { label: "Painting", hint: "Interior, texture", icon: PaintRoller, slug: "painting" },
 ];
 
 const recentJobs: Array<{
@@ -23,14 +23,14 @@ const recentJobs: Array<{
 }> = [
   {
     title: "Burst pipe under the kitchen sink",
-    location: "Ikeja, Lagos",
+    location: "Rumuola, Port Harcourt",
     when: "Today",
     status: "En route",
     tone: "warning",
   },
   {
     title: "Bedroom AC servicing",
-    location: "Umuahia South, Abia",
+    location: "Ewet Housing, Uyo",
     when: "Yesterday",
     status: "Completed",
     tone: "success",
@@ -40,7 +40,7 @@ const recentJobs: Array<{
 export default function DashboardPage() {
   return (
     <>
-      <StickyHeader title="ajudar" subtitle="Lagos · Abia pilot" />
+      <StickyHeader title="ajudar" subtitle="Rivers · Akwa Ibom" />
 
       <div className="mx-auto w-full max-w-3xl px-4 pt-5 pb-8 lg:px-8 lg:pt-8">
         <p className="font-mono text-[11px] tracking-widest text-ink-500 uppercase">
@@ -51,11 +51,11 @@ export default function DashboardPage() {
         </h2>
 
         <Button
-          asChild
           size="lg"
+          nativeButton={false}
+          render={<Link href="/jobs" />}
           className="mt-5 h-auto w-full justify-between rounded-xl px-5 py-4 text-left whitespace-normal"
         >
-          <Link href="/jobs">
             <span className="flex flex-col items-start gap-0.5">
               <span className="text-sm font-semibold">
                 Find a verified artisan
@@ -65,14 +65,13 @@ export default function DashboardPage() {
               </span>
             </span>
             <ArrowUpRight className="size-5" aria-hidden />
-          </Link>
         </Button>
 
         <section className="mt-7" aria-labelledby="categories-heading">
           <SectionHeading id="categories-heading" title="Categories" />
           <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {categories.map((category) => (
-              <CategoryTile key={category.label} {...category} />
+            {categories.map(({ slug, ...category }) => (
+              <CategoryTile key={slug} href={`/booking/new?category=${slug}`} {...category} />
             ))}
           </div>
         </section>

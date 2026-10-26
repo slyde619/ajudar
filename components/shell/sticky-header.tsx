@@ -11,7 +11,7 @@ interface StickyHeaderProps {
   action?: React.ReactNode;
 }
 
-/** Hides on scroll down, reveals on scroll up (200ms, §9.3). */
+/** Header that hides on scroll down and reveals on scroll up. */
 export function StickyHeader({
   title,
   subtitle,

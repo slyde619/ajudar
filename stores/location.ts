@@ -5,10 +5,6 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import type { JobSite, LocationState } from "@/lib/types";
 import { isStale } from "@/lib/utils/time";
 
-/**
- * The §10.5 location state machine. Only `confirmed` and `manual` unlock
- * matching. Transient states (`requesting`, `resolving`) are never persisted.
- */
 interface LocationStore {
   location: LocationState;
   request: () => void;
@@ -44,7 +40,6 @@ export const useLocationStore = create<LocationStore>()(
     {
       name: "ajudar.location",
       version: 1,
-      // Rehydrated after mount by useLocation() so SSR and first paint agree.
       skipHydration: true,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
@@ -67,7 +62,6 @@ export const useLocationStore = create<LocationStore>()(
   ),
 );
 
-/** The site that matching may use, or null when location is not settled. */
 export function matchableSite(location: LocationState): JobSite | null {
   return location.status === "confirmed" || location.status === "manual"
     ? location.site

@@ -22,10 +22,7 @@ function SignalIcon({ signal }: { signal: VerificationSignal }) {
   );
 }
 
-/**
- * §11.1 signal strip. Pure. Each pill reads on its own; "New" is visually
- * distinct from unverified (§11 L5).
- */
+/** Strip of verification signal pills for an artisan. */
 export function VerificationStrip({ signals, className }: VerificationStripProps) {
   return (
     <ul className={cn("flex flex-wrap gap-1.5", className)} aria-label="Verification">

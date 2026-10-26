@@ -16,11 +16,6 @@ export async function getLga(code: string): Promise<Result<Lga>> {
   return apiRequest<Lga>(endpoints.geo.lga(code));
 }
 
-/**
- * LGA eligibility polygons ship as a static asset in both modes (§10.2):
- * the pilot states' boundaries are ~13 KB gzipped and change rarely.
- * Source: geoBoundaries gbOpen NGA ADM2 (GRID3), CC BY 4.0.
- */
 export async function fetchLgaBoundaries(): Promise<Result<LgaBoundary[]>> {
   try {
     const response = await fetch(endpoints.geo.boundaries);

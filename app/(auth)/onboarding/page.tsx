@@ -1,8 +1,15 @@
+import { Suspense } from "react";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { LocationGate } from "@/components/location/location-gate";
 import { listLgas } from "@/lib/api/geo";
 
-export default async function OnboardingPage() {
+function safeNext(value: string | string[] | undefined): string {
+  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
+    ? value
+    : "/dashboard";
+}
+
+export default async function OnboardingPage({ searchParams }: PageProps<"/onboarding">) {
   const lgasResult = await listLgas();
   const lgas = lgasResult.ok ? lgasResult.data : [];
 
@@ -16,7 +23,11 @@ export default async function OnboardingPage() {
       </header>
 
       <div className="flex flex-1 flex-col pt-4 pb-6">
-        <LocationGate lgas={lgas} continueHref="/dashboard" />
+        <Suspense fallback={<div className="h-24 animate-pulse rounded-xl bg-surface-sunken" />}>
+          {searchParams.then(({ next }) => (
+            <LocationGate lgas={lgas} continueHref={safeNext(next)} />
+          ))}
+        </Suspense>
       </div>
     </main>
   );

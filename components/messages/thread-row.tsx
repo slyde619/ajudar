@@ -9,7 +9,7 @@ export interface ThreadRowProps {
   unread?: boolean;
 }
 
-/** Pure presentational row. */
+/** Message thread row. */
 export function ThreadRow({
   name,
   role,

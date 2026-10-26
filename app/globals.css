@@ -2,16 +2,19 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Dark styles only apply behind a .dark class, which the MVP never sets. */
 @custom-variant dark (&:is(.dark *));
 
+@custom-variant short {
+  @media (min-width: 48rem) and (max-height: 50rem) {
+    @slot;
+  }
+}
+
 @theme {
-  /* Surfaces */
   --color-surface-warm:  #F7F4EF;
   --color-surface-raised:#FFFFFF;
   --color-surface-sunken:#EFEAE2;
 
-  /* Ink */
   --color-ink-950: #1A1A18;
   --color-ink-800: #26241F;
   --color-ink-700: #3E2723;
@@ -19,18 +22,31 @@
   --color-ink-400: #9A9086;
   --color-ink-300: #C4BAAE;
 
-  /* Celo accent — fills only */
   --color-celo-50:  #FFFFF5;
   --color-celo-100: #FEFFD9;
   --color-celo-200: #FBFFB0;
   --color-celo-500: #FCFF52;
   --color-celo-600: #E8EB3A;
 
-  /* Lines */
+  --color-skin-500: #A26A48;
+  --color-skin-700: #6E4630;
+
+  --color-scene-sky:   #FDF1D3;
+  --color-scene-cloud: #FFFBF0;
+  --color-scene-leaf:  #1E9E5E;
+  --color-scene-palm:  #136B45;
+  --color-scene-creek: #6DB6E4;
+  --color-scene-clay:  #EE7F54;
+  --color-scene-rose:  #F6B3D0;
+  --color-scene-lilac: #D3CCF6;
+  --color-scene-mint:  #C4EEDC;
+  --color-scene-sand:  #F8DFAE;
+  --color-scene-peach: #FBD3BF;
+  --color-scene-blue:  #9CCBF2;
+
   --color-line-200: #E8E2D9;
   --color-line-300: #D6CFC3;
 
-  /* Status — never yellow */
   --color-danger-600:  #C0392B;
   --color-danger-100:  #F7E3E0;
   --color-success-600: #3A7D44;
@@ -38,11 +54,9 @@
   --color-warning-600: #B45309;
   --color-warning-100: #FBEEDC;
 
-  /* Type */
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Radius */
   --radius-xs:   6px;
   --radius-sm:   8px;
   --radius-md:  12px;
@@ -51,16 +65,55 @@
   --radius-2xl: 24px;
   --radius-pill: 999px;
 
-  /* Elevation */
   --shadow-card:  0 1px 2px rgb(26 26 24 / 0.04), 0 2px 8px rgb(26 26 24 / 0.04);
   --shadow-sheet: 0 -4px 24px rgb(26 26 24 / 0.10);
   --shadow-dock:  0 -1px 0 var(--color-line-200), 0 -8px 24px rgb(26 26 24 / 0.06);
   --shadow-pop:   0 8px 32px rgb(26 26 24 / 0.14);
 
-  /* Motion */
   --ease-out-quint:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-quint:cubic-bezier(0.83, 0, 0.17, 1);
   --ease-spring:     cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  --animate-ripple: ripple 2.8s var(--ease-out-quint) infinite;
+
+  @keyframes ripple {
+    from { transform: scale(0.35); opacity: 0.55; }
+    to   { transform: scale(1);    opacity: 0; }
+  }
+
+  --animate-drift: drift 40s ease-in-out infinite alternate;
+  --animate-bob:   bob 3.2s ease-in-out infinite;
+
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --animate-stage-rise: stage-rise 1000ms var(--ease-drawer) 150ms both;
+  --animate-drop-in:    drop-in 600ms var(--ease-out-strong) both;
+  --animate-settle-in:  settle-in 700ms var(--ease-out-strong) both;
+
+  @keyframes stage-rise {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  @keyframes drop-in {
+    from { transform: translateY(-140%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes settle-in {
+    from { transform: translateY(18px); opacity: 0; filter: blur(6px); }
+    to   { transform: translateY(0); opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes drift {
+    from { transform: translateX(-8%); }
+    to   { transform: translateX(8%); }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+    50%      { transform: translateY(-8px) rotate(var(--tilt, 0deg)); }
+  }
 }
 
 :root {
@@ -150,8 +203,6 @@
 
   [data-tabular] { font-variant-numeric: tabular-nums; }
 
-  /* Mobile platform baseline — 16px inputs stop iOS focus zoom; controls
-     get immediate tap feedback and never select text on long-press. */
   input, textarea, select { font-size: 16px; }
 
   button, a, [role="button"] {

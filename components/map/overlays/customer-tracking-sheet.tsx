@@ -14,7 +14,7 @@ import type {
 import { formatDistance } from "@/lib/utils/geo";
 import { formatNaira } from "@/lib/utils/money";
 import { formatAgo, formatClock, formatDuration } from "@/lib/utils/time";
-import { deriveVerificationSignals, initialsOf } from "@/lib/utils/verification";
+import { deriveVerificationSignals, firstName, initialsOf, TRADE_LABEL } from "@/lib/utils/verification";
 
 export interface CustomerTrackingSheetProps {
   job: JobRequest;
@@ -24,29 +24,7 @@ export interface CustomerTrackingSheetProps {
   now: IsoDateTime | null;
 }
 
-const TRADE_LABEL: Record<ArtisanProfile["trade"], string> = {
-  plumber: "Plumber",
-  electrician: "Electrician",
-  carpenter: "Carpenter",
-  painter: "Painter",
-  tiler: "Tiler",
-  welder: "Welder",
-  ac_technician: "AC technician",
-  generator_mechanic: "Generator mechanic",
-  locksmith: "Locksmith",
-  cleaner: "Cleaner",
-  mason: "Mason",
-  roofer: "Roofer",
-};
-
-function firstName(name: string): string {
-  return name.split(" ")[0] ?? name;
-}
-
-/**
- * Travel-mode sheet content. Pure: the shell owns polling, the drawer and the
- * layout. Peek shows the promise (ETA), half shows who, full shows the rest.
- */
+/** Customer travel-mode sheet with the ETA, the artisan and the job details. */
 export function CustomerTrackingSheet({
   job,
   artisan,
@@ -60,7 +38,6 @@ export function CustomerTrackingSheet({
 
   return (
     <div className="flex flex-col px-5 pb-safe">
-      {/* Peek — the promise */}
       <section aria-live="polite" className="pt-3 pb-4">
         <div className="flex items-center justify-between gap-3">
           <p className="font-mono text-[10px] tracking-[0.16em] text-ink-500 uppercase">
@@ -97,7 +74,6 @@ export function CustomerTrackingSheet({
 
       <Separator />
 
-      {/* Half — who is coming */}
       <section className="py-5" aria-labelledby="artisan-heading">
         <div className="flex items-center gap-3.5">
           <Avatar className="size-14">
@@ -118,24 +94,29 @@ export function CustomerTrackingSheet({
         <VerificationStrip signals={deriveVerificationSignals(artisan)} className="mt-4" />
 
         <div className="mt-5 grid grid-cols-2 gap-2.5">
-          <Button asChild variant="secondary" className="h-12 rounded-xl text-sm">
-            <a href={`tel:${artisan.phone}`}>
-              <Phone aria-hidden />
-              Call
-            </a>
+          <Button
+            variant="secondary"
+            nativeButton={false}
+            render={<a href={`tel:${artisan.phone}`} />}
+            className="h-12 rounded-xl text-sm"
+          >
+            <Phone aria-hidden />
+            Call
           </Button>
-          <Button asChild variant="outline" className="h-12 rounded-xl bg-surface-raised text-sm">
-            <Link href="/messages">
-              <MessageSquare aria-hidden />
-              Message
-            </Link>
+          <Button
+            variant="outline"
+            nativeButton={false}
+            render={<Link href="/messages" />}
+            className="h-12 rounded-xl bg-surface-raised text-sm"
+          >
+            <MessageSquare aria-hidden />
+            Message
           </Button>
         </div>
       </section>
 
       <Separator />
 
-      {/* Full — where, how much, and the honest small print */}
       <section className="space-y-3 py-5">
         <div className="flex gap-3 rounded-xl bg-surface-warm p-4">
           <MapPin className="mt-0.5 size-4 shrink-0 text-ink-700" aria-hidden />

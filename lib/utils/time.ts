@@ -1,9 +1,4 @@
-import type { IsoDateTime } from "@/lib/types";
-
-/**
- * Pure time formatting. Callers pass `now` explicitly so components stay
- * pure (§20.2) — nothing here reads the clock.
- */
+import type { IsoDateTime, JobTiming } from "@/lib/types";
 
 const LAGOS_TZ = "Africa/Lagos";
 
@@ -20,12 +15,27 @@ const dateFormatter = new Intl.DateTimeFormat("en-NG", {
   timeZone: LAGOS_TZ,
 });
 
-/** "25 Oct" */
 export function formatShortDate(iso: IsoDateTime): string {
   return dateFormatter.format(new Date(iso));
 }
 
-/** "2:14pm" */
+const dayFormatter = new Intl.DateTimeFormat("en-NG", {
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+  timeZone: LAGOS_TZ,
+});
+
+export function formatDay(iso: IsoDateTime): string {
+  return dayFormatter.format(new Date(iso)).replace(",", "");
+}
+
+export function formatTiming(timing: JobTiming): string {
+  if (timing.mode === "now") return "Now";
+  const end = new Date(Date.parse(timing.scheduledFor) + timing.windowMinutes * 60_000).toISOString();
+  return `${formatDay(timing.scheduledFor)}, ${formatClock(timing.scheduledFor)}–${formatClock(end)}`;
+}
+
 export function formatClock(iso: IsoDateTime): string {
   return clockFormatter
     .format(new Date(iso))
@@ -37,7 +47,6 @@ export function minutesBetween(from: IsoDateTime, to: IsoDateTime): number {
   return Math.round((Date.parse(to) - Date.parse(from)) / 60_000);
 }
 
-/** "just now" · "2 min ago" · "1 hr ago" — honest freshness, §10.6. */
 export function formatAgo(iso: IsoDateTime, now: IsoDateTime): string {
   const seconds = Math.max(0, Math.round((Date.parse(now) - Date.parse(iso)) / 1000));
   if (seconds < 20) return "just now";
@@ -48,7 +57,6 @@ export function formatAgo(iso: IsoDateTime, now: IsoDateTime): string {
   return `${hours} hr ago`;
 }
 
-/** "8 min" · "1 hr 5 min" */
 export function formatDuration(totalSeconds: number): string {
   const minutes = Math.max(1, Math.round(totalSeconds / 60));
   if (minutes < 60) return `${minutes} min`;
@@ -59,7 +67,6 @@ export function formatDuration(totalSeconds: number): string {
 
 const STALE_AFTER_MS = 30 * 60_000;
 
-/** Location older than 30 min is `stale` (§10.5). */
 export function isStale(resolvedAt: IsoDateTime, now: IsoDateTime): boolean {
   return Date.parse(now) - Date.parse(resolvedAt) > STALE_AFTER_MS;
 }

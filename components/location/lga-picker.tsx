@@ -12,7 +12,7 @@ interface LgaPickerProps {
   onChange: (code: LgaCode) => void;
 }
 
-/** Owns only its own filter state; the chosen LGA is controlled. */
+/** Searchable LGA list for manual location entry. */
 export function LgaPicker({ lgas, value, onChange }: LgaPickerProps) {
   const states = useMemo(() => {
     const seen = new Map<StateCode, string>();

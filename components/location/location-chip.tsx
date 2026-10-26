@@ -15,7 +15,7 @@ const PRECISION_LABEL: Record<LocationChipProps["precision"], string> = {
   stale: "Update location",
 };
 
-/** Pure address chip with LGA (§10.5 `confirmed` UI). */
+/** Address chip with the LGA and location precision. */
 export function LocationChip({ area, landmark, precision, action, className }: LocationChipProps) {
   return (
     <div className={cn("flex items-start gap-3 rounded-xl bg-surface-raised p-4 ring-1 ring-line-200", className)}>

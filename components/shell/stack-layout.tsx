@@ -22,11 +22,7 @@ function directionBetween(
   return "none";
 }
 
-/**
- * Direction-aware push/pop. State is adjusted during render (the documented
- * React pattern) so the entering page gets the right offset on its first
- * committed frame without mutating refs or reading the DOM.
- */
+/** Direction-aware push and pop page transitions. */
 export function StackLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const syncRoute = useNavStore((state) => state.syncRoute);

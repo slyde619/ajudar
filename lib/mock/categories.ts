@@ -1,10 +1,5 @@
 import type { TradeCategory } from "@/lib/types";
 
-/**
- * Per-category negotiation rules (project.md §12.4).
- * Bounded categories: ±band, 3 rounds, 2-hour window.
- * Fixed/none categories: rate card is final, no negotiation rounds.
- */
 export const categories = [
   {
     id: "cat_plumbing_repair",

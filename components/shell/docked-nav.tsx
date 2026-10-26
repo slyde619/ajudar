@@ -50,7 +50,6 @@ export function DockedNav({ role }: { role: AppRole }) {
 
   return (
     <>
-      {/* Mobile dock — 4 tabs, safe-area padding, content blurs underneath. */}
       <nav
         aria-label="Primary"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-line-200 bg-background/80 pb-safe backdrop-blur-xl lg:hidden"
@@ -100,7 +99,6 @@ export function DockedNav({ role }: { role: AppRole }) {
         </ul>
       </nav>
 
-      {/* Desktop sidebar — same data, different shell. */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-line-200 bg-background pt-safe lg:flex">
         <BrandMark href={homeHref} className="px-6 pt-6 pb-8" />
 
@@ -141,7 +139,7 @@ export function DockedNav({ role }: { role: AppRole }) {
         </nav>
 
         <p className="px-6 pb-6 font-mono text-[10px] tracking-wider text-ink-400 uppercase">
-          Lagos · Abia
+          Rivers · Akwa Ibom
         </p>
       </aside>
     </>

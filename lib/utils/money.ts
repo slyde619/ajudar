@@ -1,10 +1,5 @@
 import type { Kobo } from "@/lib/types";
 
-/**
- * Kobo ↔ ₦ formatting. Integer maths only (§3, §20.1.9). Components never
- * divide by 100 themselves; they call these.
- */
-
 const KOBO_PER_NAIRA = 100;
 
 function assertKobo(amount: Kobo): void {
@@ -17,7 +12,6 @@ function groupThousands(value: number): string {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-/** ₦32,000 — whole naira, kobo shown only when non-zero (₦32,000.50). */
 export function formatNaira(amount: Kobo): string {
   assertKobo(amount);
   const sign = amount < 0 ? "−" : "";
@@ -28,7 +22,6 @@ export function formatNaira(amount: Kobo): string {
   return `${sign}₦${groupThousands(naira)}${fraction}`;
 }
 
-/** ₦32k / ₦1.2m — for tight spaces like chips and map labels. */
 export function formatNairaCompact(amount: Kobo): string {
   assertKobo(amount);
   const naira = Math.trunc(amount / KOBO_PER_NAIRA);

@@ -7,7 +7,7 @@ import {
   type Map as MapLibreMap,
   type StyleSpecification,
 } from "maplibre-gl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import MapGL, {
   Layer,
   Marker,
@@ -18,14 +18,6 @@ import MapGL, {
 import type { Coordinates, GeoPolygon } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-/**
- * ⚠ The ONLY file that imports a map library (§6.2.1). Every shell composes
- * this component through its props; swapping providers is one file.
- */
-
-/* MapLibre resolves its worker next to its own module URL, which the bundler
-   never emits. Point it at a bundler-emitted copy of the (self-contained)
-   worker instead. This module only ever loads client-side (ssr: false). */
 setWorkerUrl(
   new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).href,
 );
@@ -36,7 +28,6 @@ export interface MapMarker {
   id: string;
   kind: "artisan" | "site";
   position: Coordinates;
-  /** Initials for artisan pucks, accessible name for both. */
   label: string;
   initials?: string;
 }
@@ -47,7 +38,6 @@ export interface MapBoundary {
 }
 
 export interface MapFrame {
-  /** Change the key to re-frame (e.g. a "recenter" tap). */
   key: string;
   bounds: [LngLat, LngLat];
   padding: { top: number; right: number; bottom: number; left: number };
@@ -61,13 +51,10 @@ export interface MapCanvasProps {
   route?: LngLat[];
   boundary?: MapBoundary | null;
   interactive?: boolean;
-  /** Fires during movement (settled=false) and once it stops (settled=true). */
   onCenterChange?: (center: Coordinates, settled: boolean) => void;
   className?: string;
 }
 
-/* §8.4 muted dark canvas. Map GL paint cannot read CSS custom properties, so
-   these mirror tokens: celo-500, ink-950, danger-600 and the map greys. */
 const MAP = {
   land: "#1A1A1A",
   water: "#111213",
@@ -84,13 +71,11 @@ const MAP = {
 
 const STYLE_URL = "https://tiles.openfreemap.org/styles/dark";
 
-/** OSM / OpenMapTiles credits come from the style itself; add only ours. */
 const ATTRIBUTION =
   'Boundaries © <a href="https://www.geoboundaries.org" target="_blank" rel="noreferrer">geoBoundaries</a> (GRID3), CC BY 4.0';
 
 const HIDDEN_LAYER = /oneway|highway_name|railway|aeroway|boundary_country|place_country|place_state|water_name|waterway|ice|glacier/;
 
-/** Retints the OpenFreeMap dark style into the §8.4 palette, in place. */
 function applyMutedStyle(map: MapLibreMap): void {
   const style = map.getStyle() as StyleSpecification | undefined;
   for (const layer of style?.layers ?? []) {
@@ -119,7 +104,7 @@ function applyMutedStyle(map: MapLibreMap): void {
   }
 }
 
-/** Eases a marker between polled positions so it glides instead of jumping. */
+/** Eases a marker between positions so it glides instead of jumping. */
 function useGlidingPosition(target: Coordinates, durationMs = 1200): Coordinates {
   const [position, setPosition] = useState(target);
   const from = useRef(target);
@@ -177,6 +162,7 @@ function SitePin({ marker }: { marker: MapMarker }) {
   );
 }
 
+/** The app's only map-library component, drawing markers, routes and LGA boundaries from props. */
 export function MapCanvas({
   center,
   zoom = 14,
@@ -195,7 +181,6 @@ export function MapCanvas({
     const map = mapRef.current?.getMap();
     if (map) {
       applyMutedStyle(map);
-      // The compact control starts expanded; keep the map clear until tapped.
       map
         .getContainer()
         .querySelector(".maplibregl-ctrl-attrib")
@@ -203,6 +188,18 @@ export function MapCanvas({
     }
     setLoaded(true);
   }, []);
+
+  useLayoutEffect(() => () => setLoaded(false), []);
+
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!loaded || !map) return;
+    const handlers = [map.dragPan, map.scrollZoom, map.touchZoomRotate, map.doubleClickZoom, map.keyboard];
+    for (const handler of handlers) {
+      if (interactive) handler.enable();
+      else handler.disable();
+    }
+  }, [loaded, interactive]);
 
   const frameKey = frame?.key;
   useEffect(() => {
@@ -212,7 +209,6 @@ export function MapCanvas({
       duration: 700,
       maxZoom: 16,
     });
-    // Re-frame only when the key changes; bounds drift with every poll.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, frameKey]);
 
@@ -235,7 +231,6 @@ export function MapCanvas({
         onLoad={handleLoad}
         onMove={onCenterChange ? (event) => emitCenter(event, false) : undefined}
         onMoveEnd={onCenterChange ? (event) => emitCenter(event, true) : undefined}
-        interactive={interactive}
         dragRotate={false}
         pitchWithRotate={false}
         touchPitch={false}

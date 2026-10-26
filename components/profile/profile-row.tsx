@@ -1,4 +1,5 @@
 import { ChevronRight, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export interface ProfileRowProps {
@@ -6,22 +7,23 @@ export interface ProfileRowProps {
   label: string;
   meta?: string;
   tone?: "default" | "danger";
+  href?: string;
 }
 
-/** Pure presentational row. `danger` is the only non-neutral tone. */
+/** Profile row, as a button or a link. */
 export function ProfileRow({
   icon: Icon,
   label,
   meta,
   tone = "default",
+  href,
 }: ProfileRowProps) {
   const destructive = tone === "danger";
+  const className =
+    "flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-surface-sunken/60 active:bg-surface-sunken";
 
-  return (
-    <button
-      type="button"
-      className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-surface-sunken/60 active:bg-surface-sunken"
-    >
+  const content = (
+    <>
       <span
         className={cn(
           "flex h-9 w-9 items-center justify-center rounded-md",
@@ -55,6 +57,16 @@ export function ProfileRow({
           aria-hidden
         />
       )}
+    </>
+  );
+
+  return href ? (
+    <Link href={href} className={className}>
+      {content}
+    </Link>
+  ) : (
+    <button type="button" className={className}>
+      {content}
     </button>
   );
 }

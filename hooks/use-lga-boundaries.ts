@@ -9,13 +9,12 @@ type BoundariesState =
   | { status: "ready"; boundaries: LgaBoundary[] }
   | { status: "error"; message: string };
 
-/** One request per session; every consumer shares it. */
 let shared: Promise<BoundariesState> | null = null;
 
 function load(): Promise<BoundariesState> {
   shared ??= fetchLgaBoundaries().then((result) => {
     if (result.ok) return { status: "ready", boundaries: result.data } as const;
-    shared = null; // allow a retry on the next mount
+    shared = null;
     return { status: "error", message: result.error.message } as const;
   });
   return shared;

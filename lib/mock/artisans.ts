@@ -8,12 +8,12 @@ import type {
   RateCard,
   Trade,
 } from "@/lib/types";
+import { mockStore } from "./store";
 
 const NOW = "2026-10-25T18:40:00.000Z";
 const RATE_UPDATED = "2026-10-01T09:00:00.000Z";
 const COVERAGE_UPDATED = "2026-10-12T08:30:00.000Z";
 
-/** Mock seed data is authored in naira and converted to integer kobo. */
 function naira(amount: number): Kobo {
   return amount * 100;
 }
@@ -106,14 +106,14 @@ export const artisans = [
     phone: "+2348034125678",
     trade: "plumber",
     specialties: ["Burst pipes", "Water heater install", "Drain unblocking"],
-    bio: "Third-generation plumber working across Ikeja and Kosofe. I bring my own pressure kit and leave the site cleaner than I met it.",
+    bio: "Third-generation plumber working across Obio/Akpor and Port Harcourt. I bring my own pressure kit and leave the site cleaner than I met it.",
     yearsExperience: 11,
-    baseAddress: "32 Opebi Road, opposite First Bank, Opebi",
-    base: { lat: 6.5965, lng: 3.3562 },
-    coverage: coverage("NG-LA-IKEJA", [
-      "NG-LA-IKEJA",
-      "NG-LA-KOSOFE",
-      "NG-LA-LAGOS-MAINLAND",
+    baseAddress: "32 Ikwerre Road, opposite the market, Rumuokwuta",
+    base: { lat: 4.84, lng: 6.996 },
+    coverage: coverage("NG-RI-OBIO-AKPOR", [
+      "NG-RI-OBIO-AKPOR",
+      "NG-RI-PORT-HARCOURT",
+      "NG-RI-IKWERRE",
     ]),
     rateCard: rateCard(3000, 4500, 9000, 400),
     verification: verification({
@@ -153,14 +153,14 @@ export const artisans = [
     phone: "+2348067712345",
     trade: "electrician",
     specialties: ["Wiring faults", "Inverter install", "Socket repair"],
-    bio: "Certified electrician based in Lekki Phase 1. I diagnose before I quote, and I show you the faulty part before replacing it.",
+    bio: "Certified electrician based in Etinan. I diagnose before I quote, and I show you the faulty part before replacing it.",
     yearsExperience: 8,
-    baseAddress: "Blue building beside Ebeano Supermarket, Lekki Phase 1",
-    base: { lat: 6.4478, lng: 3.4723 },
-    coverage: coverage("NG-LA-ETI-OSA", [
-      "NG-LA-ETI-OSA",
-      "NG-LA-LAGOS-ISLAND",
-      "NG-LA-IKORODU",
+    baseAddress: "Blue building beside the pharmacy, Etinan main road",
+    base: { lat: 4.85, lng: 7.84 },
+    coverage: coverage("NG-AK-ETINAN", [
+      "NG-AK-ETINAN",
+      "NG-AK-NSIT-IBOM",
+      "NG-AK-UYO",
     ]),
     rateCard: rateCard(3500, 5000, 12000, 450),
     verification: verification({
@@ -199,14 +199,14 @@ export const artisans = [
     phone: "+2348023344556",
     trade: "carpenter",
     specialties: ["Custom wardrobes", "Door hanging", "Furniture repair"],
-    bio: "I build wardrobes and repair furniture in Surulere. Measurements are agreed before any wood is cut.",
+    bio: "I build wardrobes and repair furniture in Port Harcourt. Measurements are agreed before any wood is cut.",
     yearsExperience: 14,
-    baseAddress: "Shop 4, Bode Thomas junction, opposite GTBank",
-    base: { lat: 6.4969, lng: 3.3481 },
-    coverage: coverage("NG-LA-SURULERE", [
-      "NG-LA-SURULERE",
-      "NG-LA-LAGOS-MAINLAND",
-      "NG-LA-MUSHIN",
+    baseAddress: "Shop 4, Aba Road by Garrison junction, opposite GTBank",
+    base: { lat: 4.808, lng: 7.012 },
+    coverage: coverage("NG-RI-PORT-HARCOURT", [
+      "NG-RI-PORT-HARCOURT",
+      "NG-RI-IKWERRE",
+      "NG-RI-OKRIKA",
     ]),
     rateCard: rateCard(2500, 4000, 8000, 350),
     verification: verification({
@@ -244,14 +244,14 @@ export const artisans = [
     phone: "+2348091122334",
     trade: "painter",
     specialties: ["Interior painting", "Wall screeding", "Texture finish"],
-    bio: "Painter covering Alimosho and Agege. Two coats, drop sheets, and a written colour mix before work starts.",
+    bio: "Painter covering Ikwerre and Emohua. Two coats, drop sheets, and a written colour mix before work starts.",
     yearsExperience: 4,
-    baseAddress: "Block 12, Aboru junction, beside the mosque",
-    base: { lat: 6.6089, lng: 3.2792 },
-    coverage: coverage("NG-LA-ALIMOSHO", [
-      "NG-LA-ALIMOSHO",
-      "NG-LA-AGEGE",
-      "NG-LA-IFAKO-IJAIYE",
+    baseAddress: "Block 12, Isiokpo junction, beside the mosque",
+    base: { lat: 5.03, lng: 6.86 },
+    coverage: coverage("NG-RI-IKWERRE", [
+      "NG-RI-IKWERRE",
+      "NG-RI-EMOHUA",
+      "NG-RI-ETCHE",
     ]),
     rateCard: rateCard(2000, 3000, 7000, 300),
     verification: verification({
@@ -287,14 +287,14 @@ export const artisans = [
     phone: "+2348038877665",
     trade: "plumber",
     specialties: ["Tank installation", "Pump repair", "Leak detection"],
-    bio: "Umuahia-based plumber. I service overhead tanks and pumps, and I carry common spares so most jobs finish same day.",
+    bio: "Ikot Ekpene-based plumber. I service overhead tanks and pumps, and I carry common spares so most jobs finish same day.",
     yearsExperience: 9,
-    baseAddress: "Umuahia North, near Michael Okpara University junction",
-    base: { lat: 5.5301, lng: 7.4856 },
-    coverage: coverage("NG-AB-UMUAHIA-NORTH", [
-      "NG-AB-UMUAHIA-NORTH",
-      "NG-AB-UMUAHIA-SOUTH",
-      "NG-AB-IKWUANO",
+    baseAddress: "Ikot Ekpene, Aba Road, near the main market",
+    base: { lat: 5.18, lng: 7.71 },
+    coverage: coverage("NG-AK-IKOT-EKPENE", [
+      "NG-AK-IKOT-EKPENE",
+      "NG-AK-UYO",
+      "NG-AK-IBESIKPO-ASUTAN",
     ]),
     rateCard: rateCard(2500, 3500, 8000, 350),
     verification: verification({
@@ -333,14 +333,14 @@ export const artisans = [
     phone: "+2348054433221",
     trade: "cleaner",
     specialties: ["Post-construction cleaning", "Deep clean", "Move-out clean"],
-    bio: "Deep cleaning team lead in Aba South. I bring my own supplies and a written checklist for every room.",
+    bio: "Deep cleaning team lead in Abak. I bring my own supplies and a written checklist for every room.",
     yearsExperience: 6,
-    baseAddress: "Aba South, off Faulks Road, opposite the pharmacy",
-    base: { lat: 5.1017, lng: 7.3532 },
-    coverage: coverage("NG-AB-ABA-SOUTH", [
-      "NG-AB-ABA-SOUTH",
-      "NG-AB-ABA-NORTH",
-      "NG-AB-OSISIOMA",
+    baseAddress: "Abak, off Ikot Ekpene Road, opposite the pharmacy",
+    base: { lat: 4.985, lng: 7.79 },
+    coverage: coverage("NG-AK-ABAK", [
+      "NG-AK-ABAK",
+      "NG-AK-ETIM-EKPO",
+      "NG-AK-UKANAFUN",
     ]),
     rateCard: rateCard(2000, 2500, 6000),
     verification: verification({
@@ -378,14 +378,14 @@ export const artisans = [
     phone: "+2348029988776",
     trade: "generator_mechanic",
     specialties: ["Generator servicing", "Alternator repair", "Fuel system"],
-    bio: "I repair petrol and diesel generators in Aba. Diagnosis is free if you proceed with the repair.",
+    bio: "I repair petrol and diesel generators in Etim Ekpo and Abak. Diagnosis is free if you proceed with the repair.",
     yearsExperience: 12,
-    baseAddress: "Aba North, Ogbor Hill, beside the tyre vulcanizer",
-    base: { lat: 5.1202, lng: 7.3711 },
-    coverage: coverage("NG-AB-ABA-NORTH", [
-      "NG-AB-ABA-NORTH",
-      "NG-AB-ABA-SOUTH",
-      "NG-AB-UGWUNAGBO",
+    baseAddress: "Etim Ekpo, main road, beside the tyre vulcanizer",
+    base: { lat: 4.966, lng: 7.595 },
+    coverage: coverage("NG-AK-ETIM-EKPO", [
+      "NG-AK-ETIM-EKPO",
+      "NG-AK-ABAK",
+      "NG-AK-ORUK-ANAM",
     ]),
     rateCard: rateCard(3000, 4000, 10000, 400),
     verification: verification({
@@ -424,14 +424,14 @@ export const artisans = [
     phone: "+2348076655443",
     trade: "tiler",
     specialties: ["Floor tiling", "Wall tiling", "Bathroom waterproofing"],
-    bio: "Tiler in Ikorodu. I lay a dry test row before fixing, so you see the pattern before the adhesive sets.",
+    bio: "Tiler in Uyo. I lay a dry test row before fixing, so you see the pattern before the adhesive sets.",
     yearsExperience: 7,
-    baseAddress: "Ikorodu, off Ijede Road, opposite the filling station",
-    base: { lat: 6.6112, lng: 3.5058 },
-    coverage: coverage("NG-LA-IKORODU", [
-      "NG-LA-IKORODU",
-      "NG-LA-EPE",
-      "NG-LA-IBEJU-LEKKI",
+    baseAddress: "Uyo, off Nwaniba Road, opposite the filling station",
+    base: { lat: 5.03, lng: 7.97 },
+    coverage: coverage("NG-AK-UYO", [
+      "NG-AK-UYO",
+      "NG-AK-URUAN",
+      "NG-AK-NSIT-ATAI",
     ]),
     rateCard: rateCard(2500, 4000, 9000, 380),
     verification: verification({
@@ -468,14 +468,14 @@ export const artisans = [
     phone: "+2348093344556",
     trade: "welder",
     specialties: ["Gates", "Burglar bars", "Metal railings"],
-    bio: "Welder and fabricator in Ojo. Gate jobs are measured on site and priced by the running metre.",
+    bio: "Welder and fabricator in Eket. Gate jobs are measured on site and priced by the running metre.",
     yearsExperience: 15,
-    baseAddress: "Ojo, Alaba International approach, opposite the bank",
-    base: { lat: 6.4663, lng: 3.1902 },
-    coverage: coverage("NG-LA-OJO", [
-      "NG-LA-OJO",
-      "NG-LA-AMUWO-ODOFIN",
-      "NG-LA-APAPA",
+    baseAddress: "Eket, Grace Bill Road, opposite the bank",
+    base: { lat: 4.645, lng: 7.925 },
+    coverage: coverage("NG-AK-EKET", [
+      "NG-AK-EKET",
+      "NG-AK-ONNA",
+      "NG-AK-IBENO",
     ]),
     rateCard: rateCard(3000, 5000, 12000, 450),
     verification: verification({
@@ -514,14 +514,14 @@ export const artisans = [
     phone: "+2348048877665",
     trade: "ac_technician",
     specialties: ["AC servicing", "Gas refill", "AC installation"],
-    bio: "AC technician covering Umuahia South. Standard servicing is fixed-rate; I test cooling before I leave.",
+    bio: "AC technician covering Uyo. Standard servicing is fixed-rate; I test cooling before I leave.",
     yearsExperience: 6,
-    baseAddress: "Umuahia South, near Ubakala junction",
-    base: { lat: 5.4648, lng: 7.4682 },
-    coverage: coverage("NG-AB-UMUAHIA-SOUTH", [
-      "NG-AB-UMUAHIA-SOUTH",
-      "NG-AB-UMUAHIA-NORTH",
-      "NG-AB-ISIALA-NGWA-NORTH",
+    baseAddress: "Uyo, near Ibom Plaza",
+    base: { lat: 5.032, lng: 7.927 },
+    coverage: coverage("NG-AK-UYO", [
+      "NG-AK-UYO",
+      "NG-AK-IKOT-EKPENE",
+      "NG-AK-ITU",
     ]),
     rateCard: rateCard(2500, 3500, 8500, 350),
     verification: verification({
@@ -557,14 +557,14 @@ export const artisans = [
     phone: "+2348035566778",
     trade: "locksmith",
     specialties: ["Lockouts", "Lock replacement", "Safe opening"],
-    bio: "Emergency locksmith on Lagos Island. I confirm ownership before opening any door.",
+    bio: "Emergency locksmith in Uyo. I confirm ownership before opening any door.",
     yearsExperience: 10,
-    baseAddress: "Lagos Island, Idumota, opposite the central mosque",
-    base: { lat: 6.4571, lng: 3.3912 },
-    coverage: coverage("NG-LA-LAGOS-ISLAND", [
-      "NG-LA-LAGOS-ISLAND",
-      "NG-LA-LAGOS-MAINLAND",
-      "NG-LA-APAPA",
+    baseAddress: "Uyo, Abak Road, opposite the central mosque",
+    base: { lat: 5.02, lng: 7.92 },
+    coverage: coverage("NG-AK-UYO", [
+      "NG-AK-UYO",
+      "NG-AK-ITU",
+      "NG-AK-URUAN",
     ]),
     rateCard: rateCard(4000, 5500, 12000, 500),
     verification: verification({
@@ -603,14 +603,14 @@ export const artisans = [
     phone: "+2348061122334",
     trade: "roofer",
     specialties: ["Leak repair", "Roof replacement", "Gutter fitting"],
-    bio: "Roofer based in Ohafia. I inspect from the inside first so the quote covers the actual leak, not a guess.",
+    bio: "Roofer based in Oron. I inspect from the inside first so the quote covers the actual leak, not a guess.",
     yearsExperience: 5,
-    baseAddress: "Ohafia, near the council secretariat, Ebem road",
-    base: { lat: 5.6152, lng: 7.8291 },
-    coverage: coverage("NG-AB-OHAFIA", [
-      "NG-AB-OHAFIA",
-      "NG-AB-BENDE",
-      "NG-AB-AROCHUKWU",
+    baseAddress: "Oron, near the council secretariat, Beach Road",
+    base: { lat: 4.82, lng: 8.23 },
+    coverage: coverage("NG-AK-ORON", [
+      "NG-AK-ORON",
+      "NG-AK-MBO",
+      "NG-AK-OKOBO",
     ], 45),
     rateCard: rateCard(3000, 4000, 10000, 400),
     verification: verification({
@@ -640,10 +640,176 @@ export const artisans = [
     createdAt: "2026-08-12T11:00:00.000Z",
     lastActiveAt: NOW,
   },
+  {
+    id: "art_kunle_adebayo",
+    displayName: "Kunle Adebayo",
+    phone: "+2348031239876",
+    trade: "plumber",
+    specialties: ["Leak tracing", "Overhead tank", "Pumping machine"],
+    bio: "Rumuokoro-based plumber. I trace the leak before I touch a pipe, so you pay for the fix, not the search.",
+    yearsExperience: 9,
+    baseAddress: "Rumuokoro junction, beside the park, Rumuokoro",
+    base: { lat: 4.86743, lng: 6.98795 },
+    coverage: coverage("NG-RI-OBIO-AKPOR", ["NG-RI-OBIO-AKPOR", "NG-RI-EMOHUA", "NG-RI-ETCHE"]),
+    rateCard: rateCard(2500, 4000, 8000, 350),
+    verification: verification({
+      tier: "certified",
+      ninVerifiedAt: "2025-09-01T09:00:00.000Z",
+      selfieMatchScore: 0.92,
+      guarantorName: "Bisi Adebayo",
+      guarantorPhone: "+2348023344556",
+      guarantorConfirmedAt: "2025-09-03T10:00:00.000Z",
+      portfolioPhotoCount: 4,
+      apprenticeshipYears: 3,
+    }),
+    stats: stats({
+      jobsCompleted: 52,
+      jobsCancelled: 2,
+      completionRate: 0.96,
+      averageRating: 4.6,
+      ratingCount: 40,
+      ratingTrend: 0.1,
+      medianResponseSeconds: 140,
+    }),
+    portfolio: portfolio("art_kunle_adebayo", "plumber", 4),
+    isOnline: true,
+    acceptsEmergency: true,
+    suspended: false,
+    createdAt: "2025-08-30T08:00:00.000Z",
+    lastActiveAt: NOW,
+  },
+  {
+    id: "art_sola_martins",
+    displayName: "Sola Martins",
+    phone: "+2348091112233",
+    trade: "plumber",
+    specialties: ["Bathroom fittings", "Water heater", "Drain unblocking"],
+    bio: "New on ajudar, ten years on the tools. D-Line and Rumuola are my area — I'm usually there within the hour.",
+    yearsExperience: 10,
+    baseAddress: "D-Line, off Ikwerre Road, opposite the filling station",
+    base: { lat: 4.8, lng: 7.0 },
+    coverage: coverage("NG-RI-PORT-HARCOURT", ["NG-RI-PORT-HARCOURT", "NG-RI-OBIO-AKPOR", "NG-RI-OYIGBO"]),
+    rateCard: rateCard(3000, 4500, 9000, 400),
+    verification: verification({
+      tier: "listed",
+      ninVerifiedAt: "2026-10-02T09:00:00.000Z",
+      selfieMatchScore: 0.9,
+      guarantorName: "Tope Martins",
+      guarantorPhone: "+2348077665544",
+      guarantorConfirmedAt: "2026-10-04T11:00:00.000Z",
+      portfolioPhotoCount: 3,
+      apprenticeshipYears: 4,
+      probationJobsRemaining: 2,
+    }),
+    stats: stats({
+      jobsCompleted: 3,
+      completionRate: 1,
+      averageRating: 4.9,
+      ratingCount: 3,
+      medianResponseSeconds: 80,
+    }),
+    portfolio: portfolio("art_sola_martins", "plumber", 3),
+    isOnline: true,
+    acceptsEmergency: false,
+    suspended: false,
+    createdAt: "2026-10-01T08:00:00.000Z",
+    lastActiveAt: NOW,
+  },
+  {
+    id: "art_yusuf_lawal",
+    displayName: "Yusuf Lawal",
+    phone: "+2348025556677",
+    trade: "plumber",
+    specialties: ["Pipe replacement", "Kitchen plumbing", "PPR pipes"],
+    bio: "Eleme-based. Big jobs, small jobs — I give you the materials list before I buy anything.",
+    yearsExperience: 14,
+    baseAddress: "Behind Eleme junction, Aleto",
+    base: { lat: 4.8, lng: 7.1 },
+    coverage: coverage("NG-RI-ELEME", ["NG-RI-ELEME", "NG-RI-OBIO-AKPOR", "NG-RI-OKRIKA"]),
+    rateCard: rateCard(3500, 5000, 10000, 400),
+    verification: verification({
+      tier: "top",
+      ninVerifiedAt: "2024-11-11T09:00:00.000Z",
+      bvnVerified: true,
+      selfieMatchScore: 0.95,
+      guarantorName: "Hauwa Lawal",
+      guarantorPhone: "+2348034455667",
+      guarantorConfirmedAt: "2024-11-13T10:00:00.000Z",
+      portfolioPhotoCount: 6,
+      tradeCertificateUrl: "/docs/certificates/yusuf-plumbing.pdf",
+    }),
+    stats: stats({
+      jobsCompleted: 121,
+      jobsCancelled: 4,
+      completionRate: 0.97,
+      averageRating: 4.7,
+      ratingCount: 98,
+      ratingTrend: -0.1,
+      medianResponseSeconds: 210,
+      disputesOpened: 3,
+      disputesResolved: 3,
+    }),
+    portfolio: portfolio("art_yusuf_lawal", "plumber", 4),
+    isOnline: true,
+    acceptsEmergency: true,
+    suspended: false,
+    createdAt: "2024-11-10T08:00:00.000Z",
+    lastActiveAt: NOW,
+  },
+  {
+    id: "art_obinna_eke",
+    displayName: "Obinna Eke",
+    phone: "+2348039998877",
+    trade: "plumber",
+    specialties: ["Borehole plumbing"],
+    yearsExperience: 6,
+    baseAddress: "Rumuola roundabout, Rumuola",
+    base: { lat: 4.828, lng: 7.05 },
+    coverage: coverage("NG-RI-OBIO-AKPOR", ["NG-RI-OBIO-AKPOR"]),
+    rateCard: rateCard(2500, 3500, 7000, 300),
+    verification: verification({ portfolioPhotoCount: 3 }),
+    stats: stats({ jobsCompleted: 30, completionRate: 0.9, averageRating: 4.3, ratingCount: 22 }),
+    portfolio: portfolio("art_obinna_eke", "plumber", 3),
+    isOnline: false,
+    acceptsEmergency: false,
+    suspended: false,
+    createdAt: "2025-03-01T08:00:00.000Z",
+    lastActiveAt: "2026-10-20T18:00:00.000Z",
+  },
+  {
+    id: "art_dayo_ogun",
+    displayName: "Dayo Ogun",
+    phone: "+2348042223344",
+    trade: "plumber",
+    specialties: ["General plumbing"],
+    yearsExperience: 4,
+    baseAddress: "Woji Road, opposite the market, Woji",
+    base: { lat: 4.835, lng: 7.07 },
+    coverage: coverage("NG-RI-OBIO-AKPOR", ["NG-RI-OBIO-AKPOR"]),
+    rateCard: rateCard(2000, 3000, 6000, 300),
+    verification: verification({ portfolioPhotoCount: 3 }),
+    stats: stats({ jobsCompleted: 12, completionRate: 0.75, averageRating: 3.6, ratingCount: 10, disputesOpened: 3 }),
+    portfolio: portfolio("art_dayo_ogun", "plumber", 3),
+    isOnline: true,
+    acceptsEmergency: false,
+    suspended: true,
+    suspendedReason: "Two unresolved no-show disputes",
+    createdAt: "2025-12-01T08:00:00.000Z",
+    lastActiveAt: NOW,
+  },
 ] satisfies ArtisanProfile[];
 
+export function isOnlineNow(artisan: ArtisanProfile): boolean {
+  return mockStore().online.get(artisan.id) ?? artisan.isOnline;
+}
+
+function withSession(artisan: ArtisanProfile): ArtisanProfile {
+  return { ...artisan, isOnline: isOnlineNow(artisan) };
+}
+
 export function getMockArtisanById(id: string): ArtisanProfile | undefined {
-  return artisans.find((artisan) => artisan.id === id);
+  const artisan = artisans.find((entry) => entry.id === id);
+  return artisan ? withSession(artisan) : undefined;
 }
 
 export interface MockArtisanFilters {
@@ -656,7 +822,7 @@ export interface MockArtisanFilters {
 export function listMockArtisans(
   filters: MockArtisanFilters = {},
 ): ArtisanProfile[] {
-  return artisans.filter((artisan) => {
+  return artisans.map(withSession).filter((artisan) => {
     if (!filters.includeSuspended && artisan.suspended) return false;
     if (filters.onlineOnly && !artisan.isOnline) return false;
     if (filters.trade && artisan.trade !== filters.trade) return false;

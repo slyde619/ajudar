@@ -3,11 +3,6 @@ import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-/**
- * DM Sans is vendored in app/fonts/dm-sans (SIL OFL, see LICENSE.txt)
- * rather than fetched from Google Fonts at build time. The app must build
- * offline; Nigerian connectivity is also the reason the font is self-hosted.
- */
 const dmSans = localFont({
   src: [
     {
@@ -55,6 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-NG"
+      data-scroll-behavior="smooth"
       className={`${dmSans.variable} ${GeistMono.variable} h-full`}
     >
       <body className="min-h-full">{children}</body>

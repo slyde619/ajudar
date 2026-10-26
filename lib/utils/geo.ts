@@ -1,13 +1,7 @@
 import type { Coordinates, GeoPolygon, LgaBoundary } from "@/lib/types";
 
-/**
- * Pure geometry. LGA point-in-polygon is the hard eligibility gate (§10.1):
- * eligibility removes supply, ranking sorts what remains.
- */
-
 type Ring = number[][];
 
-/** Ray casting on a single [lng, lat] ring. */
 function insideRing(lng: number, lat: number, ring: Ring): boolean {
   let inside = false;
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -20,7 +14,6 @@ function insideRing(lng: number, lat: number, ring: Ring): boolean {
   return inside;
 }
 
-/** First ring is the outer boundary; any further rings are holes. */
 export function pointInPolygon(point: Coordinates, polygon: GeoPolygon): boolean {
   const [outer, ...holes] = polygon.coordinates;
   if (!outer || !insideRing(point.lng, point.lat, outer)) return false;
@@ -42,7 +35,6 @@ function toRadians(degrees: number): number {
   return (degrees * Math.PI) / 180;
 }
 
-/** Great-circle distance in metres. Ranking only, never eligibility. */
 export function haversineM(a: Coordinates, b: Coordinates): number {
   const dLat = toRadians(b.lat - a.lat);
   const dLng = toRadians(b.lng - a.lng);
@@ -69,10 +61,6 @@ export function pathLengthM(path: readonly LngLat[]): number {
   return total;
 }
 
-/**
- * Splits a path at `fraction` (0–1) of its length. Returns the point there and
- * the remaining leg, so tracking can draw only the road still ahead.
- */
 export function splitPath(
   path: readonly LngLat[],
   fraction: number,
@@ -98,7 +86,6 @@ export function splitPath(
   return { point: last, remaining: [last] };
 }
 
-/** [[west, south], [east, north]] around a set of points. */
 export function boundsOf(points: readonly LngLat[]): [LngLat, LngLat] {
   let west = Infinity;
   let south = Infinity;

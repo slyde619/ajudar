@@ -3,16 +3,11 @@
 import { useEffect, useState } from "react";
 import { useLocationStore } from "@/stores/location";
 
-/** persist is absent during SSR (no storage), present in the browser. */
 function hasHydrated(): boolean {
   return useLocationStore.persist?.hasHydrated() ?? false;
 }
 
-/**
- * Reads the location store after rehydrating it from storage on mount.
- * `hydrated` is false on the server and the first client paint, so both
- * render the same skeleton; client navigations start hydrated.
- */
+/** Reads the location store after rehydrating it on mount. */
 export function useLocation() {
   const location = useLocationStore((state) => state.location);
   const [hydrated, setHydrated] = useState(hasHydrated);

@@ -10,10 +10,7 @@ interface LandmarkFieldProps {
 export const LANDMARK_MIN = 8;
 const LANDMARK_MAX = 140;
 
-/**
- * Pure controlled field. The landmark is what the artisan actually navigates
- * by (§10.4), so the prompt asks for directions, not an address.
- */
+/** Text field for the landmark an artisan navigates by. */
 export function LandmarkField({ id, value, onChange, className }: LandmarkFieldProps) {
   const hintId = `${id}-hint`;
   return (

@@ -1,9 +1,5 @@
 import type { ArtisanProfile, VerificationSignal } from "@/lib/types";
 
-/**
- * Derives the §11.1 signal strip from an artisan profile. Signals over tiers:
- * each one is independently meaningful. Never stored, always derived.
- */
 export function deriveVerificationSignals(artisan: ArtisanProfile): VerificationSignal[] {
   const { verification: v, stats } = artisan;
   const onProbation = v.probationJobsRemaining > 0;
@@ -51,4 +47,23 @@ export function initialsOf(name: string): string {
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");
+}
+
+export const TRADE_LABEL: Record<ArtisanProfile["trade"], string> = {
+  plumber: "Plumber",
+  electrician: "Electrician",
+  carpenter: "Carpenter",
+  painter: "Painter",
+  tiler: "Tiler",
+  welder: "Welder",
+  ac_technician: "AC technician",
+  generator_mechanic: "Generator mechanic",
+  locksmith: "Locksmith",
+  cleaner: "Cleaner",
+  mason: "Mason",
+  roofer: "Roofer",
+};
+
+export function firstName(name: string): string {
+  return name.split(" ")[0] ?? name;
 }

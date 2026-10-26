@@ -9,7 +9,7 @@ interface JobProgressProps {
   className?: string;
 }
 
-/** Pure. Segments up to the current step fill yellow (§4.2: progress bar). */
+/** Segmented progress bar for a job's steps. */
 export function JobProgress({ current, className }: JobProgressProps) {
   const currentIndex = STEPS.indexOf(current);
 

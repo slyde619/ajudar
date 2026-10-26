@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-/** SSR renders the mobile layout (`false`), then hydrates to the truth. */
+/** Tracks a CSS media query, false during SSR. */
 export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
     (onChange) => {

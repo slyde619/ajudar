@@ -1,15 +1,15 @@
 import type { ApiError, ApiMode, Result } from "@/lib/types";
 
-/**
- * The one switch that flips the whole app between mock and live data.
- * Screens only ever import from lib/api/ — never from lib/mock/.
- */
 export function getApiMode(): ApiMode {
   return process.env.NEXT_PUBLIC_API_MODE === "live" ? "live" : "mock";
 }
 
 export function isMockMode(): boolean {
   return getApiMode() === "mock";
+}
+
+export function getRealtimeSocketUrl(): string | null {
+  return process.env.NEXT_PUBLIC_REALTIME_URL || null;
 }
 
 const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "").replace(
@@ -36,15 +36,10 @@ async function readErrorMessage(response: Response): Promise<string> {
       return body.message;
     }
   } catch {
-    // The body was not the expected ApiError JSON; fall through.
   }
   return response.statusText || `Request failed with status ${response.status}.`;
 }
 
-/**
- * Live-mode transport. The backend contract is Result<T> (§7), so a live
- * response is returned as-is rather than unwrapped here.
- */
 export async function apiRequest<T>(
   path: string,
   init?: RequestInit,

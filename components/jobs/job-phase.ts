@@ -1,7 +1,6 @@
 import type { StatusTone } from "@/components/ui/status-badge";
 import type { JobPhase } from "@/lib/types";
 
-/** Customer-facing label + tone per phase. Status tones are never yellow. */
 export const JOB_PHASE_STATUS: Record<JobPhase, { label: string; tone: StatusTone }> = {
   draft: { label: "Draft", tone: "neutral" },
   estimating: { label: "Estimating", tone: "neutral" },
@@ -32,7 +31,6 @@ export function isActivePhase(phase: JobPhase): boolean {
   return ACTIVE.has(phase);
 }
 
-/** Phases rendered by LiveTrackingShell in travel mode (§13.1). */
 export function isTravelPhase(phase: JobPhase): boolean {
   return phase === "accepted" || phase === "en_route";
 }

@@ -1,19 +1,49 @@
-/**
- * Provisional REST paths, centralized so backend confirmation (§19.4) is a
- * one-file change. Do not inline URLs anywhere else.
- *
- * Live responses are expected to use the Result<T> envelope from §7.
- */
 export const endpoints = {
   artisans: {
     list: "/artisans",
     detail: (id: string) => `/artisans/${encodeURIComponent(id)}`,
+    reviews: (id: string) => `/artisans/${encodeURIComponent(id)}/reviews`,
   },
   jobs: {
     list: "/jobs",
     detail: (id: string) => `/jobs/${encodeURIComponent(id)}`,
     create: "/jobs",
     tracking: (id: string) => `/jobs/${encodeURIComponent(id)}/tracking`,
+    search: (id: string) => `/jobs/${encodeURIComponent(id)}/search`,
+    offers: (id: string) => `/jobs/${encodeURIComponent(id)}/offers`,
+    selectOffer: (id: string) => `/jobs/${encodeURIComponent(id)}/offers/select`,
+    counter: (id: string) => `/jobs/${encodeURIComponent(id)}/negotiation/counter`,
+    accept: (id: string) => `/jobs/${encodeURIComponent(id)}/negotiation/accept`,
+    release: (id: string) => `/jobs/${encodeURIComponent(id)}/negotiation/release`,
+    escrow: (id: string) => `/jobs/${encodeURIComponent(id)}/escrow`,
+    arrival: (id: string) => `/jobs/${encodeURIComponent(id)}/arrival`,
+    work: (id: string) => `/jobs/${encodeURIComponent(id)}/work`,
+    complete: (id: string) => `/jobs/${encodeURIComponent(id)}/complete`,
+    review: (id: string) => `/jobs/${encodeURIComponent(id)}/review`,
+    cancel: (id: string) => `/jobs/${encodeURIComponent(id)}/cancel`,
+  },
+  me: "/me",
+  artisan: {
+    feed: "/artisan/feed",
+    respond: (jobId: string) => `/artisan/feed/${encodeURIComponent(jobId)}/respond`,
+    pass: (jobId: string) => `/artisan/feed/${encodeURIComponent(jobId)}/pass`,
+    availability: "/artisan/availability",
+    location: "/artisan/location",
+    counter: (jobId: string) => `/artisan/jobs/${encodeURIComponent(jobId)}/negotiation/respond`,
+    arrive: (jobId: string) => `/artisan/jobs/${encodeURIComponent(jobId)}/arrive`,
+    arrivalSelfie: (jobId: string) => `/artisan/jobs/${encodeURIComponent(jobId)}/arrival-selfie`,
+    workStage: (jobId: string) => `/artisan/jobs/${encodeURIComponent(jobId)}/work`,
+    earnings: "/artisan/earnings",
+  },
+  onboarding: {
+    application: "/artisan/application",
+    step: "/artisan/application/steps",
+    submit: "/artisan/application/submit",
+    identitySession: "/artisan/application/identity/session",
+    upload: "/uploads",
+  },
+  realtime: {
+    cursor: "/realtime/cursor",
   },
   categories: {
     list: "/categories",
@@ -22,7 +52,6 @@ export const endpoints = {
   geo: {
     lgas: "/lgas",
     lga: (code: string) => `/lgas/${encodeURIComponent(code)}`,
-    /** Static asset served by the frontend in both modes. */
     boundaries: "/geo/lga-boundaries.json",
   },
 } as const;

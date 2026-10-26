@@ -13,10 +13,7 @@ export interface JobFilterProps {
   history: JobCardProps[];
 }
 
-/**
- * Local UI state only. The cards themselves stay pure presentational
- * components; the filter owns the smallest piece of state it needs.
- */
+/** Tabs that switch between active and past jobs. */
 export function JobFilter({ active, history }: JobFilterProps) {
   const [filter, setFilter] = useState<JobFilterValue>("active");
   const jobs = filter === "active" ? active : history;

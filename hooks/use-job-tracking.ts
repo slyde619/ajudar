@@ -1,66 +1,47 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getJobTracking } from "@/lib/api/tracking";
+import { loadTrackingAction } from "@/app/_actions/booking";
 import type { ApiError, IsoDateTime, JobTracking } from "@/lib/types";
+import { useNow } from "./use-now";
+import { useRealtime } from "./use-realtime";
 
 interface TrackingState {
   tracking: JobTracking | null;
   error: ApiError | null;
-  /** Clock for "Updated 2 min ago", advanced by this hook, not by render. */
   now: IsoDateTime | null;
 }
 
-const POLL_MS = 3000;
-
-/**
- * Polls the travel-mode snapshot while the document is visible, and pauses
- * when hidden — the same foreground-only constraint artisans live under
- * (§10.6). Next's Activity also tears this down when the route is hidden.
- */
-export function useJobTracking(jobId: string, enabled = true): TrackingState {
-  const [state, setState] = useState<TrackingState>({
-    tracking: null,
-    error: null,
-    now: null,
-  });
+/** Travel-mode artisan position from a snapshot plus realtime updates. */
+export function useJobTracking(jobId: string, since: number, enabled = true): TrackingState {
+  const [tracking, setTracking] = useState<JobTracking | null>(null);
+  const [error, setError] = useState<ApiError | null>(null);
+  const [reloads, setReloads] = useState(0);
+  const now = useNow(5000);
 
   useEffect(() => {
     if (!enabled) return;
     let cancelled = false;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-
-    const poll = async () => {
-      const result = await getJobTracking(jobId);
+    void loadTrackingAction(jobId).then((result) => {
       if (cancelled) return;
-      setState((previous) => ({
-        tracking: result.ok ? result.data : previous.tracking,
-        error: result.ok ? null : result.error,
-        now: new Date().toISOString(),
-      }));
-      if (document.visibilityState === "visible") {
-        timer = setTimeout(poll, POLL_MS);
-      }
-    };
-
-    const onVisibility = () => {
-      if (document.visibilityState === "visible") {
-        clearTimeout(timer);
-        void poll();
-      } else {
-        clearTimeout(timer);
-      }
-    };
-
-    void poll();
-    document.addEventListener("visibilitychange", onVisibility);
-
+      if (result.ok) setTracking(result.data);
+      setError(result.ok ? null : result.error);
+    });
     return () => {
       cancelled = true;
-      clearTimeout(timer);
-      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [jobId, enabled]);
+  }, [jobId, enabled, reloads]);
 
-  return state;
+  useRealtime(
+    enabled ? `job:${jobId}` : null,
+    since,
+    (event) => {
+      if (event.type !== "job.tracking") return;
+      setTracking(event.tracking);
+      setError(null);
+    },
+    () => setReloads((count) => count + 1),
+  );
+
+  return { tracking, error, now: now === null ? null : new Date(now).toISOString() };
 }

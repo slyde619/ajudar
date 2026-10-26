@@ -40,3 +40,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+certificates
+.taste-skill/
+
+# internal docs and agent instructions (not for the public repo)
+project.md
+CLAUDE.md
+.claude/

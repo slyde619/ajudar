@@ -28,11 +28,7 @@ interface LocationGateProps {
   continueHref: string;
 }
 
-/**
- * §10.5 location gate. Permission is asked only when the user taps "Use my
- * location" — never on load. Denied and unavailable fall through to manual
- * entry, which is first-class, not a consolation prize.
- */
+/** Location gate that asks for GPS on tap and falls back to manual LGA entry. */
 export function LocationGate({ lgas, continueHref }: LocationGateProps) {
   const { location, hydrated } = useLocation();
   const boundariesState = useLgaBoundaries();
@@ -205,7 +201,7 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
             </p>
           ) : (
             <p className="mt-2 text-sm leading-relaxed text-ink-500">
-              Lagos and Abia are live. More states are coming.
+              Rivers and Akwa Ibom are live. More states are coming.
             </p>
           )}
 
@@ -297,11 +293,14 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
             }
           />
           <div className="mt-auto pt-8">
-            <Button asChild size="lg" className="h-13 w-full rounded-xl text-base font-semibold">
-              <Link href={continueHref}>
-                Continue
-                <ArrowRight className="size-5" aria-hidden />
-              </Link>
+            <Button
+              size="lg"
+              nativeButton={false}
+              render={<Link href={continueHref} />}
+              className="h-13 w-full rounded-xl text-base font-semibold"
+            >
+              Continue
+              <ArrowRight className="size-5" aria-hidden />
             </Button>
           </div>
         </section>

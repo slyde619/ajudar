@@ -9,15 +9,14 @@ function isFullScreenFlow(pathname: string): boolean {
   if (pathname === "/signup" || pathname === "/onboarding") return true;
   if (pathname.startsWith("/booking/")) return true;
   if (/^\/jobs\/[^/]+$/.test(pathname)) return true;
+  if (/^\/artisans\/[^/]+$/.test(pathname)) return true;
   if (pathname.startsWith("/artisan/onboarding")) return true;
+  if (pathname.startsWith("/artisan/requests/")) return true;
   if (/^\/artisan\/jobs\/[^/]+$/.test(pathname)) return true;
   return false;
 }
 
-/**
- * Layering contract (§9.1): screen content z-10, dock z-30. The map canvas
- * (z-0) and bottom sheet (z-20) join this stack in later phases.
- */
+/** App shell that layers screen content above the dock. */
 export function AppShell({
   role,
   children,

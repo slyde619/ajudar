@@ -12,7 +12,7 @@ export interface JobCardProps {
   href?: string;
 }
 
-/** Pure presentational card. With `href`, the whole card is the link. */
+/** Job summary card, linked when given an href. */
 export function JobCard({ title, location, when, status, tone, href }: JobCardProps) {
   const card = (
     <Card className="gap-2.5 rounded-xl ring-line-200 transition-[box-shadow,transform] duration-150 group-active/job:scale-[0.99] group-hover/job:shadow-card">

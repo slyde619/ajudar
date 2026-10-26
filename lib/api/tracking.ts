@@ -1,11 +1,12 @@
+import { connection } from "next/server";
 import type { JobTracking, Result } from "@/lib/types";
-import { getMockJobTracking } from "@/lib/mock/tracking";
+import { getMockJobTracking } from "@/lib/mock/booking";
 import { apiRequest, fail, isMockMode, ok } from "./client";
 import { endpoints } from "./endpoints";
 
-/** Travel-mode snapshot. Polled only while the screen is visible (§10.6). */
 export async function getJobTracking(jobId: string): Promise<Result<JobTracking>> {
   if (isMockMode()) {
+    await connection();
     const tracking = getMockJobTracking(jobId, Date.now());
     return tracking
       ? ok(tracking)

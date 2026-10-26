@@ -7,7 +7,7 @@ interface BrandMarkProps {
   className?: string;
 }
 
-/** Pure brand lockup. No state, no effects, no data access. */
+/** ajudar brand lockup. */
 export function BrandMark({
   href = "/",
   showWordmark = true,

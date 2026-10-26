@@ -31,17 +31,12 @@ interface PinAdjustSheetProps {
   onOpenChange: (open: boolean) => void;
   initialCenter: Coordinates;
   boundaries: LgaBoundary[] | null;
-  /** For display names; boundaries carry codes only. */
   lgas: Lga[];
   onConfirm: (confirmation: PinConfirmation) => void;
   onChooseManually: () => void;
 }
 
-/**
- * The pin stays centred; the map moves beneath it (§13.2: pin confirmation is
- * the source of truth). The LGA under the pin tints as it crosses a boundary,
- * which makes the eligibility gate visible (§10.4).
- */
+/** Sheet where the customer moves the map under a fixed pin to confirm their location. */
 export function PinAdjustSheet({
   open,
   onOpenChange,
@@ -60,8 +55,8 @@ export function PinAdjustSheet({
   const boundary: MapBoundary | null = lga ? { polygons: lga.polygons, tone: "inside" } : null;
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange} handleOnly>
-      <DrawerContent className="h-[94dvh] rounded-t-2xl border-0 bg-surface-raised data-[vaul-drawer-direction=bottom]:max-h-[94dvh]">
+    <Drawer open={open} onOpenChange={onOpenChange} showSwipeHandle>
+      <DrawerContent className="h-[94dvh] max-h-[94dvh] rounded-t-2xl border-0 bg-surface-raised">
         <div className="relative px-5 pt-3 pb-4">
           <DrawerClose
             aria-label="Close"
@@ -77,7 +72,7 @@ export function PinAdjustSheet({
           </DrawerDescription>
         </div>
 
-        <div className="relative mx-3 flex-1 overflow-hidden rounded-2xl">
+        <div data-base-ui-swipe-ignore="" className="relative mx-3 flex-1 overflow-hidden rounded-2xl">
           <MapCanvas
             center={initialCenter}
             zoom={16}
@@ -88,7 +83,6 @@ export function PinAdjustSheet({
             }}
           />
 
-          {/* Fixed centre pin — lifts while the map moves. */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden>
             <div
               className={cn(
@@ -109,7 +103,6 @@ export function PinAdjustSheet({
             />
           </div>
 
-          {/* LGA readout */}
           <div className="pointer-events-none absolute inset-x-0 top-3 flex justify-center px-3" aria-live="polite">
             <span
               className={cn(
@@ -121,7 +114,7 @@ export function PinAdjustSheet({
                 ? "Loading areas…"
                 : lga
                   ? [lga.name, stateName].filter(Boolean).join(", ")
-                  : "Outside Lagos & Abia"}
+                  : "Outside Rivers & Akwa Ibom"}
             </span>
           </div>
         </div>
@@ -130,7 +123,7 @@ export function PinAdjustSheet({
           {outside ? (
             <p className="flex items-start gap-2 text-sm text-ink-700">
               <Info className="mt-0.5 size-4 shrink-0 text-danger-600" aria-hidden />
-              We&apos;re live in Lagos and Abia only. Move the pin inside an area we
+              We&apos;re live in Rivers and Akwa Ibom only. Move the pin inside an area we
               serve, or pick one from the list.
             </p>
           ) : null}

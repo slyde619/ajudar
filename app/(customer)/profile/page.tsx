@@ -1,4 +1,5 @@
 import {
+  ArrowLeftRight,
   CreditCard,
   LogOut,
   MapPin,
@@ -10,6 +11,7 @@ import { StickyHeader } from "@/components/shell/sticky-header";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { isMockMode } from "@/lib/api/client";
 
 export default function ProfilePage() {
   return (
@@ -36,7 +38,7 @@ export default function ProfilePage() {
               </p>
               <span className="mt-2 inline-flex items-center gap-1.5 rounded-pill bg-surface-sunken px-2.5 py-1 text-xs text-ink-700">
                 <MapPin className="h-3 w-3" aria-hidden />
-                Ikeja, Lagos
+                Rumuola, Port Harcourt
               </span>
             </div>
           </CardContent>
@@ -52,12 +54,18 @@ export default function ProfilePage() {
             <Separator />
             <ProfileRow icon={Settings} label="Settings" />
             <Separator />
+            {isMockMode() ? (
+              <>
+                <ProfileRow icon={ArrowLeftRight} label="Demo: switch to artisan" href="/artisan" />
+                <Separator />
+              </>
+            ) : null}
             <ProfileRow icon={LogOut} label="Sign out" tone="danger" />
           </CardContent>
         </Card>
 
         <p className="mt-6 text-center font-mono text-[10px] tracking-widest text-ink-400 uppercase">
-          ajudar · Lagos · Abia
+          ajudar · Rivers · Akwa Ibom
         </p>
       </div>
     </>

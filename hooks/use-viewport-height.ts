@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 
 const SERVER_HEIGHT = 800;
 
-/** Visual viewport height in px; tracks resize and mobile URL-bar changes. */
+/** Visual viewport height in px, tracking resize and URL-bar changes. */
 export function useViewportHeight(): number {
   return useSyncExternalStore(
     (onChange) => {

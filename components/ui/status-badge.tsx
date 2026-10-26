@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-/** Status colours are never yellow (§4.2 / §18). */
 export type StatusTone = "success" | "warning" | "danger" | "neutral";
 
 const TONE_CLASSES: Record<StatusTone, string> = {

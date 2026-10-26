@@ -22,7 +22,7 @@ const plumbingEstimate: Estimate = {
   jobId: "job_001",
   lineItems: [
     lineItem("li_001", "labour", "Replace faulty pipe section", 1800000),
-    lineItem("li_002", "transport", "Opebi to Ogba, 7 km", 600000, false),
+    lineItem("li_002", "transport", "Rumuokoro to Rumuola, 6.5 km", 600000, false),
     lineItem("li_003", "materials", "Pipe, fittings, sealant", 800000, false),
   ],
   subtotal: 3200000,
@@ -35,7 +35,7 @@ const plumbingEstimate: Estimate = {
 const plumbingNegotiation: Negotiation = {
   id: "neg_001",
   jobId: "job_001",
-  artisanId: "art_chinedu_okafor",
+  artisanId: "art_kunle_adebayo",
   maxRounds: 3,
   expiresAt: "2026-10-25T20:02:00.000Z",
   status: "agreed",
@@ -89,7 +89,7 @@ const acEstimate: Estimate = {
   jobId: "job_002",
   lineItems: [
     lineItem("li_010", "labour", "Standard AC servicing", 700000, false),
-    lineItem("li_011", "transport", "Transport within Umuahia South", 150000, false),
+    lineItem("li_011", "transport", "Transport within Uyo", 150000, false),
   ],
   subtotal: 850000,
   total: 850000,
@@ -98,11 +98,38 @@ const acEstimate: Estimate = {
   expiresAt: "2026-10-24T10:30:00.000Z",
 };
 
-/**
- * Seed jobs for mock mode. Money is integer kobo throughout.
- * These cover the three states the early screens need:
- * searching, en_route (travel mode), and complete.
- */
+function pastJob(
+  id: string,
+  customerId: string,
+  title: string,
+  site: JobRequest["site"],
+  total: Kobo,
+  completedAt: string,
+  paidOut: boolean,
+): JobRequest {
+  const started = new Date(Date.parse(completedAt) - 2 * 60 * 60 * 1000).toISOString();
+  return {
+    id,
+    customerId,
+    categoryId: "cat_plumbing_repair",
+    title,
+    description: title,
+    attachments: [],
+    site,
+    timing: { mode: "now" },
+    urgency: "standard",
+    phase: "complete",
+    artisanId: "art_chinedu_okafor",
+    agreedTotal: total,
+    escrowFunded: true,
+    createdAt: started,
+    updatedAt: completedAt,
+    startedAt: started,
+    completedAt,
+    payoutStatus: paidOut ? "paid_out" : "released",
+  };
+}
+
 export const jobs: JobRequest[] = [
   {
     id: "job_001",
@@ -113,19 +140,19 @@ export const jobs: JobRequest[] = [
       "Water is pooling under the kitchen sink. I have closed the main valve. The pipe joint looks split.",
     attachments: [],
     site: {
-      lat: 6.6018,
-      lng: 3.3491,
-      lgaCode: "NG-LA-IKEJA",
-      landmark: "Blue building opposite First Bank, Opebi",
+      lat: 4.84164,
+      lng: 7.00635,
+      lgaCode: "NG-RI-OBIO-AKPOR",
+      landmark: "Blue building opposite First Bank, Rumuola Road",
       pinConfirmedByUser: true,
       accuracyM: 12,
       savedLabel: "home",
-      plusCode: "6FR8+QJ Lagos",
+      plusCode: "R2R4+MG Port Harcourt",
     },
     timing: { mode: "now" },
     urgency: "standard",
     phase: "en_route",
-    artisanId: "art_chinedu_okafor",
+    artisanId: "art_kunle_adebayo",
     estimate: plumbingEstimate,
     negotiation: plumbingNegotiation,
     agreedTotal: 3200000,
@@ -144,10 +171,10 @@ export const jobs: JobRequest[] = [
       "The bedroom AC is cooling weakly and rattling. Standard servicing requested.",
     attachments: [],
     site: {
-      lat: 5.4721,
-      lng: 7.4702,
-      lgaCode: "NG-AB-UMUAHIA-SOUTH",
-      landmark: "Yellow duplex after Ubakala junction, beside the school",
+      lat: 5.022,
+      lng: 7.913,
+      lgaCode: "NG-AK-UYO",
+      landmark: "Yellow duplex in Ewet Housing, beside the school",
       pinConfirmedByUser: true,
       accuracyM: 18,
       savedLabel: "other",
@@ -174,10 +201,10 @@ export const jobs: JobRequest[] = [
       "Two wall sockets spark when I plug in the TV. I have stopped using them. Please check the wiring.",
     attachments: [],
     site: {
-      lat: 6.4473,
-      lng: 3.4748,
-      lgaCode: "NG-LA-ETI-OSA",
-      landmark: "White estate gate opposite Ebeano, Lekki Phase 1",
+      lat: 4.851,
+      lng: 7.842,
+      lgaCode: "NG-AK-ETINAN",
+      landmark: "White compound gate opposite the market, Etinan",
       pinConfirmedByUser: false,
       accuracyM: 35,
       savedLabel: "home",
@@ -189,8 +216,31 @@ export const jobs: JobRequest[] = [
     createdAt: "2026-10-25T18:35:00.000Z",
     updatedAt: "2026-10-25T18:35:00.000Z",
   },
+  pastJob(
+    "job_090",
+    "cust_bisi",
+    "Replace leaking shower mixer",
+    { lat: 4.828, lng: 7.05, lgaCode: "NG-RI-OBIO-AKPOR", landmark: "Cream gate beside the Total station, Woji Road", pinConfirmedByUser: true },
+    2400000,
+    "2026-10-22T15:10:00.000Z",
+    true,
+  ),
+  pastJob(
+    "job_091",
+    "cust_tayo",
+    "Unblock kitchen drain",
+    { lat: 4.808, lng: 7.012, lgaCode: "NG-RI-PORT-HARCOURT", landmark: "Garrison junction, behind the filling station", pinConfirmedByUser: true },
+    1800000,
+    "2026-10-24T11:40:00.000Z",
+    true,
+  ),
+  pastJob(
+    "job_092",
+    "cust_ifeoma",
+    "Install water heater in guest bathroom",
+    { lat: 4.958, lng: 7.0, lgaCode: "NG-RI-IKWERRE", landmark: "Igwuruta, two houses after the mosque on the airport road", pinConfirmedByUser: true },
+    4500000,
+    "2026-10-25T13:05:00.000Z",
+    false,
+  ),
 ];
-
-export function getMockJobById(id: string): JobRequest | undefined {
-  return jobs.find((job) => job.id === id);
-}
