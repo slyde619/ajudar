@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { ClockIcon } from "@phosphor-icons/react/ssr";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import {
@@ -61,7 +61,7 @@ async function Searching({ job, closeHref, since }: ScreenProps) {
         </ActionButton>
       }
     >
-      <RealtimeRefresh topic={`job:${job.id}`} since={since} />
+      <RealtimeRefresh topic={`job:${job.id}`} since={since} notify={{ "job.offer": "A new offer just came in" }} />
       {offers.length > 0 ? (
         <SearchingPulse
           label={`${offers.length} ${offers.length === 1 ? "artisan has" : "artisans have"} answered`}
@@ -158,7 +158,7 @@ async function Negotiating({ job, category, closeHref, since }: ScreenProps & { 
         )
       }
     >
-      <RealtimeRefresh topic={`job:${job.id}`} since={since} />
+      <RealtimeRefresh topic={`job:${job.id}`} since={since} notify={{ "job.offer": "A new offer just came in" }} />
       <ArtisanSummary artisan={artisan} />
 
       <div className="mt-6 flex items-center justify-between">
@@ -166,7 +166,7 @@ async function Negotiating({ job, category, closeHref, since }: ScreenProps & { 
           {mode === "bounded" ? `Round ${participant} of ${negotiation.maxRounds}` : "Fixed price"}
         </p>
         <p className="inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-500">
-          <Clock className="size-3.5" aria-hidden />
+          <ClockIcon className="size-3.5" aria-hidden />
           {expired ? "Time's up" : <TimeLeft until={negotiation.expiresAt} />}
         </p>
       </div>

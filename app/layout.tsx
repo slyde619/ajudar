@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const dmSans = localFont({
@@ -53,7 +54,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${dmSans.variable} ${GeistMono.variable} h-full`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

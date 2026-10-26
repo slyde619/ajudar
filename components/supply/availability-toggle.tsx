@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useTransition } from "react";
+import { toast } from "sonner";
 import { setAvailabilityAction } from "@/app/_actions/supply";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,9 @@ export function AvailabilityToggle({ online, areas }: AvailabilityToggleProps) {
         onCheckedChange={(next) =>
           startTransition(async () => {
             setOptimistic(next);
-            await setAvailabilityAction(next);
+            const result = await setAvailabilityAction(next);
+            if (result) toast.error(result.error);
+            else toast.success(next ? "You're online for new jobs" : "You're offline");
           })
         }
       />

@@ -1,7 +1,8 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { StarIcon } from "@phosphor-icons/react/ssr";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { reviewJobAction } from "@/app/_actions/booking";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +17,6 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
   const [rating, setRating] = useState<Review["rating"] | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [comment, setComment] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   function toggle(tag: string) {
@@ -25,10 +25,10 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
 
   function submit() {
     if (!rating) return;
-    setError(null);
     startTransition(async () => {
       const result = await reviewJobAction(jobId, { rating, tags, comment: comment || undefined });
-      if (result) setError(result.error);
+      if (result) toast.error(result.error);
+      else toast.success(`Thanks — your rating for ${artisanFirstName} is in`);
     });
   }
 
@@ -48,9 +48,9 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
             onClick={() => setRating(value)}
             className="flex size-11 items-center justify-center rounded-full transition-transform duration-150 ease-out active:scale-90"
           >
-            <Star
-              className={cn("size-7", rating !== null && value <= rating ? "fill-ink-950 text-ink-950" : "text-line-300")}
-              strokeWidth={1.5}
+            <StarIcon
+              className={cn("size-7", rating !== null && value <= rating ? "text-ink-950" : "text-line-300")}
+              weight={rating !== null && value <= rating ? "fill" : "regular"}
               aria-hidden
             />
           </button>
@@ -84,11 +84,6 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
             aria-label="Comment"
             className="mt-3 min-h-20 rounded-xl bg-surface-raised px-4 py-3"
           />
-          {error ? (
-            <p role="alert" className="mt-2 text-sm text-danger-600">
-              {error}
-            </p>
-          ) : null}
           <Button variant="secondary" size="cta" className="mt-4 w-full" disabled={pending} onClick={submit}>
             {pending ? "Sending…" : "Submit rating"}
           </Button>

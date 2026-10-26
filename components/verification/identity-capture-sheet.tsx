@@ -1,7 +1,8 @@
 "use client";
 
-import { Camera, IdCard, LoaderCircle, RotateCcw, ScanFace } from "lucide-react";
+import { CameraIcon, IdentificationCardIcon, CircleNotchIcon, ArrowCounterClockwiseIcon, UserFocusIcon } from "@phosphor-icons/react/ssr";
 import { useEffect, useEffectEvent, useRef, useState, useTransition } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { usePhotoPreviews } from "@/hooks/use-photo-previews";
@@ -19,17 +20,17 @@ interface IdentityCaptureSheetProps {
   onComplete: (providerRef: string) => Promise<string | null>;
 }
 
-const SHOT_COPY: Record<Shot, { label: string; hint: string; icon: typeof Camera; facing: "user" | "environment" }> = {
+const SHOT_COPY: Record<Shot, { label: string; hint: string; icon: typeof CameraIcon; facing: "user" | "environment" }> = {
   document: {
     label: "Your NIN slip or ID card",
     hint: "Flat on a table, all four corners in frame, no glare.",
-    icon: IdCard,
+    icon: IdentificationCardIcon,
     facing: "environment",
   },
   selfie: {
     label: "A selfie",
     hint: "Good light, no cap or sunglasses, look straight at the camera.",
-    icon: ScanFace,
+    icon: UserFocusIcon,
     facing: "user",
   },
 };
@@ -65,14 +66,13 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
 
   function submit() {
     if (!session) return;
-    setError(null);
     if (!standIn) {
-      setError("Smile ID isn't connected yet. Add the partner keys to turn on live capture.");
+      toast.error("Smile ID isn't connected yet. Add the partner keys to turn on live capture.");
       return;
     }
     startTransition(async () => {
       const failure = await onComplete(session.jobId);
-      if (failure) setError(failure);
+      if (failure) toast.error(failure);
     });
   }
 
@@ -90,7 +90,7 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
 
           {session === null && error === null ? (
             <div className="flex items-center justify-center gap-2 py-10 text-sm text-ink-500" role="status">
-              <LoaderCircle className="size-4 animate-spin" aria-hidden />
+              <CircleNotchIcon className="size-4 animate-spin" aria-hidden />
               Starting a secure session…
             </div>
           ) : (
@@ -122,7 +122,7 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
                         <span className="mt-0.5 block text-xs leading-relaxed text-ink-500">{copy.hint}</span>
                       </span>
                       <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-raised text-ink-700 ring-1 ring-line-200">
-                        {photo ? <RotateCcw className="size-4" aria-label="Retake" /> : <Camera className="size-4" aria-label="Take photo" />}
+                        {photo ? <ArrowCounterClockwiseIcon className="size-4" aria-label="Retake" /> : <CameraIcon className="size-4" aria-label="Take photo" />}
                       </span>
                     </button>
                     <input
@@ -156,7 +156,7 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
             <Button size="cta" className="w-full" disabled={!ready || pending} onClick={submit}>
               {pending ? (
                 <>
-                  <LoaderCircle className="animate-spin" aria-hidden />
+                  <CircleNotchIcon className="animate-spin" aria-hidden />
                   Sending to Smile ID…
                 </>
               ) : (

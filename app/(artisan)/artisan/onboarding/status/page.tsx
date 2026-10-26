@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { ClockIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -28,9 +28,9 @@ async function ApplicationStatus() {
 
   return (
     <BookingFrame label="Your application" closeHref="/artisan/profile" closeLabel="Close">
-      <RealtimeRefresh topic={`applicant:${application.id}`} since={since} types={["verification.updated"]} />
+      <RealtimeRefresh topic={`applicant:${application.id}`} since={since} types={["verification.updated"]} notify={{ "verification.updated": "One of your checks was updated" }} />
       <span className="flex size-14 items-center justify-center rounded-full bg-ink-950 text-celo-500">
-        <Clock className="size-6" aria-hidden />
+        <ClockIcon className="size-6" aria-hidden />
       </span>
       <h1 className="mt-4 text-[24px] leading-tight font-semibold tracking-tight text-ink-950">
         {rejected.length > 0 ? "One thing needs another try" : waiting ? "We're checking your details" : "You're verified"}

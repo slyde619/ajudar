@@ -1,4 +1,4 @@
-import { Radio } from "lucide-react";
+import { BroadcastIcon } from "@phosphor-icons/react/ssr";
 import { Suspense } from "react";
 import { CoverageMap } from "@/components/map/coverage-map";
 import { RealtimeRefresh } from "@/components/shell/realtime-refresh";
@@ -43,7 +43,7 @@ async function Feed() {
 
   return (
     <>
-      <RealtimeRefresh topic={`artisan:${artisanId}`} since={since} />
+      <RealtimeRefresh topic={`artisan:${artisanId}`} since={since} notify={{ "feed.request": "New job request in your area" }} />
 
       <div className="fixed inset-0 z-0 lg:left-64" aria-hidden>
         <CoverageMap lgaCodes={served} base={artisan.base} initials={initialsOf(artisan.displayName)} coveredFraction={FEED_COVERS} />
@@ -101,7 +101,7 @@ async function Feed() {
             </ul>
           ) : (
             <div className="mt-6 flex flex-col items-center rounded-2xl bg-surface-sunken px-6 py-8 text-center">
-              <Radio className="size-6 text-ink-500" aria-hidden />
+              <BroadcastIcon className="size-6 text-ink-500" aria-hidden />
               <p className="mt-3 text-[15px] font-semibold text-ink-950">
                 {artisan.isOnline ? "No requests right now" : "Nothing scheduled to answer"}
               </p>
