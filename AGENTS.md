@@ -8,9 +8,13 @@ These rules are binding. If a decision isn't covered here or in the code, ask be
 - Side effects belong in `components/shell/` or named hooks, with cleanup.
 - `"use client"` only for state, effects, refs, or browser APIs. Server components are the default.
 - Screens import from `lib/api/`, never `lib/mock/`.
-- Domain types change in `lib/types/index.ts` first.
+- Domain types live in `lib/types/<domain>.ts` (job, negotiation, artisan, …) and are re-exported from `lib/types/index.ts`. Change the type first, then its zod schema.
+- Validate with zod. Schemas live in `lib/schemas/<domain>.ts`, are checked against their type with `satisfies z.ZodType<T>`, and are used by Server Actions (every argument), client forms, env, API responses and persisted state. No hand-rolled validation.
 - `components/ui/` holds shadcn primitives we own. Extend with variants; do not fork or hand-roll duplicates.
 - Map libraries only in `components/map/map-canvas.tsx`.
+- Icons come from Phosphor (`@phosphor-icons/react/ssr`, the `…Icon` names). No lucide.
+- Notifications and toasts use sonner through `components/ui/sonner.tsx` (mounted once in the root layout). Action failures toast; form validation errors stay inline.
+- Every change must pass `pnpm typecheck`, `pnpm lint`, `pnpm build` and `pnpm test:e2e` (Playwright, mock mode). Add or update an E2E test in `e2e/` when a flow changes.
 - Money is integer kobo. No floating point.
 - Reuse order: existing component → shadcn primitive → Tailwind composition → new primitive. A new primitive needs a one-line justification.
 

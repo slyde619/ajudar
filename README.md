@@ -44,7 +44,7 @@ This repo is the customer and artisan web app. It runs entirely on mock data by 
 
 ## Stack
 
-Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui on Base UI · Framer Motion · Zustand · Lucide · MapLibre GL with OpenFreeMap tiles.
+Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui on Base UI · Framer Motion · Zustand · zod · sonner · Phosphor Icons · MapLibre GL with OpenFreeMap tiles · Playwright.
 
 Node `>=24.22.1`, pnpm `10.34.9`.
 
@@ -62,7 +62,10 @@ pnpm typecheck  # tsc --noEmit
 pnpm lint
 pnpm build
 pnpm start
+pnpm test:e2e   # production build + Playwright end-to-end tests (mock mode)
 ```
+
+The first E2E run needs a browser: `pnpm exec playwright install chromium`.
 
 Copy `.env.example` to `.env.local` to change the data source:
 
@@ -129,10 +132,12 @@ components/<domain>/     presentational components (booking, negotiation, supply
 components/map/          map canvas, overlays and shells; the only place map libraries are imported
 hooks/                   client hooks (location, tracking, realtime, uploads, …)
 stores/                  client state shared across screens
-lib/types/               domain types
+lib/types/               domain types, one module per domain, re-exported from index.ts
+lib/schemas/             zod schemas mirroring lib/types, used to validate inputs
 lib/api/                 data access, switching between mock and live
 lib/mock/                in-memory mock backend, used only by lib/api
 lib/utils/               pure helpers (money, time, geo, verification)
+e2e/                     Playwright end-to-end tests
 ```
 
 Conventions:
@@ -140,7 +145,13 @@ Conventions:
 - Components are pure: props in, JSX out. Side effects live in shell components or hooks.
 - Screens import from `lib/api/`, never `lib/mock/`.
 - Money is integer kobo. Format it with `lib/utils/money.ts`.
+- Inputs are validated with zod schemas from `lib/schemas/`, on the server and in forms.
+- Toasts go through sonner (`components/ui/sonner.tsx`); icons come from Phosphor.
 - Theme tokens live in `app/globals.css` under `@theme`; there is no `tailwind.config.ts`.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and every pull request: typecheck, lint, production build, then the Playwright suite on mobile and desktop viewports. A failed run uploads the Playwright report as an artifact.
 
 ## Attribution
 
