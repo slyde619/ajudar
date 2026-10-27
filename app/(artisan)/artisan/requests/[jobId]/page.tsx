@@ -8,7 +8,8 @@ import { BookingFrame } from "@/components/booking/booking-frame";
 import { LineItems } from "@/components/negotiation/line-items";
 import { RealtimeRefresh } from "@/components/shell/realtime-refresh";
 import { RequestActions } from "@/components/supply/request-actions";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getCategory } from "@/lib/api/categories";
 import { getLga } from "@/lib/api/geo";
@@ -25,9 +26,9 @@ function Gone() {
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <p className="text-lg font-semibold text-ink-950">This request has closed</p>
         <p className="mt-1 max-w-72 text-sm text-ink-500">The customer chose someone else or cancelled. Nothing was charged to anyone.</p>
-        <Button variant="outline" size="lg" nativeButton={false} render={<Link href="/artisan" />} className="mt-6">
+        <Link href="/artisan" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-6")}>
           Back to requests
-        </Button>
+        </Link>
       </div>
     </BookingFrame>
   );

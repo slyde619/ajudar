@@ -3,7 +3,8 @@
 import { ArrowRightIcon, CircleNotchIcon, CrosshairIcon, MapTrifoldIcon, NavigationArrowIcon, ShieldCheckIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useLgaBoundaries } from "@/hooks/use-lga-boundaries";
 import { useLocation } from "@/hooks/use-location";
 import { landmarkSchema } from "@/lib/schemas/location";
@@ -294,15 +295,10 @@ export function LocationGate({ lgas, continueHref }: LocationGateProps) {
             }
           />
           <div className="mt-auto pt-8">
-            <Button
-              size="lg"
-              nativeButton={false}
-              render={<Link href={continueHref} />}
-              className="h-13 w-full rounded-xl text-base font-semibold"
-            >
+            <Link href={continueHref} className={cn(buttonVariants({ size: "lg" }), "h-13 w-full rounded-xl text-base font-semibold")}>
               Continue
               <ArrowRightIcon className="size-5" aria-hidden />
-            </Button>
+            </Link>
           </div>
         </section>
       ) : null}

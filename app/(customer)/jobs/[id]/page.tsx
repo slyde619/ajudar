@@ -13,7 +13,8 @@ import { LiveTrackingShell } from "@/components/map/shells/live-tracking-shell";
 import { LineItems } from "@/components/negotiation/line-items";
 import { RealtimeRefresh } from "@/components/shell/realtime-refresh";
 import { StickyHeader } from "@/components/shell/sticky-header";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { OnArrivalCheck } from "@/components/verification/on-arrival-check";
 import { getArtisan } from "@/lib/api/artisans";
@@ -195,9 +196,9 @@ async function JobScreen({ id }: { id: string }) {
         <p className="mt-4 text-sm leading-relaxed text-ink-700">{job.description}</p>
         <p className="mt-4 font-mono text-[11px] text-ink-500">{job.site.landmark}</p>
         {job.phase === "cancelled" ? (
-          <Button variant="outline" size="lg" nativeButton={false} render={<Link href="/dashboard" />} className="mt-6">
+          <Link href="/dashboard" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-6")}>
             Book again
-          </Button>
+          </Link>
         ) : null}
       </div>
     </>

@@ -6,7 +6,7 @@ import { BookingFrame } from "@/components/booking/booking-frame";
 import { StartOverButton } from "@/components/onboarding/start-over-button";
 import { CHECK_LABEL, ONBOARDING_STEPS } from "@/components/onboarding/steps";
 import { RealtimeRefresh } from "@/components/shell/realtime-refresh";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { VerificationChecklist } from "@/components/verification/verification-checklist";
 import { isMockMode } from "@/lib/api/client";
 import { getApplication } from "@/lib/api/onboarding";
@@ -58,9 +58,9 @@ async function ApplicationStatus() {
         {rejected.length > 0 ? (
           <p className="text-sm text-ink-500">The ajudar team will call you about the retry.</p>
         ) : null}
-        <Button variant="secondary" size="lg" nativeButton={false} render={<Link href="/artisan" />}>
+        <Link href="/artisan" className={buttonVariants({ variant: "secondary", size: "lg" })}>
           Back to requests
-        </Button>
+        </Link>
         {isMockMode() ? <StartOverButton /> : null}
       </div>
     </BookingFrame>
