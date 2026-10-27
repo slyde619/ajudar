@@ -6,7 +6,7 @@ import { TradeDeck } from "../trade-deck";
 /** The six launch trades as a scroll-driven card deck. */
 export function TradesSection() {
   return (
-    <section id="trades" aria-labelledby="trades-title" className={cn(WRAP, "scroll-mt-4 py-16 md:py-24")}>
+    <section id="trades" aria-labelledby="trades-title" className={cn(WRAP, "scroll-mt-24 py-16 md:py-24")}>
       <Reveal className="mb-8 lg:mb-0">
         <RevealItem>
           <h2 id="trades-title" className={H2}>

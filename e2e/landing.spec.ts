@@ -20,3 +20,26 @@ test("liquid CTAs lead to sign-up with the right role", async ({ page, pageError
   await expect(page).toHaveURL(/\/signup\?as=artisan$/);
   expect(pageErrors).toEqual([]);
 });
+
+test("menu stays fixed, opens the section links and closes on Escape or a jump", async ({ page, pageErrors }) => {
+  await page.goto("/");
+
+  const menu = page.getByRole("banner").getByRole("button");
+  const sections = page.getByRole("navigation", { name: "Sections" });
+  await page.getByRole("heading", { name: "Questions." }).scrollIntoViewIfNeeded();
+  await expect(menu).toBeInViewport();
+
+  await menu.click();
+  await expect(menu).toHaveAttribute("aria-expanded", "true");
+  await expect(menu).toHaveAccessibleName("Close");
+  await expect(sections.getByRole("link", { name: "FAQs" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await expect(menu).toBeFocused();
+
+  await menu.click();
+  await sections.getByRole("link", { name: "What we fix" }).click();
+  await expect(page).toHaveURL(/#trades$/);
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  expect(pageErrors).toEqual([]);
+});

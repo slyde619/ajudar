@@ -13,7 +13,7 @@ const SCENE = "mx-auto block max-h-[30svh] w-full lg:max-h-[58svh]";
 /** The Saturday story: the wait without ajudar, then three pinned beats with it. */
 export function HowItWorks() {
   return (
-    <div id="how" className="relative scroll-mt-4 px-2 pb-[30svh] md:px-4">
+    <div id="how" className="relative scroll-mt-24 px-2 pb-[30svh] md:px-4">
       <WaitingScene />
 
       <StoryBeat

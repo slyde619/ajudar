@@ -6,7 +6,6 @@ import { CloudEdge } from "../edges";
 import { HeroGreeting } from "../hero-greeting";
 import { HeroScene } from "../scenes/hero-scene";
 import { WRAP } from "../styles";
-import { LandingHeader } from "./landing-header";
 
 const HERO_SCENE = cn(
   "pointer-events-none mt-auto h-[44svh] max-h-100 min-h-80 w-full shrink-0",
@@ -70,8 +69,6 @@ export function Hero() {
         </section>
         <CloudEdge className="absolute inset-x-0 -bottom-px fill-surface-warm" />
       </div>
-
-      <LandingHeader />
     </div>
   );
 }
