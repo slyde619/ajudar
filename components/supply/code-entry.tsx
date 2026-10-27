@@ -2,13 +2,13 @@
 
 import { KeyIcon, CircleNotchIcon } from "@phosphor-icons/react/ssr";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
 import { enterCompletionCodeAction } from "@/app/_actions/supply";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { completionCodeSchema } from "@/lib/schemas/booking";
 import type { Kobo } from "@/lib/types";
 import { formatNaira } from "@/lib/utils/money";
+import { useToast } from "@/hooks/use-toast";
 
 interface CodeEntryProps {
   jobId: string;
@@ -18,13 +18,14 @@ interface CodeEntryProps {
 
 /** Field where the artisan types the customer's code to release escrow. */
 export function CodeEntry({ jobId, amount, demoCode }: CodeEntryProps) {
+  const toast = useToast();
   const [code, setCode] = useState("");
   const [pending, startTransition] = useTransition();
 
   function submit() {
     startTransition(async () => {
       const result = await enterCompletionCodeAction(jobId, code);
-      if (result) toast.error(result.error);
+      if (result) toast("error", result.error);
     });
   }
 

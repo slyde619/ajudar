@@ -64,7 +64,7 @@ export function AddressStep({ application, lgas }: { application: ArtisanApplica
                   disabled={!on && full}
                   onClick={() => toggle(lga.code)}
                   className={cn(
-                    "inline-flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-sm font-medium ring-1 transition-colors disabled:opacity-40",
+                    "inline-flex h-10 items-center gap-1.5 rounded-pill px-3.5 text-sm font-medium ring-1 transition-transform duration-100 ease-out active:scale-[0.97] disabled:active:scale-100 disabled:opacity-40",
                     on ? "bg-ink-950 text-surface-raised ring-ink-950" : "bg-surface-raised text-ink-700 ring-line-300",
                   )}
                 >

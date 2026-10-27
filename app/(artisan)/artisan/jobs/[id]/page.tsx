@@ -14,7 +14,7 @@ import { ARTISAN_PHASE_STATUS } from "@/components/supply/artisan-phase";
 import { CodeEntry } from "@/components/supply/code-entry";
 import { CounterReplyActions } from "@/components/supply/counter-reply-actions";
 import { WorkStageControl } from "@/components/supply/work-stage-control";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getArtisan } from "@/lib/api/artisans";
 import { getCategory } from "@/lib/api/categories";
@@ -222,12 +222,12 @@ async function ArtisanJobScreen({ id }: { id: string }) {
             <p className="mt-6 text-center text-sm text-ink-500">The customer&apos;s rating shows up here.</p>
           )}
           <div className="mt-6 grid grid-cols-2 gap-2">
-            <Button variant="outline" size="lg" nativeButton={false} render={<Link href="/artisan/earnings" />}>
+            <Link href="/artisan/earnings" className={buttonVariants({ variant: "outline", size: "lg" })}>
               Earnings
-            </Button>
-            <Button variant="secondary" size="lg" nativeButton={false} render={<Link href="/artisan" />}>
+            </Link>
+            <Link href="/artisan" className={buttonVariants({ variant: "secondary", size: "lg" })}>
               Back to requests
-            </Button>
+            </Link>
           </div>
         </div>
       </>

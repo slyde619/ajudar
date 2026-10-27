@@ -15,7 +15,7 @@ export function ActiveJobBanner({ title, status, tone, hint, href }: ActiveJobBa
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-2xl bg-ink-950 p-4 text-surface-raised shadow-pop transition-transform duration-150 active:scale-[0.99]"
+      className="flex items-center gap-3 rounded-2xl bg-ink-950 p-4 text-surface-raised shadow-pop transition-transform duration-100 ease-out active:scale-[0.98]"
     >
       <span className="min-w-0 flex-1">
         <StatusBadge tone={tone}>{status}</StatusBadge>

@@ -63,7 +63,7 @@ export function GuarantorStep({ application }: { application: ArtisanApplication
             aria-checked={relationship === value}
             onClick={() => setRelationship(value)}
             className={cn(
-              "h-10 rounded-pill px-3.5 text-sm font-medium ring-1 transition-colors",
+              "h-10 rounded-pill px-3.5 text-sm font-medium ring-1 transition-transform duration-100 ease-out active:scale-[0.97] disabled:active:scale-100",
               relationship === value ? "bg-ink-950 text-surface-raised ring-ink-950" : "bg-surface-raised text-ink-700 ring-line-300",
             )}
           >

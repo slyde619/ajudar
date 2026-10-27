@@ -5,6 +5,15 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    ignores: ["components/ui/sonner.tsx", "hooks/use-toast.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        { name: "sonner", message: "Raise toasts with useToast() from @/hooks/use-toast." },
+      ],
+    },
+  },
   globalIgnores([
     ".next/**",
     "out/**",

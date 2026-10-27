@@ -2,7 +2,8 @@ import { LockKeyIcon, MapPinIcon, ChatCircleTextIcon, PhoneIcon, BroadcastIcon }
 import Link from "next/link";
 import { JobProgress } from "@/components/jobs/job-progress";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { VerificationStrip } from "@/components/verification/verification-strip";
 import type {
@@ -94,24 +95,14 @@ export function CustomerTrackingSheet({
         <VerificationStrip signals={deriveVerificationSignals(artisan)} className="mt-4" />
 
         <div className="mt-5 grid grid-cols-2 gap-2.5">
-          <Button
-            variant="secondary"
-            nativeButton={false}
-            render={<a href={`tel:${artisan.phone}`} />}
-            className="h-12 rounded-xl text-sm"
-          >
+          <a href={`tel:${artisan.phone}`} className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-xl text-sm")}>
             <PhoneIcon aria-hidden />
             Call
-          </Button>
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={<Link href="/messages" />}
-            className="h-12 rounded-xl bg-surface-raised text-sm"
-          >
+          </a>
+          <Link href="/messages" className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-xl bg-surface-raised text-sm")}>
             <ChatCircleTextIcon aria-hidden />
             Message
-          </Button>
+          </Link>
         </div>
       </section>
 

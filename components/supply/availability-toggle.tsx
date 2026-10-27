@@ -1,10 +1,10 @@
 "use client";
 
 import { useOptimistic, useTransition } from "react";
-import { toast } from "sonner";
 import { setAvailabilityAction } from "@/app/_actions/supply";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 interface AvailabilityToggleProps {
   online: boolean;
@@ -13,6 +13,7 @@ interface AvailabilityToggleProps {
 
 /** Online toggle for receiving jobs that need someone now. */
 export function AvailabilityToggle({ online, areas }: AvailabilityToggleProps) {
+  const toast = useToast();
   const [optimistic, setOptimistic] = useOptimistic(online);
   const [pending, startTransition] = useTransition();
 
@@ -39,8 +40,8 @@ export function AvailabilityToggle({ online, areas }: AvailabilityToggleProps) {
           startTransition(async () => {
             setOptimistic(next);
             const result = await setAvailabilityAction(next);
-            if (result) toast.error(result.error);
-            else toast.success(next ? "You're online for new jobs" : "You're offline");
+            if (result) toast("error", result.error);
+            else toast("success", next ? "You're online for new jobs" : "You're offline");
           })
         }
       />

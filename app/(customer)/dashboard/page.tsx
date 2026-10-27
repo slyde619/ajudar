@@ -3,7 +3,8 @@ import Link from "next/link";
 import { CategoryTile } from "@/components/dashboard/category-tile";
 import { JobCard } from "@/components/jobs/job-card";
 import { StickyHeader } from "@/components/shell/sticky-header";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { StatusTone } from "@/components/ui/status-badge";
 
@@ -50,12 +51,7 @@ export default function DashboardPage() {
           What needs fixing?
         </h2>
 
-        <Button
-          size="lg"
-          nativeButton={false}
-          render={<Link href="/jobs" />}
-          className="mt-5 h-auto w-full justify-between rounded-xl px-5 py-4 text-left whitespace-normal"
-        >
+        <Link href="/jobs" className={cn(buttonVariants({ size: "lg" }), "mt-5 h-auto w-full justify-between rounded-xl px-5 py-4 text-left whitespace-normal")}>
             <span className="flex flex-col items-start gap-0.5">
               <span className="text-sm font-semibold">
                 Find a verified artisan
@@ -65,7 +61,7 @@ export default function DashboardPage() {
               </span>
             </span>
             <ArrowUpRightIcon className="size-5" aria-hidden />
-        </Button>
+        </Link>
 
         <section className="mt-7" aria-labelledby="categories-heading">
           <SectionHeading id="categories-heading" title="Categories" />

@@ -2,12 +2,12 @@
 
 import { CameraIcon, IdentificationCardIcon, CircleNotchIcon, ArrowCounterClockwiseIcon, UserFocusIcon } from "@phosphor-icons/react/ssr";
 import { useEffect, useEffectEvent, useRef, useState, useTransition } from "react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { usePhotoPreviews } from "@/hooks/use-photo-previews";
 import type { IdentityCheckSession, Result } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 type Shot = "document" | "selfie";
 
@@ -37,6 +37,7 @@ const SHOT_COPY: Record<Shot, { label: string; hint: string; icon: typeof Camera
 
 /** Sheet that captures identity photos through Smile ID, or the device camera in mock mode. */
 export function IdentityCaptureSheet({ open, onOpenChange, title, description, requestSession, onComplete }: IdentityCaptureSheetProps) {
+  const toast = useToast();
   const [session, setSession] = useState<IdentityCheckSession | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -67,12 +68,12 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
   function submit() {
     if (!session) return;
     if (!standIn) {
-      toast.error("Smile ID isn't connected yet. Add the partner keys to turn on live capture.");
+      toast("error", "Smile ID isn't connected yet. Add the partner keys to turn on live capture.");
       return;
     }
     startTransition(async () => {
       const failure = await onComplete(session.jobId);
-      if (failure) toast.error(failure);
+      if (failure) toast("error", failure);
     });
   }
 
@@ -105,14 +106,14 @@ export function IdentityCaptureSheet({ open, onOpenChange, title, description, r
                       type="button"
                       onClick={() => inputs.current[shot]?.click()}
                       className={cn(
-                        "flex w-full items-center gap-3 rounded-2xl p-3 text-left ring-1 transition-colors",
+                        "flex w-full items-center gap-3 rounded-2xl p-3 text-left ring-1 transition-transform duration-100 ease-out active:scale-[0.98]",
                         photo ? "bg-surface-raised ring-line-200" : "bg-surface-sunken ring-transparent hover:ring-line-300",
                       )}
                     >
                       <span className="relative flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-ink-950 text-celo-500">
                         {photo ? (
                           // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
-                          <img src={photo.url} alt="" className="size-full object-cover" />
+                          <img src={photo.url} alt="" className="size-full rounded-[inherit] object-cover outline-1 -outline-offset-1 outline-ink-950/10" />
                         ) : (
                           <Icon className="size-6" aria-hidden />
                         )}

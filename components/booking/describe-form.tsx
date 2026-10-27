@@ -3,10 +3,9 @@
 import { ArrowRightIcon, CameraIcon, CircleNotchIcon, MapPinIcon, SirenIcon, XIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
-import { toast } from "sonner";
 import { createJobAction } from "@/app/_actions/booking";
 import { LocationChip } from "@/components/location/location-chip";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +16,7 @@ import type { JobTiming, Lga, TradeCategory } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { matchableSite } from "@/stores/location";
 import { BookingFrame } from "./booking-frame";
+import { useToast } from "@/hooks/use-toast";
 
 const MAX_PHOTOS = 4;
 const SCHEDULE_WINDOW_MINUTES = 120;
@@ -37,6 +37,7 @@ function earliestSlot(): string {
 
 /** First booking step, where the customer describes the job with text, photos, location and urgency. */
 export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) {
+  const toast = useToast();
   const { location, hydrated } = useLocation();
   const site = matchableSite(location);
   const { photos, add, remove } = usePhotoPreviews(MAX_PHOTOS);
@@ -73,7 +74,7 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
         timing,
         urgency: emergency && when === "now" ? "emergency" : "standard",
       });
-      if (result) toast.error(result.error);
+      if (result) toast("error", result.error);
     });
   }
 
@@ -195,9 +196,9 @@ export function DescribeForm({ category, lgas, returnHref }: DescribeFormProps) 
             precision={site.pinConfirmedByUser ? "pin" : "approximate"}
             className="mt-2"
             action={
-              <Button variant="ghost" size="sm" nativeButton={false} render={<Link href={gateHref} />} className="h-9 rounded-lg text-ink-700">
+              <Link href={gateHref} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-9 rounded-lg text-ink-700")}>
                 Change
-              </Button>
+              </Link>
             }
           />
         ) : (

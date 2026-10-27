@@ -4,7 +4,8 @@ import { UserFocusIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import { identitySessionAction } from "@/app/_actions/onboarding";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { IdentityCaptureSheet } from "@/components/verification/identity-capture-sheet";
 import { VerificationChecklist } from "@/components/verification/verification-checklist";
@@ -30,9 +31,9 @@ export function IdentityStep({ application }: { application: ArtisanApplication 
           items={[{ key: "identity", label: `NIN ending ${application.identity.ninLast4 ?? "····"}`, status: check.status, note: check.note }]}
         />
         <div className="sticky bottom-0 -mx-5 mt-auto px-5 pt-6 pb-safe">
-          <Button size="cta" className="w-full" nativeButton={false} render={<Link href="/artisan/onboarding?step=guarantor" />}>
+          <Link href="/artisan/onboarding?step=guarantor" className={cn(buttonVariants({ size: "cta" }), "w-full")}>
             Continue
-          </Button>
+          </Link>
           <div className="pb-4" />
         </div>
       </>
