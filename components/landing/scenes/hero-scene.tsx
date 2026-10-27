@@ -1,25 +1,16 @@
 "use client";
 
+import { CheckCircleIcon, CircleNotchIcon, SealCheckIcon } from "@phosphor-icons/react/ssr";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Adaeze, Ankara, Chinedu, Handset } from "../cast";
+import { SceneToast } from "./scene-toast";
 import { useLoopClock } from "./use-loop";
 
 const LOOP = 11;
 const WALK = 340;
 const HOLD = 9.5;
-
-function Bubble({ x, y, width, children }: { x: number; y: number; width: number; children: React.ReactNode }) {
-  return (
-    <g transform={`translate(${x} ${y})`}>
-      <rect x={-width / 2} y="0" width={width} height="44" rx="22" className="fill-surface-raised stroke-ink-950" strokeWidth="3" />
-      <text x="0" y="29" textAnchor="middle" className="fill-ink-950 font-sans text-[20px] font-semibold">
-        {children}
-      </text>
-    </g>
-  );
-}
 
 const PALMS = [
   { x: 70, h: 150, lean: -14 },
@@ -75,10 +66,14 @@ export function HeroScene({ className }: { className?: string }) {
   const walk = useTransform(clock, [0, 3.2, 7.4, 10.5, 10.8], [0, 0, WALK, WALK, 0]);
   const present = useTransform(clock, [0, 10.3, 10.5, 10.8, 11], [1, 1, 0, 0, 1]);
   const step = useTransform(clock, (t) => (t > 3.2 && t < 7.4 ? -4 * Math.abs(Math.sin(((t - 3.2) * Math.PI) / 0.7)) : 0));
-  const request = useTransform(clock, [0.3, 0.7, 4.6, 5], [0, 1, 1, 0]);
-  const accepted = useTransform(clock, [1.3, 1.7, 4.6, 5], [0, 1, 1, 0]);
-  const arrived = useTransform(clock, [7.4, 7.9, 10.3, 10.6], [0, 1, 1, 0]);
-  const arrivedScale = useTransform(clock, [7.4, 7.9], [0.7, 1]);
+  const request = useTransform(clock, [0.3, 0.6, 4.6, 5], [0, 1, 1, 0]);
+  const requestY = useTransform(clock, [0.3, 0.6, 1.3, 1.6], [14, 0, 0, -12]);
+  const requestScale = useTransform(clock, [1.3, 1.6], [1, 0.94]);
+  const spin = useTransform(clock, (t) => t * 360);
+  const accepted = useTransform(clock, [1.3, 1.6, 4.6, 5], [0, 1, 1, 0]);
+  const acceptedY = useTransform(clock, [1.3, 1.6], [14, 0]);
+  const arrived = useTransform(clock, [7.4, 7.7, 10.3, 10.6], [0, 1, 1, 0]);
+  const arrivedY = useTransform(clock, [7.4, 7.7], [14, 0]);
 
   return (
     <div ref={ref} className={cn("relative", className)}>
@@ -217,26 +212,35 @@ export function HeroScene({ className }: { className?: string }) {
           </motion.g>
         </motion.g>
 
-        <motion.g style={{ opacity: request }}>
-          <Bubble x={886} y={306} width={244}>
-            Leaking tap · ₦25,000
-          </Bubble>
-        </motion.g>
-        <motion.g style={{ opacity: accepted }}>
-          <Bubble x={520} y={320} width={170}>
-            Accepted ✓
-          </Bubble>
-        </motion.g>
-        <motion.g style={{ opacity: arrived, scale: arrivedScale, originX: "710px", originY: "254px", transformBox: "view-box" }}>
-          <g transform="translate(710 230)">
-            <rect x="-150" y="0" width="300" height="48" rx="24" className="fill-ink-950" />
-            <circle cx="-122" cy="24" r="15" className="fill-celo-500" />
-            <path d="M-129 24 l5 5 l9 -10" className="stroke-ink-950" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            <text x="-96" y="31" className="fill-surface-raised font-sans text-[20px] font-semibold">
-              Arrived · face matched
-            </text>
+        <g transform="translate(720 232)">
+          <g className="origin-top transform-fill max-md:scale-[1.45]">
+            <motion.g style={{ opacity: request, y: requestY, scale: requestScale, transformBox: "fill-box", originY: 0 }}>
+              <SceneToast
+                icon={
+                  <motion.g style={{ rotate: spin, transformBox: "fill-box", originX: 0.5, originY: 0.5 }}>
+                    <CircleNotchIcon x={-10} y={-10} size={20} weight="bold" className="text-ink-500" />
+                  </motion.g>
+                }
+                title="Finding your plumber…"
+                detail="Leaking tap · ₦25,000"
+              />
+            </motion.g>
+            <motion.g style={{ opacity: accepted, y: acceptedY }}>
+              <SceneToast
+                icon={<CheckCircleIcon x={-10} y={-10} size={20} weight="fill" className="text-success-600" />}
+                title="Chinedu accepted"
+                detail="Plumber · 4.8 · 12 min away"
+              />
+            </motion.g>
+            <motion.g style={{ opacity: arrived, y: arrivedY }}>
+              <SceneToast
+                icon={<SealCheckIcon x={-10} y={-10} size={20} weight="fill" className="text-success-600" />}
+                title="Chinedu is at your gate"
+                detail="Face matched to his ID"
+              />
+            </motion.g>
           </g>
-        </motion.g>
+        </g>
       </svg>
     </div>
   );

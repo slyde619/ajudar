@@ -1,11 +1,9 @@
 "use client";
 
 import { useMotionValueEvent, useScroll } from "framer-motion";
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { LiquidLink } from "@/components/ui/liquid-link";
 import { cn } from "@/lib/utils";
 import { TRADES, type TradeTone } from "./content";
 import { TradeArt } from "./trade-art";
@@ -67,15 +65,9 @@ export function TradeDeck() {
                     ))}
                   </ul>
                   <div className="mt-auto flex items-end justify-between gap-4 pt-6">
-                    <Button
-                      variant="secondary"
-                      className="h-11 rounded-pill px-4 text-[15px] font-semibold"
-                      nativeButton={false}
-                      render={<Link href="/signup?as=customer" />}
-                    >
+                    <LiquidLink tone="light" href="/signup?as=customer">
                       {trade.book}
-                      <ArrowRightIcon aria-hidden />
-                    </Button>
+                    </LiquidLink>
                     <TradeArt id={trade.id} className="w-44 shrink-0 md:w-56" />
                   </div>
                 </div>

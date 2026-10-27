@@ -3,8 +3,20 @@ import type { EstimateLineItem } from "@/lib/types";
 export const EXAMPLE_ESTIMATE: { total: number; items: EstimateLineItem[] } = {
   total: 2_500_000,
   items: [
-    { id: "l", kind: "labour", label: "Plumbing repair", amount: 1_400_000, negotiable: true },
-    { id: "t", kind: "transport", label: "Call-out and transport within Rumuola", amount: 300_000, negotiable: false },
+    {
+      id: "l",
+      kind: "labour",
+      label: "Plumbing repair",
+      amount: 1_400_000,
+      negotiable: true,
+    },
+    {
+      id: "t",
+      kind: "transport",
+      label: "Call-out and transport within Rumuola",
+      amount: 300_000,
+      negotiable: false,
+    },
     {
       id: "m",
       kind: "materials",
@@ -17,18 +29,27 @@ export const EXAMPLE_ESTIMATE: { total: number; items: EstimateLineItem[] } = {
 };
 
 export const GATE_CHECKS = [
-  { title: "NIN matched to a live selfie", detail: "checked by Smile ID when they join." },
-  { title: "A guarantor we called", detail: "someone who knows their work, confirmed by phone." },
-  { title: "Real photos of past jobs", detail: "checked by hand before they see a single request." },
-  { title: "A selfie at your gate", detail: "you see it matched before you open up." },
+  {
+    title: "NIN matched to a live selfie",
+    detail: "checked by Smile ID when they join.",
+  },
+  {
+    title: "A guarantor we called",
+    detail: "someone who knows their work, confirmed by phone.",
+  },
+  {
+    title: "Real photos of past jobs",
+    detail: "checked by hand before they see a single request.",
+  },
+  {
+    title: "A selfie at your gate",
+    detail: "you see it matched before you open up.",
+  },
 ] as const;
 
 export const GREETINGS = [
-  { lang: "en", language: "English", text: "What's broken?" },
-  { lang: "pcm", language: "Pidgin", text: "Wetin spoil?" },
-  { lang: "ig", language: "Igbo", text: "Gịnị mebiri?" },
-  { lang: "yo", language: "Yorùbá", text: "Kí ló bàjẹ́?" },
-  { lang: "ha", language: "Hausa", text: "Me ya lalace?" },
+  { lang: "en", language: "", text: "What's broken?" },
+  { lang: "pcm", language: "", text: "Wetin spoil?" },
 ] as const;
 
 export const DRAFT_GREETINGS = [
@@ -43,7 +64,14 @@ export const DRAFT_GREETINGS = [
 
 export type TradeTone = "blue" | "sand" | "mint" | "peach" | "lilac" | "rose";
 
-export const TRADES: { id: string; label: string; book: string; line: string; jobs: string[]; tone: TradeTone }[] = [
+export const TRADES: {
+  id: string;
+  label: string;
+  book: string;
+  line: string;
+  jobs: string[];
+  tone: TradeTone;
+}[] = [
   {
     id: "plumbing",
     label: "Plumbing",
@@ -95,21 +123,64 @@ export const TRADES: { id: string; label: string; book: string; line: string; jo
 ];
 
 export const PROOF_FEED = [
-  { id: "match", title: "Chinedu accepted", detail: "Plumbing repair · 4.8 rating" },
+  {
+    id: "match",
+    title: "Chinedu accepted",
+    detail: "Plumbing repair · 4.8 rating",
+  },
   { id: "price", title: "₦25,000 agreed", detail: "Held in escrow" },
   { id: "route", title: "On the way", detail: "12 min · Rumuola Road" },
-  { id: "gate", title: "Selfie matched at your gate", detail: "It's the face you booked" },
+  {
+    id: "gate",
+    title: "Selfie matched at your gate",
+    detail: "It's the face you booked",
+  },
   { id: "code", title: "Code accepted", detail: "Job marked done" },
   { id: "paid", title: "₦25,000 released", detail: "To Chinedu, on the spot" },
 ] as const;
 
 export const PLACES = [
-  { id: "ph", name: "Port Harcourt", state: "Rivers", x: 196, y: 262, areas: ["GRA", "D-Line", "Borokiri", "Trans-Amadi"] },
-  { id: "obio", name: "Obio/Akpor", state: "Rivers", x: 214, y: 214, areas: ["Rumuola", "Rumuokoro", "Woji", "Choba"] },
-  { id: "eleme", name: "Eleme", state: "Rivers", x: 262, y: 262, areas: ["Onne", "Alesa"] },
-  { id: "uyo", name: "Uyo", state: "Akwa Ibom", x: 436, y: 170, areas: ["Ewet Housing", "Shelter Afrique", "Oron Road", "Nwaniba Road"] },
+  {
+    id: "ph",
+    name: "Port Harcourt",
+    state: "Rivers",
+    x: 196,
+    y: 262,
+    areas: ["GRA", "D-Line", "Borokiri", "Trans-Amadi"],
+  },
+  {
+    id: "obio",
+    name: "Obio/Akpor",
+    state: "Rivers",
+    x: 214,
+    y: 214,
+    areas: ["Rumuola", "Rumuokoro", "Woji", "Choba"],
+  },
+  {
+    id: "eleme",
+    name: "Eleme",
+    state: "Rivers",
+    x: 262,
+    y: 262,
+    areas: ["Onne", "Alesa"],
+  },
+  {
+    id: "uyo",
+    name: "Uyo",
+    state: "Akwa Ibom",
+    x: 436,
+    y: 170,
+    areas: ["Ewet Housing", "Shelter Afrique", "Oron Road", "Nwaniba Road"],
+  },
   { id: "eket", name: "Eket", state: "Akwa Ibom", x: 420, y: 286, areas: [] },
-  { id: "ikot", name: "Ikot Ekpene", state: "Akwa Ibom", x: 374, y: 132, areas: [] },
+  {
+    id: "ikot",
+    name: "Ikot Ekpene",
+    state: "Akwa Ibom",
+    x: 374,
+    y: 132,
+    areas: [],
+  },
 ] as const;
 
 export const FAQS = [
@@ -147,5 +218,28 @@ export const FAQS = [
     id: "artisan",
     q: "I'm an artisan. How do I get paid?",
     a: "You see the money is in escrow before you set out. When you finish, the customer reads you the code, and escrow releases on the spot. Transfers to your bank follow.",
+  },
+] as const;
+
+export const NAV_LINKS = [
+  { href: "#trades", label: "What we fix" },
+  { href: "#how", label: "How it works" },
+  { href: "#artisans", label: "For artisans" },
+  { href: "#faq", label: "FAQs" },
+] as const;
+
+export const ARTISAN_PERKS = [
+  {
+    title: "Requests near you, priced up front",
+    detail: "Only jobs in the areas you choose, with the estimate on the card.",
+  },
+  {
+    title: "Verified once, picked again",
+    detail: "Your checks and ratings travel with you to every customer.",
+  },
+  {
+    title: "Paid the day you finish",
+    detail:
+      "The code releases escrow on the spot. Transfers to your bank follow.",
   },
 ] as const;
