@@ -2,18 +2,19 @@
 
 import { StarIcon } from "@phosphor-icons/react/ssr";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
 import { reviewJobAction } from "@/app/_actions/booking";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { Review } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const TAGS = ["On time", "Clean work", "Fair price", "Explained the fix", "Polite", "Left it tidy"];
 const WORDS: Record<Review["rating"], string> = { 1: "Poor", 2: "Not great", 3: "Okay", 4: "Good", 5: "Excellent" };
 
 /** Quick post-job rating that feeds the artisan's trust signals. */
 export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisanFirstName: string }) {
+  const toast = useToast();
   const [rating, setRating] = useState<Review["rating"] | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [comment, setComment] = useState("");
@@ -27,8 +28,8 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
     if (!rating) return;
     startTransition(async () => {
       const result = await reviewJobAction(jobId, { rating, tags, comment: comment || undefined });
-      if (result) toast.error(result.error);
-      else toast.success(`Thanks — your rating for ${artisanFirstName} is in`);
+      if (result) toast("error", result.error);
+      else toast("success", `Thanks — your rating for ${artisanFirstName} is in`);
     });
   }
 
@@ -46,7 +47,7 @@ export function RatingForm({ jobId, artisanFirstName }: { jobId: string; artisan
             aria-checked={rating === value}
             aria-label={`${value} star${value > 1 ? "s" : ""}, ${WORDS[value]}`}
             onClick={() => setRating(value)}
-            className="flex size-11 items-center justify-center rounded-full transition-transform duration-150 ease-out active:scale-90"
+            className="flex size-11 items-center justify-center rounded-full transition-transform duration-100 ease-out active:scale-[0.97]"
           >
             <StarIcon
               className={cn("size-7", rating !== null && value <= rating ? "text-ink-950" : "text-line-300")}

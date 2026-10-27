@@ -125,7 +125,7 @@ export function LiveTrackingShell({ role, job, artisan, lgaName, since }: LiveTr
         <Link
           href={backHref}
           aria-label={isArtisan ? "Back to requests" : "Back to jobs"}
-          className="pointer-events-auto mt-3 flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-150 active:scale-95 lg:hidden"
+          className="pointer-events-auto mt-3 flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-100 ease-out active:scale-[0.97] lg:hidden"
         >
           <CaretLeftIcon className="size-5" aria-hidden />
         </Link>
@@ -133,7 +133,7 @@ export function LiveTrackingShell({ role, job, artisan, lgaName, since }: LiveTr
           type="button"
           onClick={() => setRecenterCount((count) => count + 1)}
           aria-label="Recenter map"
-          className="pointer-events-auto mt-3 ml-auto flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-150 active:scale-95"
+          className="pointer-events-auto mt-3 ml-auto flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink-950 shadow-pop transition-transform duration-100 ease-out active:scale-[0.97]"
         >
           <CrosshairIcon className="size-5" aria-hidden />
         </button>

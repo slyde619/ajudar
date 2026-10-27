@@ -39,12 +39,12 @@ export function SkillVideoStep({ application }: { application: ArtisanApplicatio
       />
 
       {preview ? (
-        <video src={preview} controls playsInline className="aspect-video w-full rounded-2xl bg-ink-950" />
+        <video src={preview} controls playsInline className="aspect-video w-full rounded-2xl bg-ink-950 outline-1 -outline-offset-1 outline-ink-950/10" />
       ) : (
         <button
           type="button"
           onClick={() => input.current?.click()}
-          className="flex aspect-video w-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-300 text-ink-500 transition-colors hover:bg-surface-sunken"
+          className="flex aspect-video w-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-300 text-ink-500 transition-transform duration-100 ease-out active:scale-[0.98] hover:bg-surface-sunken"
         >
           <VideoCameraIcon className="size-6" aria-hidden />
           <span className="text-sm font-medium">{application.skillVideoUrl ? "Video sent · record a new one" : "Record or choose a video"}</span>

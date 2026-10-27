@@ -13,7 +13,7 @@ export function CategoryTile({ label, hint, icon: Icon, href }: CategoryTileProp
   return (
     <Link
       href={href}
-      className="block rounded-xl border border-line-200 bg-surface-raised p-4 shadow-card transition-[transform,box-shadow] duration-150 ease-out active:scale-[0.98] hover:shadow-pop"
+      className="block rounded-xl border border-line-200 bg-surface-raised p-4 shadow-card transition-transform duration-100 ease-out active:scale-[0.98] hover:shadow-pop"
     >
       <span className="flex h-9 w-9 items-center justify-center rounded-md bg-surface-sunken text-ink-700">
         <Icon className="h-4 w-4" aria-hidden />

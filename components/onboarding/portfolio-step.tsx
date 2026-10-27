@@ -63,7 +63,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
         {photos.photos.map((photo) => (
           <li key={photo.id} className="relative aspect-square overflow-hidden rounded-xl bg-surface-sunken">
             {/* eslint-disable-next-line @next/next/no-img-element -- local object URL preview */}
-            <img src={photo.url} alt="" className="size-full object-cover" />
+            <img src={photo.url} alt="" className="size-full rounded-[inherit] object-cover outline-1 -outline-offset-1 outline-ink-950/10" />
             <button
               type="button"
               onClick={() => photos.remove(photo.id)}
@@ -79,7 +79,7 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
             <button
               type="button"
               onClick={() => photoInput.current?.click()}
-              className="flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-line-300 text-ink-500 transition-colors hover:bg-surface-sunken"
+              className="flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-line-300 text-ink-500 transition-transform duration-100 ease-out active:scale-[0.98] hover:bg-surface-sunken"
             >
               <ImageSquareIcon className="size-5" aria-hidden />
               <span className="text-xs font-medium">Add photos</span>
@@ -113,12 +113,12 @@ export function PortfolioStep({ application }: { application: ArtisanApplication
       <button
         type="button"
         onClick={() => certificateInput.current?.click()}
-        className="mt-3 flex w-full items-center gap-3 rounded-xl bg-surface-sunken p-3 text-left"
+        className="mt-3 flex w-full items-center gap-3 rounded-xl bg-surface-sunken p-3 text-left transition-transform duration-100 ease-out active:scale-[0.98]"
       >
         <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-ink-950 text-celo-500">
           {certificate.photos[0] ? (
             // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
-            <img src={certificate.photos[0].url} alt="" className="size-full object-cover" />
+            <img src={certificate.photos[0].url} alt="" className="size-full rounded-[inherit] object-cover outline-1 -outline-offset-1 outline-ink-950/10" />
           ) : (
             <MedalIcon className="size-5" aria-hidden />
           )}

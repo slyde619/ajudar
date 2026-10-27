@@ -69,6 +69,7 @@
   --shadow-sheet: 0 -4px 24px rgb(26 26 24 / 0.10);
   --shadow-dock:  0 -1px 0 var(--color-line-200), 0 -8px 24px rgb(26 26 24 / 0.06);
   --shadow-pop:   0 8px 32px rgb(26 26 24 / 0.14);
+  --drop-shadow-pop: 0 8px 20px rgb(26 26 24 / 0.12);
 
   --ease-out-quint:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-quint:cubic-bezier(0.83, 0, 0.17, 1);
@@ -168,6 +169,7 @@
   *, *::before, *::after { border-color: var(--color-line-200); }
 
   html {
+    background-color: var(--color-surface-warm);
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;

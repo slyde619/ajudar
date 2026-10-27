@@ -32,7 +32,7 @@ function RoleChoice({ preferred }: { preferred: Role | null }) {
           <Link
             href={href}
             className={cn(
-              "group flex items-center gap-4 rounded-2xl bg-surface-raised p-4 ring-1 transition-[box-shadow,transform] duration-200 active:scale-[0.99]",
+              "group flex items-center gap-4 rounded-2xl bg-surface-raised p-4 ring-1 transition-transform duration-100 ease-out active:scale-[0.98]",
               preferred === role ? "ring-2 ring-ink-950" : "ring-line-200 hover:ring-line-300",
             )}
           >

@@ -56,7 +56,7 @@ export function ProfileStep({ application }: { application: ArtisanApplication }
             aria-checked={trade === value}
             onClick={() => setTrade(value)}
             className={cn(
-              "h-10 rounded-pill px-3.5 text-sm font-medium ring-1 transition-colors",
+              "h-10 rounded-pill px-3.5 text-sm font-medium ring-1 transition-transform duration-100 ease-out active:scale-[0.97] disabled:active:scale-100",
               trade === value ? "bg-ink-950 text-surface-raised ring-ink-950" : "bg-surface-raised text-ink-700 ring-line-300",
             )}
           >
