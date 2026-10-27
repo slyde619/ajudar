@@ -2,7 +2,6 @@
 
 import { MinusIcon, PlusIcon } from "@phosphor-icons/react/ssr";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
 import type { ActionState } from "@/app/_actions/booking";
 import { ActionButton } from "@/components/booking/action-button";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import { COUNTER_STEP, REASON_MAX, counterReasonSchema } from "@/lib/schemas/boo
 import type { Kobo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { formatNaira } from "@/lib/utils/money";
+import { useToast } from "@/hooks/use-toast";
 
 const STEP: Kobo = COUNTER_STEP;
 
@@ -32,6 +32,7 @@ interface OfferResponderProps {
 
 /** Accept, counter or walk-away controls for either side of a negotiation. */
 export function OfferResponder({ accept, counter, release }: OfferResponderProps) {
+  const toast = useToast();
   const counterable = counter !== undefined && counter.min <= counter.max;
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(counter ? Math.min(Math.max(counter.start, counter.min), counter.max) : 0);
@@ -42,7 +43,7 @@ export function OfferResponder({ accept, counter, release }: OfferResponderProps
     if (!counter) return;
     startTransition(async () => {
       const result = await counter.send(amount, reason);
-      if (result) toast.error(result.error);
+      if (result) toast("error", result.error);
       else setOpen(false);
     });
   }

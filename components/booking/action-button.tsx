@@ -2,10 +2,10 @@
 
 import { CircleNotchIcon } from "@phosphor-icons/react/ssr";
 import { useTransition } from "react";
-import { toast } from "sonner";
 import type { ActionState } from "@/app/_actions/booking";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 type ButtonProps = React.ComponentProps<typeof Button>;
 
@@ -29,6 +29,7 @@ export function ActionButton({
   disabled,
   className,
 }: ActionButtonProps) {
+  const toast = useToast();
   const [pending, startTransition] = useTransition();
 
   return (
@@ -41,7 +42,7 @@ export function ActionButton({
         onClick={() => {
           startTransition(async () => {
             const result = await action();
-            if (result) toast.error(result.error);
+            if (result) toast("error", result.error);
           });
         }}
       >
