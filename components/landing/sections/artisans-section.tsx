@@ -10,7 +10,7 @@ export function ArtisansSection() {
   return (
     <>
       <TornEdge className="fill-scene-palm" />
-      <section id="artisans" aria-labelledby="artisan-title" className="scroll-mt-4 bg-scene-palm text-surface-raised">
+      <section id="artisans" aria-labelledby="artisan-title" className="scroll-mt-24 bg-scene-palm text-surface-raised">
         <div className={cn(WRAP, "grid gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-16")}>
           <Reveal>
             <RevealItem>

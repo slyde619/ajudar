@@ -6,7 +6,7 @@ import { WRAP } from "../styles";
 /** The FAQ accordion in the page grid. */
 export function FaqSection() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className={cn(WRAP, "scroll-mt-4 py-16 md:py-24")}>
+    <section id="faq" aria-labelledby="faq-title" className={cn(WRAP, "scroll-mt-24 py-16 md:py-24")}>
       <Reveal>
         <RevealItem>
           <Faq />
